@@ -19,6 +19,17 @@
   "item.redemption.copper_sheath": "Copper Sheath",
   "item.redemption.netherite_sheath": "Netherite Sheath",
 
+  "item.redemption.quartz_sheathed": "Sheathed Quartz Katana",
+  "item.redemption.redstone_sheathed": "Sheathed Redstone Katana",
+  "item.redemption.lapis_sheathed": "Sheathed Lapis Katana",
+  "item.redemption.amethyst_sheathed": "Sheathed Amethyst Katana",
+  "item.redemption.sculk_sheathed": "Sheathed Sculk Katana",
+  "item.redemption.emerald_sheathed": "Sheathed Emerald Katana",
+  "item.redemption.copper_sheathed": "Sheathed Copper Katana",
+  "item.redemption.netherite_sheathed": "Sheathed Netherite Katana",
+
+  "item.redemption.hunters_glass": "Hunter's Glass",
+
   "death.attack.katana": "%1$s was cut in half",
   "death.attack.katana.player": "%1$s was cut in half by %2$s",
   "death.attack.katana.item": "%1$s was cut in half by %2$s wielding %3$s"

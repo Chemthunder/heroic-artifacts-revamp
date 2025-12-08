@@ -28,20 +28,28 @@ public interface RedemptionItemGroups {
     private static void addEntries(FabricItemGroupEntries itemGroup) {
         itemGroup.add(RedemptionItems.REDSTONE_KATANA);
         itemGroup.add(RedemptionItems.REDSTONE_SHEATH);
+        itemGroup.add(RedemptionItems.REDSTONE_SHEATHED);
         itemGroup.add(RedemptionItems.QUARTZ_KATANA);
         itemGroup.add(RedemptionItems.QUARTZ_SHEATH);
+        itemGroup.add(RedemptionItems.QUARTZ_SHEATHED);
         itemGroup.add(RedemptionItems.EMERALD_KATANA);
         itemGroup.add(RedemptionItems.EMERALD_SHEATH);
+        itemGroup.add(RedemptionItems.EMERALD_SHEATHED);
         itemGroup.add(RedemptionItems.AMETHYST_KATANA);
         itemGroup.add(RedemptionItems.AMETHYST_SHEATH);
+        itemGroup.add(RedemptionItems.AMETHYST_SHEATHED);
         itemGroup.add(RedemptionItems.NETHERITE_KATANA);
         itemGroup.add(RedemptionItems.NETHERITE_SHEATH);
+        itemGroup.add(RedemptionItems.NETHERITE_SHEATHED);
         itemGroup.add(RedemptionItems.COPPER_KATANA);
         itemGroup.add(RedemptionItems.COPPER_SHEATH);
+        itemGroup.add(RedemptionItems.COPPER_SHEATHED);
         itemGroup.add(RedemptionItems.SCULK_KATANA);
         itemGroup.add(RedemptionItems.SCULK_SHEATH);
+        itemGroup.add(RedemptionItems.SCULK_SHEATHED);
         itemGroup.add(RedemptionItems.LAPIS_KATANA);
         itemGroup.add(RedemptionItems.LAPIS_SHEATH);
+        itemGroup.add(RedemptionItems.LAPIS_SHEATHED);
 
 
 
