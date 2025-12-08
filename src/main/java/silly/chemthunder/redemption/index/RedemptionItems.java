@@ -1,0 +1,170 @@
+package silly.chemthunder.redemption.index;
+
+import net.acoyt.acornlib.api.item.AcornItemSettings;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
+import silly.chemthunder.redemption.Redemption;
+import silly.chemthunder.redemption.item.CourtGlassItem;
+import silly.chemthunder.redemption.item.HuntersCourtGlassItem;
+import silly.chemthunder.redemption.item.KatanaItem;
+import silly.chemthunder.redemption.item.SheathItem;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import static net.acoyt.acornlib.api.util.ItemUtils.modifyItemNameColor;
+
+public interface RedemptionItems {
+    Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
+
+    //  Item WEAPON_RACK = create("weapon_rack", new WeaponRackItem(new Item.Settings()));
+
+    Item QUARTZ_KATANA = create("quartz_katana", new KatanaItem(new AcornItemSettings()
+            .sweepParticle(0xc1c1d2, 0x535373)
+            .hitSound(SoundEvents.BLOCK_NETHERRACK_BREAK)
+            .maxCount(1)
+            .fireproof()
+            .attributeModifiers(KatanaItem.createAttributeModifiers())
+    ));
+
+    Item REDSTONE_KATANA = create("redstone_katana", new KatanaItem(new AcornItemSettings()
+            .sweepParticle(0xe95050, 0x63374a)
+            .maxCount(1)
+            .fireproof()
+            .attributeModifiers(KatanaItem.createAttributeModifiers())
+    ));
+
+    Item AMETHYST_KATANA = create("amethyst_katana", new KatanaItem(new AcornItemSettings()
+            .sweepParticle(0xffffff, 0xc1c2c2)
+            .hitSound(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE)
+            .maxCount(1)
+            .fireproof()
+            .attributeModifiers(KatanaItem.createAttributeModifiers())
+    ));
+
+    Item COPPER_KATANA = create("copper_katana", new KatanaItem(new AcornItemSettings()
+            .sweepParticle(0xea8770, 0x904931)
+            .hitSound(SoundEvents.BLOCK_COPPER_BULB_BREAK)
+            .maxCount(1)
+            .fireproof()
+            .attributeModifiers(KatanaItem.createAttributeModifiers())
+    ));
+
+    Item LAPIS_KATANA = create("lapis_katana", new KatanaItem(new AcornItemSettings()
+            .sweepParticle(0xc9edf9, 0x8bcadd)
+            .maxCount(1)
+            .fireproof()
+            .attributeModifiers(KatanaItem.createAttributeModifiers())
+    ));
+
+    Item NETHERITE_KATANA = create("netherite_katana", new KatanaItem(new AcornItemSettings()
+            .sweepParticle(0x1a1a1a, 0x0e0e0e)
+            .maxCount(1)
+            .fireproof()
+            .attributeModifiers(KatanaItem.createAttributeModifiers())
+    ));
+
+    Item EMERALD_KATANA = create("emerald_katana", new KatanaItem(new AcornItemSettings()
+            .sweepParticle(0x20d64b, 0x096a31)
+            .maxCount(1)
+            .fireproof()
+            .attributeModifiers(KatanaItem.createAttributeModifiers())
+    ));
+
+    Item SCULK_KATANA = create("sculk_katana", new KatanaItem(new AcornItemSettings()
+            .sweepParticle(0x111b21, 0x034150)
+            .maxCount(1)
+            .fireproof()
+            .attributeModifiers(KatanaItem.createAttributeModifiers())
+    ));
+
+
+    Item QUARTZ_SHEATH = create("quartz_sheath", new SheathItem(new AcornItemSettings()
+            .maxCount(1)
+            .attributeModifiers(SheathItem.createAttributeModifiers())
+    ));
+
+    Item REDSTONE_SHEATH = create("redstone_sheath", new SheathItem(new AcornItemSettings()
+            .maxCount(1)
+            .attributeModifiers(SheathItem.createAttributeModifiers())
+    ));
+
+    Item EMERALD_SHEATH = create("emerald_sheath", new SheathItem(new AcornItemSettings()
+            .maxCount(1)
+            .attributeModifiers(SheathItem.createAttributeModifiers())
+    ));
+
+    Item COPPER_SHEATH = create("copper_sheath", new SheathItem(new AcornItemSettings()
+            .maxCount(1)
+            .attributeModifiers(SheathItem.createAttributeModifiers())
+    ));
+
+    Item NETHERITE_SHEATH = create("netherite_sheath", new SheathItem(new AcornItemSettings()
+            .maxCount(1)
+            .attributeModifiers(SheathItem.createAttributeModifiers())
+    ));
+
+    Item AMETHYST_SHEATH = create("amethyst_sheath", new SheathItem(new AcornItemSettings()
+            .maxCount(1)
+            .attributeModifiers(SheathItem.createAttributeModifiers())
+    ));
+
+    Item SCULK_SHEATH = create("sculk_sheath", new SheathItem(new AcornItemSettings()
+            .maxCount(1)
+            .attributeModifiers(SheathItem.createAttributeModifiers())
+    ));
+
+    Item LAPIS_SHEATH = create("lapis_sheath", new SheathItem(new AcornItemSettings()
+            .maxCount(1)
+            .attributeModifiers(SheathItem.createAttributeModifiers())
+    ));
+
+
+
+    Item COURT_GLASS = create("court_glass", new CourtGlassItem(new AcornItemSettings()
+            .maxCount(1)
+    ));
+
+    Item HUNTERS_GLASS = create("hunters_glass", new HuntersCourtGlassItem(new AcornItemSettings()
+            .maxCount(1)
+    ));
+
+
+    static <T extends Item> T create(String name, T item) {
+        ITEMS.put(item, Redemption.id(name));
+        return item;
+    }
+
+    static void index() {
+        ITEMS.forEach((item, id) -> Registry.register(Registries.ITEM, id, item));
+
+        // colors
+        modifyItemNameColor(QUARTZ_KATANA, 0xc1c1d2);
+        modifyItemNameColor(QUARTZ_SHEATH, 0xc1c1d2);
+
+        modifyItemNameColor(REDSTONE_KATANA, 0xe95050);
+        modifyItemNameColor(REDSTONE_SHEATH, 0xe95050);
+
+        modifyItemNameColor(AMETHYST_KATANA, 0xe28aff);
+        modifyItemNameColor(AMETHYST_SHEATH, 0xe28aff);
+
+        modifyItemNameColor(SCULK_KATANA, 0x041716);
+        modifyItemNameColor(SCULK_SHEATH, 0x041716);
+
+        modifyItemNameColor(COPPER_KATANA, 0x904931);
+        modifyItemNameColor(COPPER_SHEATH, 0x904931);
+
+        modifyItemNameColor(LAPIS_KATANA, 0x8bcadd);
+        modifyItemNameColor(LAPIS_SHEATH, 0x8bcadd);
+
+        modifyItemNameColor(EMERALD_KATANA, 0x096a31);
+        modifyItemNameColor(EMERALD_SHEATH, 0x096a31);
+
+        modifyItemNameColor(NETHERITE_KATANA, 0xe4d971);
+        modifyItemNameColor(NETHERITE_SHEATH, 0xe4d971);
+    }
+}
