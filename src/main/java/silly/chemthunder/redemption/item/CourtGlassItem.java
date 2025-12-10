@@ -76,6 +76,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
 
         judge.isJudgement = true;
         judge.sync();
+        player.setHealth(player.getMaxHealth());
 
         net.minecraft.util.math.Box box = new Box(player.getBlockPos()).expand(100, 100, 100);
         List<LivingEntity> entities = player.getWorld().getEntitiesByClass(

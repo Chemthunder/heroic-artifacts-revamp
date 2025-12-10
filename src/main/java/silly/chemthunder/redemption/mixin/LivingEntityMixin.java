@@ -35,9 +35,11 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
             if (judge.isJudgement) {
                 if (!deathSource.isOf(RedemptionDamageSources.DESCEND)) {
                     player.setHealth(player.getMaxHealth());
-                    player.setVelocity(0, 0.03, 0);
+                    player.setVelocity(0, 0.3, 0);
                     player.velocityModified = true;
                     player.setNoGravity(true);
+                    player.setInvulnerable(true);
+                    player.noClip = true;
 
                     judge.monologueTicks = 200;
                     judge.sync();
@@ -62,13 +64,5 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         } else {
             original.call(amount);
         }
-    }
-
-    @ModifyReturnValue(method = "getArmor", at = @At("RETURN"))
-    private int removeArmorWhilstJudge(int original) {
-        if (living instanceof PlayerEntity player && JudgementPlayerComponent.KEY.get(player).isJudgement) {
-            return 0;
-        }
-        return original;
     }
 }

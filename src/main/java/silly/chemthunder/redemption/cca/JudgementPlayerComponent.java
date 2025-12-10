@@ -16,6 +16,7 @@ import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
 import silly.chemthunder.redemption.Redemption;
 import silly.chemthunder.redemption.index.RedemptionDamageSources;
+import silly.chemthunder.redemption.index.RedemptionItems;
 import silly.chemthunder.redemption.index.RedemptionSoundEvents;
 
 import java.util.List;
@@ -62,6 +63,8 @@ public class JudgementPlayerComponent implements AutoSyncedComponent, CommonTick
 
     public void beginKillAnim(PlayerEntity player, World world) {
         if (world instanceof ServerWorld serverWorld) {
+            player.dropStack(RedemptionItems.COURT_GLASS.getDefaultStack());
+            player.setInvulnerable(false);
             player.damage(RedemptionDamageSources.descend(player), player.getMaxHealth() * 50);
 
             serverWorld.spawnParticles(ParticleTypes.SOUL, player.getX(), player.getY(), player.getZ(), 75, 0.3f, 0.6f, 0.3f, 0.5);
@@ -84,6 +87,8 @@ public class JudgementPlayerComponent implements AutoSyncedComponent, CommonTick
                     flash.sync();
                 }
             }
+
+
         }
     }
 }
