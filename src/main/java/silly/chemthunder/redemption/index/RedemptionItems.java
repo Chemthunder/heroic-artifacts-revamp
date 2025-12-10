@@ -1,7 +1,6 @@
 package silly.chemthunder.redemption.index;
 
 import net.acoyt.acornlib.api.item.AcornItemSettings;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -74,6 +73,7 @@ public interface RedemptionItems {
 
     Item SCULK_KATANA = create("sculk_katana", new KatanaItem(new AcornItemSettings()
             .sweepParticle(0x111b21, 0x034150)
+            .hitSound(SoundEvents.BLOCK_SCULK_PLACE)
             .maxCount(1)
             .fireproof()
             .attributeModifiers(KatanaItem.createAttributeModifiers())
@@ -216,5 +216,6 @@ public interface RedemptionItems {
 
 
         modifyItemNameColor(HUNTERS_GLASS, 0xb629eb);
+        modifyItemNameColor(COURT_GLASS, 0x59ffff);
     }
 }

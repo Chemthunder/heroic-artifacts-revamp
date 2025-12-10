@@ -3,6 +3,9 @@
   "package": "silly.chemthunder.redemption.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "EntityMixin",
+    "LivingEntityMixin",
+    "PlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -12,6 +15,7 @@
   },
   "client": [
     "client.ArmorFeatureRendererMixin",
+    "client.InGameHudOverlay",
     "client.LivingEntityRendererMixin",
     "client.PlayerEntityRendererMixin"
   ]

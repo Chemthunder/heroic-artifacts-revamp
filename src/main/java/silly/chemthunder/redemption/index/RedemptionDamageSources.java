@@ -13,6 +13,11 @@ public interface RedemptionDamageSources {
     static DamageSource katana(LivingEntity entity) {
         return entity.getDamageSources().create(KATANA); }
 
+    RegistryKey<DamageType> DESCEND = of("descend");
+
+    static DamageSource descend(LivingEntity entity) {
+        return entity.getDamageSources().create(DESCEND); }
+
     private static RegistryKey<DamageType> of(String name) {
         return RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Redemption.id(name));
     }

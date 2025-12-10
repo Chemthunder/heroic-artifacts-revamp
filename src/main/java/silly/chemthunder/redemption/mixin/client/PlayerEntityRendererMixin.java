@@ -37,6 +37,4 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
             ci.cancel();
         }
     }
-
-
 }

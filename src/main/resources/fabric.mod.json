@@ -3,20 +3,20 @@
   "id": "redemption",
   "version": "${version}",
   "name": "Redemption",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "Revamp of the Heroic Artifacts datapack from Memory Lapse",
   "authors": [
-    "Me!"
+    "Chemthunder",
+    "The_Hero_Robot"
   ],
-  "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
-  },
   "license": "CC0-1.0",
   "icon": "assets/redemption/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
       "silly.chemthunder.redemption.Redemption"
+    ],
+    "client": [
+      "silly.chemthunder.redemption.RedemptionClient"
     ],
     "fabric-datagen": [
       "silly.chemthunder.redemption.RedemptionDataGenerator"
@@ -30,7 +30,9 @@
   ],
   "custom": {
     "cardinal-components": [
-      "redemption:shrouded"
+      "redemption:shrouded",
+      "redemption:judgement",
+      "redemption:flash"
     ]
   },
   "depends": {

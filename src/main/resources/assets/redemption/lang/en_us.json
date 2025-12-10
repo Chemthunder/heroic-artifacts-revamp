@@ -29,8 +29,21 @@
   "item.redemption.netherite_sheathed": "Sheathed Netherite Katana",
 
   "item.redemption.hunters_glass": "Hunter's Glass",
+  "item.redemption.court_glass": "Court Glass",
 
   "death.attack.katana": "%1$s was cut in half",
   "death.attack.katana.player": "%1$s was cut in half by %2$s",
-  "death.attack.katana.item": "%1$s was cut in half by %2$s wielding %3$s"
+  "death.attack.katana.item": "%1$s was cut in half by %2$s wielding %3$s",
+
+  "death.attack.descend": "%1$s's purpose was revoked",
+  "death.attack.descend.player": "%1$s's purpose was revoked",
+  "death.attack.descend.item": "%1$s's might was revoked",
+
+  "lore.court_glass_1": "An ancient artifact that has been passed down",
+  "lore.court_glass_2": "time and time again from one Judge to the next.",
+  "lore.court_glass_3": "It's your turn now.",
+
+  "lore.hunters_glass_1": "An artifact from a time long ago.",
+  "lore.hunters_glass_2": "It was said to be once wielded by the Last Judge.",
+  "lore.hunters_glass_3": "Now, it's in your hands. Don't let her down."
 }

@@ -1,0 +1,26 @@
+{
+  "item.hunter.blackout": {
+    "sounds": [
+      "redemption:item/blackout"
+    ],
+    "subtitle": "subtitles.redemption.blackout"
+  },
+  "item.unsheathe": {
+    "sounds": [
+      "redemption:item/unsheathe"
+    ],
+    "subtitle": "subtitles.redemption.unsheathe"
+  },
+  "event.become_judge": {
+    "sounds": [
+      "redemption:event/become_judge"
+    ],
+    "subtitle": "subtitles.redemption.become_judge"
+  },
+  "event.judge_death": {
+    "sounds": [
+      "redemption:event/judge_death"
+    ],
+    "subtitle": "subtitles.redemption.judge_death"
+  }
+}
