@@ -1,0 +1,29 @@
+# TODO!
+## Fix Hunter's Glass invis (chem or vbinnie, idk)
+Shadows are inconsistent, armor and whatnot are weird
+
+Yes entity targeting and potion particles should still be there >:<
+I cannot remove Enchancement particles so
+
+## Add Judge rebalances (Chem)
+Fix the Judge being able to be quickdropped, give them a decent ability, and fix the healthbar being funky
+For reference, the healthbar will "remove" hearts past 10 hearts if they aren't full or something? idk how to describe
+
+## Add resheathing to Katanas (Chem)
+aka 8 billion recipes to allow people to resheathe them :DDDDDD 
+I'll prolly do this today after school (12/10/25)
+
+## Add cosmetics for Judge (Chem or Vbinnie)
+Aka making the Judge taller, removing armor rendering, etc.
+
+## Add summoning of **THE COURT** to Court Glass (Chem)
+Summons three wither skeletons, one with speed 3 and strength 4, one with health boost like 90 and weakness 1, and one with a bow. All three in iron armor
+
+## Make Blackout ability have a cooldown (Chem)
+Make the Blackout ability for the Hunter's Glass have a 30 second cooldown. During the cooldown the invis cannot be used.
+
+## Fix the Blackout sfx being doubled (Chem)
+Remove the blackout sfx played by the blackout ability being played twice :p
+
+## (Fixed) Fix the Sculk Katana playing the Blackout sfx (Chem) 
+Sculk Katana plays the Blackout sfx
