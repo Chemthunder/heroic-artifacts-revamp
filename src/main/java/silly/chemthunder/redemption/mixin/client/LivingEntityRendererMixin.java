@@ -24,12 +24,10 @@ public abstract class LivingEntityRendererMixin <T extends LivingEntity, M exten
         PlayerEntity player = MinecraftClient.getInstance().player;
 
         if (player != null) {
-            if (!player.getWorld().isClient) {
 
-                if (EnshroudedPlayerComponent.KEY.get(player).isShrouded) {
-
-                    return 0f;
-                }
+            if (EnshroudedPlayerComponent.KEY.get(player).isShrouded) {
+                    // changed to be in PlayerEntityMixin, tick() and doing player.setInvisible(true)
+//                return 0f;
             }
         }
         return original;

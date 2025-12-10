@@ -21,6 +21,7 @@ public class EnshroudedPlayerComponent implements AutoSyncedComponent {
         KEY.sync(this.player);
     }
 
+
     @Override
     public void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
         this.isShrouded = nbtCompound.getBoolean("isShrouded");

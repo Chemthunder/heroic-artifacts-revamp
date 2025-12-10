@@ -26,6 +26,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, world);
     }
 
+
+
     @Unique @Final
     PlayerEntity player = (PlayerEntity) (Object) this;
 
@@ -64,6 +66,12 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 serverWorld.spawnParticles(RedemptionParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
                 serverWorld.spawnParticles(ParticleTypes.SQUID_INK, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
             }
+        }
+    }
+    @Inject(method="tick", at = @At("TAIL"))
+    private void setInvisibilityToShrouded(CallbackInfo ci) {
+        if (EnshroudedPlayerComponent.KEY.get(player).isShrouded) {
+            player.setInvisible(true);
         }
     }
 }
