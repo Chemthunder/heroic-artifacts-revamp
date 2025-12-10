@@ -68,10 +68,5 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             }
         }
     }
-    @Inject(method="tick", at = @At("TAIL"))
-    private void setInvisibilityToShrouded(CallbackInfo ci) {
-        if (EnshroudedPlayerComponent.KEY.get(player).isShrouded) {
-            player.setInvisible(true);
-        }
-    }
+
 }

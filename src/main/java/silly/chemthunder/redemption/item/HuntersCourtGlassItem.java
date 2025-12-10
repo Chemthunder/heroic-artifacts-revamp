@@ -54,6 +54,7 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
 
             if (!shroud.isShrouded) {
                 shroud.isShrouded = true;
+                user.setInvisible(true);
                 shroud.sync();
             } else {
                 shroud.isShrouded = false;
