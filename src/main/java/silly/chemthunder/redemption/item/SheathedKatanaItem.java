@@ -122,7 +122,6 @@ public class SheathedKatanaItem extends Item implements ColorableItem {
                     if (!(entity == user)) {
                         entity.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 600));
                     }
-                    entity.playSound(RedemptionSoundEvents.HUNTER_BLACKOUT);
                 }
             }
             user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400));
