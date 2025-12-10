@@ -27,6 +27,7 @@ public abstract class LivingEntityRendererMixin <T extends LivingEntity, M exten
 
             if (EnshroudedPlayerComponent.KEY.get(player).isShrouded) {
                     // changed to be in PlayerEntityMixin, tick() and doing player.setInvisible(true)
+                // changed it to cancel rendering due to potential memory leak bugs or lag, since it sets the player to invisible every single server tick >:p
 //                return 0f;
             }
         }
