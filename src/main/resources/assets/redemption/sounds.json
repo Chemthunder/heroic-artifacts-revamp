@@ -28,5 +28,11 @@
       "redemption:event/ping"
     ],
     "subtitle": "subtitles.redemption.ping"
+  },
+  "event.sonar_ping": {
+    "sounds": [
+      "redemption:event/sonar_ping"
+    ],
+    "subtitle": "subtitles.redemption.sonar_ping"
   }
 }

@@ -92,6 +92,7 @@ public class JudgementPlayerComponent implements AutoSyncedComponent, CommonTick
             for (ServerPlayerEntity sPlayer : serverWorld.getPlayers()) {
                 sPlayer.playSoundToPlayer(RedemptionSoundEvents.JUDGE_DEATH, SoundCategory.PLAYERS, 1, 1);
                 sPlayer.playSoundToPlayer(RedemptionSoundEvents.PING, SoundCategory.PLAYERS, 1, 1);
+                sPlayer.playSoundToPlayer(RedemptionSoundEvents.SONAR_PING, SoundCategory.PLAYERS, 1, 1);
             }
         }
     }
