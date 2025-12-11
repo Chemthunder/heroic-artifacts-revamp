@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "redemption:sculk_katana",
+    "redemption:redstone_katana",
+    "redemption:lapis_katana",
+    "redemption:netherite_katana",
+    "redemption:emerald_katana",
+    "redemption:copper_katana",
+    "redemption:amethyst_katana",
+    "redemption:quartz_katana"
+  ]
+}

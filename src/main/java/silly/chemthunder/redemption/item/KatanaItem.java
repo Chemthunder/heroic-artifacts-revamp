@@ -12,9 +12,14 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.TridentItem;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
 import silly.chemthunder.redemption.index.RedemptionDamageSources;
 
 public class KatanaItem extends Item implements ColorableItem, CustomKillSourceItem {
@@ -65,5 +70,18 @@ public class KatanaItem extends Item implements ColorableItem, CustomKillSourceI
     @Override
     public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
         return !miner.isCreative();
+    }
+
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        JudgementPlayerComponent judge = JudgementPlayerComponent.KEY.get(user);
+
+        if (judge.isJudgement) {
+            if (user instanceof PlayerEntity player) {
+                player.setVelocity(user.getRotationVec(0).multiply(3));
+                player.useRiptide(10, 3f, user.getStackInHand(user.getActiveHand()));
+            }
+        }
+        return super.use(world, user, hand);
     }
 }

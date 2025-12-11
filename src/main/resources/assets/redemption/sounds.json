@@ -22,5 +22,11 @@
       "redemption:event/judge_death"
     ],
     "subtitle": "subtitles.redemption.judge_death"
+  },
+  "event.ping": {
+    "sounds": [
+      "redemption:event/ping"
+    ],
+    "subtitle": "subtitles.redemption.ping"
   }
 }

@@ -18,7 +18,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import silly.chemthunder.redemption.cca.EnshroudedPlayerComponent;
+import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
 import silly.chemthunder.redemption.index.RedemptionParticles;
+import silly.chemthunder.redemption.index.RedemptionTags;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -47,21 +49,20 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "attack", at = @At("TAIL"))
     private void disableShroudUponAttack(Entity target, CallbackInfo ci) {
-        if (EnshroudedPlayerComponent.KEY.get(player).isShrouded) {
-            EnshroudedPlayerComponent.KEY.get(player).isShrouded = false;
-            EnshroudedPlayerComponent.KEY.get(player).sync();
-            if (getWorld() instanceof ServerWorld serverWorld) {
-                serverWorld.spawnParticles(RedemptionParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
-                serverWorld.spawnParticles(ParticleTypes.SQUID_INK, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
-            }
-        }
+        disableCloak(player);
     }
 
     @Inject(method = "damage", at = @At("TAIL"))
     private void disableShroudUponDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        disableCloak(player);
+    }
+
+    @Unique
+    public void disableCloak(PlayerEntity player) {
         if (EnshroudedPlayerComponent.KEY.get(player).isShrouded) {
             EnshroudedPlayerComponent.KEY.get(player).isShrouded = false;
             EnshroudedPlayerComponent.KEY.get(player).sync();
+            player.setInvisible(false);
             if (getWorld() instanceof ServerWorld serverWorld) {
                 serverWorld.spawnParticles(RedemptionParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
                 serverWorld.spawnParticles(ParticleTypes.SQUID_INK, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
@@ -69,4 +70,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void playerTicker(CallbackInfo ci) {
+        if (player.getStackInHand(player.getActiveHand()).isIn(RedemptionTags.KATANAS) && player.isUsingItem() && JudgementPlayerComponent.KEY.get(player).isJudgement) {
+            getWorld().addParticle(ParticleTypes.SCULK_SOUL, true, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+        }
+    }
 }

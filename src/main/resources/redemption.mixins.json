@@ -16,7 +16,6 @@
   "client": [
     "client.ArmorFeatureRendererMixin",
     "client.InGameHudOverlay",
-    "client.LivingEntityRendererMixin",
     "client.PlayerEntityRendererMixin"
   ]
 }

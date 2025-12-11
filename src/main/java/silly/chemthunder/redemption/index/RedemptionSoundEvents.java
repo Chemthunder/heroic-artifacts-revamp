@@ -11,6 +11,7 @@ public interface RedemptionSoundEvents {
     SoundEvent UNSHEATHE = create("item.unsheathe");
     SoundEvent BECOME_JUDGE = create("event.become_judge");
     SoundEvent JUDGE_DEATH = create("event.judge_death");
+    SoundEvent PING = create("event.ping");
 
     private static SoundEvent create(String name) {
         Identifier id = Redemption.id(name);

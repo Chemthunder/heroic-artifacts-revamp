@@ -1,6 +1,5 @@
 package silly.chemthunder.redemption.mixin.client;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
@@ -25,8 +24,7 @@ public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extend
 
     @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
     private void cancelArmorRenderingBecauseSimoneIsAwesome(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, EquipmentSlot armorSlot, int light, A model, CallbackInfo ci) {
-        PlayerEntity player = MinecraftClient.getInstance().player;
-        if (player != null) {
+        if (entity instanceof PlayerEntity player) {
             if (EnshroudedPlayerComponent.KEY.get(player).isShrouded || JudgementPlayerComponent.KEY.get(player).isJudgement) {
                 ci.cancel();
             }

@@ -1,13 +1,16 @@
 package silly.chemthunder.redemption.cca;
 
 import com.nitron.nitrogen.util.interfaces.ScreenShaker;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
@@ -70,8 +73,6 @@ public class JudgementPlayerComponent implements AutoSyncedComponent, CommonTick
             serverWorld.spawnParticles(ParticleTypes.SOUL, player.getX(), player.getY(), player.getZ(), 75, 0.3f, 0.6f, 0.3f, 0.5);
             serverWorld.spawnParticles(ParticleTypes.END_ROD, player.getX(), player.getY(), player.getZ(), 75, 0.3f, 0.6f, 0.3f, 0.5);
 
-            serverWorld.playSound(player.getX(), player.getY(), player.getZ(), RedemptionSoundEvents.JUDGE_DEATH, SoundCategory.MASTER, 1, 1, true);
-
             net.minecraft.util.math.Box box = new Box(player.getBlockPos()).expand(150, 200, 150);
             List<LivingEntity> entities = player.getWorld().getEntitiesByClass(
                     LivingEntity.class, box,
@@ -88,7 +89,10 @@ public class JudgementPlayerComponent implements AutoSyncedComponent, CommonTick
                 }
             }
 
-
+            for (ServerPlayerEntity sPlayer : serverWorld.getPlayers()) {
+                sPlayer.playSoundToPlayer(RedemptionSoundEvents.JUDGE_DEATH, SoundCategory.PLAYERS, 1, 1);
+                sPlayer.playSoundToPlayer(RedemptionSoundEvents.PING, SoundCategory.PLAYERS, 1, 1);
+            }
         }
     }
 }

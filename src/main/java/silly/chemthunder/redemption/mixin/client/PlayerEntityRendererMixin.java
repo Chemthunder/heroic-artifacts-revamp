@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import silly.chemthunder.redemption.cca.EnshroudedPlayerComponent;
+import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
+import silly.chemthunder.redemption.item.KatanaItem;
 import silly.chemthunder.redemption.item.SheathItem;
 
 @Mixin(PlayerEntityRenderer.class)
@@ -26,8 +28,10 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     @Inject(method = "getArmPose", at = @At("HEAD"), cancellable = true)
     private static void sheathPose(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
         if (player.getStackInHand(hand).getItem() instanceof SheathItem) {
-
             if (player.isUsingItem()) cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
+        }
+        if (player.getStackInHand(hand).getItem() instanceof KatanaItem && player.isUsingItem() && JudgementPlayerComponent.KEY.get(player).isJudgement) {
+            cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
     }
 

@@ -111,6 +111,7 @@ public class SheathedKatanaItem extends Item implements ColorableItem {
             } else if (getKatanaType(item) == KatanaType.NETHERITE) {
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, duration, 1));
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, duration));
+                user.damage(user.getDamageSources().magic(), 4f);
             } else if (getKatanaType(item) == KatanaType.SCULK) {
                 net.minecraft.util.math.Box box = new Box(user.getBlockPos()).expand(10, 10, 10);
                 List<LivingEntity> entities = user.getWorld().getEntitiesByClass(
