@@ -55,5 +55,6 @@ public interface RedemptionItemGroups {
 
         itemGroup.add(RedemptionItems.COURT_GLASS);
         itemGroup.add(RedemptionItems.HUNTERS_GLASS);
+        itemGroup.add(RedemptionBlocks.FINAL_ACE);
     }
 }

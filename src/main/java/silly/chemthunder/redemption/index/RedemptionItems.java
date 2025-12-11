@@ -1,6 +1,7 @@
 package silly.chemthunder.redemption.index;
 
 import net.acoyt.acornlib.api.item.AcornItemSettings;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -11,6 +12,7 @@ import silly.chemthunder.redemption.item.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import static net.acoyt.acornlib.api.util.ItemUtils.modifyItemNameColor;
 
@@ -172,7 +174,6 @@ public interface RedemptionItems {
             .maxCount(1)
     ));
 
-
     static <T extends Item> T create(String name, T item) {
         ITEMS.put(item, Redemption.id(name));
         return item;
@@ -217,5 +218,14 @@ public interface RedemptionItems {
 
         modifyItemNameColor(HUNTERS_GLASS, 0xb629eb);
         modifyItemNameColor(COURT_GLASS, 0x59ffff);
+    }
+
+    static Item create(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+        Item item = factory.apply(settings);
+        if (item instanceof BlockItem blockItem) {
+            blockItem.appendBlocks(Item.BLOCK_ITEMS, item);
+        }
+
+        return Registry.register(Registries.ITEM, Redemption.id(name), item);
     }
 }

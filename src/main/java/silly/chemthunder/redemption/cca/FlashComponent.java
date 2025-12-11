@@ -9,12 +9,12 @@ import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
 import silly.chemthunder.redemption.Redemption;
 
-public class JudgementFlashComponent implements AutoSyncedComponent, CommonTickingComponent {
-    public static final ComponentKey<JudgementFlashComponent> KEY = ComponentRegistry.getOrCreate(Redemption.id("judge_flash"), JudgementFlashComponent.class);
+public class FlashComponent implements AutoSyncedComponent, CommonTickingComponent {
+    public static final ComponentKey<FlashComponent> KEY = ComponentRegistry.getOrCreate(Redemption.id("flash"), FlashComponent.class);
     private final LivingEntity player;
     public int flashTicks = 0;
 
-    public JudgementFlashComponent(LivingEntity player) {
+    public FlashComponent(LivingEntity player) {
         this.player = player;
     }
 

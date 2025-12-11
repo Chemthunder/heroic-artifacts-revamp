@@ -33,7 +33,8 @@
     "cardinal-components": [
       "redemption:shrouded",
       "redemption:judgement",
-      "redemption:flash"
+      "redemption:flash",
+      "redemption:judge_flash"
     ]
   },
   "depends": {

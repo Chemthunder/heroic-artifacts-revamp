@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import silly.chemthunder.redemption.Redemption;
+import silly.chemthunder.redemption.cca.FlashComponent;
 import silly.chemthunder.redemption.cca.JudgementFlashComponent;
 import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
 
@@ -22,6 +23,8 @@ import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
 public abstract class InGameHudOverlay {
     @Shadow
     protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
+    @Unique
+    private static final Identifier JUDGE_FLASH = Redemption.id("textures/gui/judge_flash.png");
     @Unique
     private static final Identifier FLASH = Redemption.id("textures/gui/flash.png");
 
@@ -34,7 +37,13 @@ public abstract class InGameHudOverlay {
             int enfloweredTicks = JudgementFlashComponent.KEY.get(player).flashTicks;
             if (enfloweredTicks > 0) {
                 float opacity = enfloweredTicks > 50 ? 1f : enfloweredTicks / 50.0f;
-                this.renderOverlay(context, FLASH, opacity);
+                this.renderOverlay(context, JUDGE_FLASH, opacity);
+            }
+
+            int flashTicksYay = FlashComponent.KEY.get(player).flashTicks;
+            if (flashTicksYay > 0) {
+                float flashopacity = flashTicksYay > 50 ? 1f : flashTicksYay / 50.0f;
+                this.renderOverlay(context, FLASH, flashopacity);
             }
         }
     }
