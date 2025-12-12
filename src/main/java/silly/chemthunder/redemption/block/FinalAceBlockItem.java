@@ -1,7 +1,6 @@
 package silly.chemthunder.redemption.block;
 
 import com.nitron.nitrogen.util.interfaces.ColorableItem;
-import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import silly.chemthunder.redemption.index.RedemptionBlocks;

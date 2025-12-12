@@ -1,7 +1,6 @@
 package silly.chemthunder.redemption.cca;
 
 import com.nitron.nitrogen.util.interfaces.ScreenShaker;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -10,7 +9,6 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.ladysnake.cca.api.v3.component.ComponentKey;

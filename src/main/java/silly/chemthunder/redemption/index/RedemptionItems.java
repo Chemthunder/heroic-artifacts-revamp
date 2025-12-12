@@ -175,6 +175,10 @@ public interface RedemptionItems {
             .maxCount(1)
     ));
 
+    Item TEST = create("test", new RoyalFlushItem(new AcornItemSettings()
+            .maxCount(1)
+    ));
+
     Item FINAL_ACE_BLOCK_ITEM = create("final_ace", new FinalAceBlockItem(new AcornItemSettings()
             .maxCount(1)
     ));

@@ -2,16 +2,13 @@ package silly.chemthunder.redemption;
 
 import net.acoyt.acornlib.api.ALib;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import silly.chemthunder.redemption.cca.EnshroudedPlayerComponent;
 import silly.chemthunder.redemption.index.*;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class Redemption implements ModInitializer {
 	public static final String MOD_ID = "redemption";
@@ -33,6 +30,7 @@ public class Redemption implements ModInitializer {
         RedemptionDataComponents.index();
         RedemptionBlocks.index();
         RedemptionBlockEntities.index();
+        RedemptionEntities.index();
 
 		LOGGER.info("Redemption is running!");
 
