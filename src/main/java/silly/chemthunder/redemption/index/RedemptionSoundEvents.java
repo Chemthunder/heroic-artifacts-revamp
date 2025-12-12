@@ -13,6 +13,11 @@ public interface RedemptionSoundEvents {
     SoundEvent JUDGE_DEATH = create("event.judge_death");
     SoundEvent PING = create("event.ping");
     SoundEvent SONAR_PING = create("event.sonar_ping");
+    SoundEvent ERADICATE = create("dealer.eradicate");
+    SoundEvent ERADICATE_1 = create("dealer.eradicate_1");
+    SoundEvent ERADICATE_2 = create("dealer.eradicate_2");
+    SoundEvent HOWL = create("dealer.howling");
+
 
     private static SoundEvent create(String name) {
         Identifier id = Redemption.id(name);

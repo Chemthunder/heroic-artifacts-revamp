@@ -8,6 +8,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import silly.chemthunder.redemption.Redemption;
+import silly.chemthunder.redemption.block.FinalAceBlockItem;
 import silly.chemthunder.redemption.item.*;
 
 import java.util.LinkedHashMap;
@@ -174,6 +175,10 @@ public interface RedemptionItems {
             .maxCount(1)
     ));
 
+    Item FINAL_ACE_BLOCK_ITEM = create("final_ace", new FinalAceBlockItem(new AcornItemSettings()
+            .maxCount(1)
+    ));
+
     static <T extends Item> T create(String name, T item) {
         ITEMS.put(item, Redemption.id(name));
         return item;
@@ -218,6 +223,7 @@ public interface RedemptionItems {
 
         modifyItemNameColor(HUNTERS_GLASS, 0xb629eb);
         modifyItemNameColor(COURT_GLASS, 0x59ffff);
+        modifyItemNameColor(Item.fromBlock(RedemptionBlocks.FINAL_ACE), 0xff0068);
     }
 
     static Item create(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {

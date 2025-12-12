@@ -15,6 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import silly.chemthunder.redemption.block.entity.render.FinalAceBlockEntityRenderer;
 import silly.chemthunder.redemption.event.JudgementRiptideEvent;
 import silly.chemthunder.redemption.index.RedemptionBlockEntities;
+import silly.chemthunder.redemption.index.RedemptionBlocks;
 import silly.chemthunder.redemption.index.RedemptionParticles;
 
 public class RedemptionClient implements ClientModInitializer {
@@ -24,6 +25,7 @@ public class RedemptionClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         RedemptionParticles.clientIndex();
+        RedemptionBlocks.clientIndex();
 
         CustomRiptideEvent.EVENT.register(new JudgementRiptideEvent());
 

@@ -15,7 +15,7 @@ import silly.chemthunder.redemption.block.FinalAceBlock;
 import silly.chemthunder.redemption.block.entity.FinalAceBlockEntity;
 
 public class FinalAceBlockEntityRenderer implements BlockEntityRenderer<FinalAceBlockEntity> {
-    public static final Identifier TEXTURE = Redemption.id("textures/render/storm_eye_tile.png");
+    public static final Identifier TEXTURE = Redemption.id("textures/render/storm_eye_tile_2.png");
     @Override
     public void render(FinalAceBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         matrices.push();
@@ -23,7 +23,7 @@ public class FinalAceBlockEntityRenderer implements BlockEntityRenderer<FinalAce
         matrices.translate(-entity.getPos().getX(), -entity.getPos().getY(), -entity.getPos().getZ());
         RenderUtils.renderTexturedCube(
                 matrices,
-                vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCullZOffset(TEXTURE, true)),
+                vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(TEXTURE, true)),
                 entity.getPos(),
                 FinalAceBlock.radiusTicks,
                 Vec2f.ZERO,

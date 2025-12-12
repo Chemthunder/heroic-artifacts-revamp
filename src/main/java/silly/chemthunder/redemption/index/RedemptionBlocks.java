@@ -1,9 +1,11 @@
 package silly.chemthunder.redemption.index;
 
 import net.acoyt.acornlib.impl.item.TranslationBlockItem;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -18,6 +20,7 @@ public interface RedemptionBlocks {
     Block FINAL_ACE = createWithItem("final_ace", FinalAceBlock::new, AbstractBlock.Settings.copy(Blocks.BEDROCK)
             .sounds(BlockSoundGroup.BONE)
             .dropsNothing()
+            .nonOpaque()
     );
 
     static Block create(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
@@ -32,5 +35,9 @@ public interface RedemptionBlocks {
     }
 
     static void index() {
+    }
+
+    static void clientIndex() {
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), FINAL_ACE);
     }
 }

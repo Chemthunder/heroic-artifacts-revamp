@@ -1,5 +1,6 @@
 {
   "values": [
-    "redemption:descend"
+    "redemption:descend",
+    "redemption:consumed"
   ]
 }

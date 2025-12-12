@@ -34,5 +34,29 @@
       "redemption:event/sonar_ping"
     ],
     "subtitle": "subtitles.redemption.sonar_ping"
+  },
+  "dealer.eradicate": {
+    "sounds": [
+      "redemption:dealer/ace_1"
+    ],
+    "subtitle": "subtitles.redemption.eradicate"
+  },
+  "dealer.eradicate_1": {
+    "sounds": [
+      "redemption:dealer/ace_2"
+    ],
+    "subtitle": "subtitles.redemption.eradicate"
+  },
+  "dealer.eradicate_2": {
+    "sounds": [
+      "redemption:dealer/ace_2"
+    ],
+    "subtitle": "subtitles.redemption.eradicate"
+  },
+  "dealer.howling": {
+    "sounds": [
+      "redemption:dealer/howling"
+    ],
+    "subtitle": "subtitles.redemption.eradicate"
   }
 }
