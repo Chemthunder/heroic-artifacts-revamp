@@ -1,0 +1,30 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "redemption:item/silent_key_awakened"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, -90, 55],
+			"translation": [0, 17.5, -2],
+			"scale": [2.59, 2.59, 1.36]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, 90, -55],
+			"translation": [0, 17.5, -2],
+			"scale": [2.59, 2.59, 1.36]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, -90, 25],
+			"translation": [0.13, 12.7, 4.63],
+			"scale": [1.87, 1.87, 1.16]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 90, -25],
+			"translation": [0.13, 12.7, 4.63],
+			"scale": [1.87, 1.87, 1.16]
+		}
+	}
+}

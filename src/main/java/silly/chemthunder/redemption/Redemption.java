@@ -31,6 +31,7 @@ public class Redemption implements ModInitializer {
         RedemptionBlocks.index();
         RedemptionBlockEntities.index();
         RedemptionEntities.index();
+        RedemptionModelPredicates.index();
 
 		LOGGER.info("Redemption is running!");
 

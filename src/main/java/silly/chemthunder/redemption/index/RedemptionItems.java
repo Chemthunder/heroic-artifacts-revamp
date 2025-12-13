@@ -175,8 +175,9 @@ public interface RedemptionItems {
             .maxCount(1)
     ));
 
-    Item TEST = create("test", new RoyalFlushItem(new AcornItemSettings()
+    Item SILENT_KEY = create("silent_key", new SilentKeyItem(new AcornItemSettings()
             .maxCount(1)
+            .attributeModifiers(SilentKeyItem.createAttributeModifiers())
     ));
 
     Item FINAL_ACE_BLOCK_ITEM = create("final_ace", new FinalAceBlockItem(new AcornItemSettings()
@@ -228,6 +229,7 @@ public interface RedemptionItems {
         modifyItemNameColor(HUNTERS_GLASS, 0xb629eb);
         modifyItemNameColor(COURT_GLASS, 0x59ffff);
         modifyItemNameColor(Item.fromBlock(RedemptionBlocks.FINAL_ACE), 0xff0068);
+        modifyItemNameColor(SILENT_KEY, 0xff0068);
     }
 
     static Item create(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {

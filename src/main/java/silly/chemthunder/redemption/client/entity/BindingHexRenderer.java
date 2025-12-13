@@ -1,7 +1,9 @@
 package silly.chemthunder.redemption.client.entity;
 
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import silly.chemthunder.redemption.Redemption;
 import silly.chemthunder.redemption.entity.BindingHexEntity;

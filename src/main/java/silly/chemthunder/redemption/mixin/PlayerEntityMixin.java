@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import silly.chemthunder.redemption.cca.EnshroudedPlayerComponent;
 import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
+import silly.chemthunder.redemption.entity.BindingHexEntity;
 import silly.chemthunder.redemption.index.RedemptionParticles;
 import silly.chemthunder.redemption.index.RedemptionTags;
 
@@ -75,5 +76,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if (player.getStackInHand(player.getActiveHand()).isIn(RedemptionTags.KATANAS) && player.isUsingItem() && JudgementPlayerComponent.KEY.get(player).isJudgement) {
             getWorld().addParticle(ParticleTypes.SCULK_SOUL, true, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
         }
+    }
+
+    @Inject(method = "shouldDismount", at = @At("HEAD"), cancellable = true)
+    private void noDismount(CallbackInfoReturnable<Boolean> cir) {
+        if (this.getVehicle() instanceof BindingHexEntity) cir.setReturnValue(false);
     }
 }
