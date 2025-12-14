@@ -176,6 +176,7 @@ public interface RedemptionItems {
     ));
 
     Item SILENT_KEY = create("silent_key", new SilentKeyItem(new AcornItemSettings()
+            .twoHanded()
             .maxCount(1)
             .attributeModifiers(SilentKeyItem.createAttributeModifiers())
     ));

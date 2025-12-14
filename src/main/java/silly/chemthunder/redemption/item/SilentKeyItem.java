@@ -1,7 +1,9 @@
 package silly.chemthunder.redemption.item;
 
 import com.nitron.nitrogen.util.interfaces.ColorableItem;
+import com.nitron.nitrogen.util.interfaces.ScreenShaker;
 import net.acoyt.acornlib.api.item.CustomHitParticleItem;
+import net.acoyt.acornlib.api.item.CustomKillSourceItem;
 import net.acoyt.acornlib.api.item.KillEffectItem;
 import net.acoyt.acornlib.api.util.ParticleUtils;
 import net.acoyt.acornlib.impl.client.particle.SweepParticleEffect;
@@ -12,11 +14,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.entity.FishingHookPredicate;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -24,12 +29,14 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import silly.chemthunder.redemption.cca.FlashComponent;
 import silly.chemthunder.redemption.entity.BindingHexEntity;
+import silly.chemthunder.redemption.index.RedemptionDamageSources;
 import silly.chemthunder.redemption.index.RedemptionDataComponents;
 import silly.chemthunder.redemption.index.RedemptionEntities;
 import silly.chemthunder.redemption.index.RedemptionModelPredicates;
 
-public class SilentKeyItem extends Item implements ColorableItem, CustomHitParticleItem, KillEffectItem {
+public class SilentKeyItem extends Item implements ColorableItem, CustomHitParticleItem, KillEffectItem, CustomKillSourceItem {
     public SilentKeyItem(Settings settings) {
         super(settings);
     }
@@ -75,7 +82,19 @@ public class SilentKeyItem extends Item implements ColorableItem, CustomHitParti
         hex.updatePosition(victim.getX(), victim.getY(), victim.getZ());
         victim.startRiding(hex);
 
-        if (world instanceof ServerWorld serverWorld) serverWorld.spawnEntity(hex);
+        if (world instanceof ServerWorld serverWorld) {
+            serverWorld.spawnEntity(hex);
+
+            for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
+                FlashComponent flash = FlashComponent.KEY.get(serverPlayer);
+                flash.flashTicks = 20;
+                flash.sync();
+
+                if (serverPlayer instanceof ScreenShaker screenShaker) {
+                    screenShaker.addScreenShake(2, 1);
+                }
+            }
+        }
     }
 
     public static AttributeModifiersComponent createAttributeModifiers() {
@@ -99,4 +118,8 @@ public class SilentKeyItem extends Item implements ColorableItem, CustomHitParti
     }
 
 
+    @Override
+    public DamageSource getKillSource(LivingEntity living) {
+        return RedemptionDamageSources.enkey(living);
+    }
 }

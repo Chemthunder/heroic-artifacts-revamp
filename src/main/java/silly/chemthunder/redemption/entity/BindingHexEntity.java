@@ -58,6 +58,8 @@ public class BindingHexEntity extends MobEntity {
 
             this.setupAnimationStates();
         }
+
+        if (this.isDead()) this.remove(RemovalReason.DISCARDED);
         super.tick();
     }
 
