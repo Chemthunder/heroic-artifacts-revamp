@@ -27,19 +27,19 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @Inject(method = "playStepSound", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "playStepSound", at = @At(value = "RETURN"), cancellable = true)
     private void redemption$cancelStepSounds(BlockPos pos, BlockState state, CallbackInfo ci) {
         if (EnshroudedComponent.KEY.get(this).isShrouded()) {
             ci.cancel();
         }
     }
 
-    @Inject(method = "attack", at = @At("TAIL"))
+    @Inject(method = "attack", at = @At(value = "TAIL"))
     private void redemption$disableShroudUponAttack(Entity target, CallbackInfo ci) {
         redemption$disableCloak((PlayerEntity)(Object)this);
     }
 
-    @Inject(method = "damage", at = @At("TAIL"))
+    @Inject(method = "damage", at = @At(value = "TAIL"))
     private void redemption$disableShroudUponDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         redemption$disableCloak((PlayerEntity)(Object)this);
     }
@@ -61,7 +61,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
-    @Inject(method = "tick", at = @At("HEAD"))
+    @Inject(method = "tick", at = @At(value = "HEAD"))
     private void redemption$playerTicker(CallbackInfo ci) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         if (player.getStackInHand(player.getActiveHand()).isIn(RedemptionItemTags.KATANAS) && player.isUsingItem() && JudgementComponent.KEY.get(player).isJudgement()) {

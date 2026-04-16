@@ -57,9 +57,7 @@ public class SheathedKatanaItem extends Item implements ColorableItem, ModelVary
         }
 
         if (katanaType == KatanaType.SCULK) {
-            Box box = new Box(user.getBlockPos()).expand(10);
-
-            for (LivingEntity living : world.getEntitiesByClass(LivingEntity.class, box, EntityPredicates.EXCEPT_SPECTATOR.and(entity -> entity != user))) {
+            for (LivingEntity living : world.getEntitiesByClass(LivingEntity.class, new Box(user.getBlockPos().expand(10)), EntityPredicates.EXCEPT_SPECTATOR.and(entity -> entity != user))) {
                 living.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 400));
             }
         }

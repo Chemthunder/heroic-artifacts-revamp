@@ -25,7 +25,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
         super(ctx, model, shadowRadius);
     }
 
-    @Inject(method = "getArmPose", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getArmPose", at = @At(value = "HEAD"), cancellable = true)
     private static void redemption$sheathPose(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
         if (player.getStackInHand(hand).getItem() instanceof SheathItem) {
             if (player.isUsingItem()) cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
@@ -36,7 +36,13 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
         }
     }
 
-    @Inject(method = "render(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("HEAD"), cancellable = true)
+    @Inject(
+        method = "render(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
+        at = @At(
+            value = "HEAD"
+        ),
+        cancellable = true
+    )
     private void redemption$cancelRenderingIfShrouded(AbstractClientPlayerEntity player, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
         if (EnshroudedComponent.KEY.get(player).isShrouded()) {
             ci.cancel();

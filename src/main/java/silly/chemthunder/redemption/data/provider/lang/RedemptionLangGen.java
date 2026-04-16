@@ -37,5 +37,9 @@ public class RedemptionLangGen extends FabricLanguageProvider {
         builder.add("category.redemption", "Ikir Abilities");
         builder.add("key.redemption.switch_gamemodes", "Switch Game Modes");
         builder.add("key.redemption.use_immolation", "Use Immolation");
+
+        // builder.add("tag.item.redemption.katanas", "Katanas");
+        // builder.add("tag.item.redemption.sheaths", "Sheaths");
+        // builder.add("tag.item.redemption.sheathed_katanas", "Sheathed Katanas");
     }
 }

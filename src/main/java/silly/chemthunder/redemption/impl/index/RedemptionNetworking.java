@@ -19,7 +19,5 @@ public interface RedemptionNetworking {
     }
 
     @Environment(EnvType.CLIENT)
-    static void registerS2CPackets() {
-        //
-    }
+    static void registerS2CPackets() {}
 }

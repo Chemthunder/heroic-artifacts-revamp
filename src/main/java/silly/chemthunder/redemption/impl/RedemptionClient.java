@@ -10,7 +10,7 @@ import silly.chemthunder.redemption.impl.index.RedemptionNetworking;
 import silly.chemthunder.redemption.impl.index.RedemptionParticles;
 import silly.chemthunder.redemption.impl.util.RedemptionKeybindings;
 
-@Environment(EnvType.CLIENT)
+@Environment(EnvType.CLIENT) // guh?
 public class RedemptionClient implements ClientModInitializer {
     public void onInitializeClient() {
         /* Initialization */

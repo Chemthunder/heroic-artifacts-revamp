@@ -23,7 +23,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         super(type, world);
     }
 
-    @Inject(method = "tryUseTotem", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "tryUseTotem", at = @At(value = "HEAD"), cancellable = true)
     private void redemption$deathEffect(DamageSource deathSource, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity living = (LivingEntity)(Object)this;
 
@@ -46,14 +46,13 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         }
     }
 
-    @ModifyReturnValue(method = "getMaxHealth", at = @At("RETURN"))
+    @ModifyReturnValue(method = "getMaxHealth", at = @At(value = "RETURN"))
     private float redemption$judgeMaxHealth(float original) {
         LivingEntity living = (LivingEntity)(Object)this;
-
         if (living instanceof PlayerEntity player && JudgementComponent.KEY.get(player).isJudgement()) {
             return 40.0f;
         }
-
+        
         return original;
     }
 

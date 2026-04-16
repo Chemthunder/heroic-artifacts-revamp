@@ -12,11 +12,7 @@ import java.util.UUID;
 public class IkirPowerManager {
     public static void switchGameMode(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity serverPlayer) {
-            if (serverPlayer.isCreative()) {
-                serverPlayer.changeGameMode(GameMode.SURVIVAL);
-            } else {
-                serverPlayer.changeGameMode(GameMode.CREATIVE);
-            }
+            serverPlayer.changeGameMode(serverPlayer.isCreative() ? GameMode.SURVIVAL : GameMode.CREATIVE);
         }
     }
 
