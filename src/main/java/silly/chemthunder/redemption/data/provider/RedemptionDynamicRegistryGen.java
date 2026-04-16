@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import silly.chemthunder.redemption.impl.Redemption;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -12,11 +13,11 @@ public class RedemptionDynamicRegistryGen extends FabricDynamicRegistryProvider 
         super(output, registriesFuture);
     }
 
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup, Entries entries) {
+    public void configure(RegistryWrapper.WrapperLookup wrapperLookup, Entries entries) {
         entries.addAll(wrapperLookup.getWrapperOrThrow(RegistryKeys.DAMAGE_TYPE));
     }
 
     public String getName() {
-        return "redemption_dynamic";
+        return Redemption.MOD_ID + "_dynamic";
     }
 }

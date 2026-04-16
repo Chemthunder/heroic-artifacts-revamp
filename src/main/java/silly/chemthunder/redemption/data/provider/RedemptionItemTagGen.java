@@ -6,6 +6,9 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryWrapper;
 import silly.chemthunder.redemption.impl.index.RedemptionItems;
 import silly.chemthunder.redemption.impl.index.tag.RedemptionItemTags;
+import silly.chemthunder.redemption.impl.item.AshiroKatanaItem;
+import silly.chemthunder.redemption.impl.item.AshiroSheathItem;
+import silly.chemthunder.redemption.impl.item.SheathedAshiroKatanaItem;
 import silly.chemthunder.redemption.impl.item.katana.KatanaItem;
 import silly.chemthunder.redemption.impl.item.katana.SheathItem;
 import silly.chemthunder.redemption.impl.item.katana.SheathedKatanaItem;
@@ -17,25 +20,17 @@ public class RedemptionItemTagGen extends FabricTagProvider.ItemTagProvider {
         super(output, completableFuture);
     }
 
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        for (Item item : RedemptionItems.ITEMS.toRegister) {
-            if (item instanceof KatanaItem) {
-                this.getOrCreateTagBuilder(RedemptionItemTags.KATANAS)
-                        .add(item)
-                        .setReplace(false);
-            }
+    public void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        this.getOrCreateTagBuilder(RedemptionItemTags.KATANAS)
+                .add(RedemptionItems.ITEMS.toRegister.stream().filter(item -> item instanceof KatanaItem || item instanceof AshiroKatanaItem).toArray(Item[]::new))
+                .setReplace(false);
 
-            if (item instanceof SheathItem) {
-                this.getOrCreateTagBuilder(RedemptionItemTags.SHEATHS)
-                        .add(item)
-                        .setReplace(false);
-            }
+        this.getOrCreateTagBuilder(RedemptionItemTags.SHEATHS)
+                .add(RedemptionItems.ITEMS.toRegister.stream().filter(item -> item instanceof SheathItem || item instanceof AshiroSheathItem).toArray(Item[]::new))
+                .setReplace(false);
 
-            if (item instanceof SheathedKatanaItem) {
-                this.getOrCreateTagBuilder(RedemptionItemTags.SHEATHED_KATANAS)
-                        .add(item)
-                        .setReplace(false);
-            }
-        }
+        this.getOrCreateTagBuilder(RedemptionItemTags.SHEATHED_KATANAS)
+                .add(RedemptionItems.ITEMS.toRegister.stream().filter(item -> item instanceof SheathedKatanaItem || item instanceof SheathedAshiroKatanaItem).toArray(Item[]::new))
+                .setReplace(false);
     }
 }

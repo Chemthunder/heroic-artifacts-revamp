@@ -1,52 +1,52 @@
 {
-  "schemaVersion": 1,
-  "id": "redemption",
-  "version": "${version}",
-  "name": "Redemption",
-  "description": "Revamp of the Heroic Artifacts datapack from Memory Lapse",
-  "authors": [
-    "Chemthunder",
-    "AcoYT",
-    "The_Hero_Robot",
-    "Vbinnie (woah)"
-  ],
-  "contributors": [
-    "BushyBot5 - Artist"
-  ],
-  "license": "CC0-1.0",
-  "icon": "assets/redemption/icon.png",
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "silly.chemthunder.redemption.impl.Redemption"
+    "schemaVersion": 1,
+    "id": "redemption",
+    "version": "${version}",
+    "name": "Redemption",
+    "description": "Revamp of the Heroic Artifacts datapack from Memory Lapse",
+    "authors": [
+        "Chemthunder",
+        "AcoYT",
+        "The_Hero_Robot",
+        "Vbinnie (woah)"
     ],
-    "client": [
-      "silly.chemthunder.redemption.impl.RedemptionClient"
+    "contributors": [
+        "BushyBot5 - Artist"
     ],
-    "fabric-datagen": [
-      "silly.chemthunder.redemption.data.RedemptionDataGen"
+    "license": "CC0-1.0",
+    "icon": "assets/redemption/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "silly.chemthunder.redemption.impl.Redemption"
+        ],
+        "client": [
+            "silly.chemthunder.redemption.impl.RedemptionClient"
+        ],
+        "fabric-datagen": [
+            "silly.chemthunder.redemption.data.RedemptionDatagen"
+        ],
+        "cardinal-components": [
+            "silly.chemthunder.redemption.impl.cca.RedemptionComponents"
+        ]
+    },
+    "mixins": [
+        "redemption.mixins.json"
     ],
-    "cardinal-components": [
-      "silly.chemthunder.redemption.impl.cca.RedemptionComponents"
-    ]
-  },
-  "mixins": [
-    "redemption.mixins.json"
-  ],
-  "custom": {
-    "cardinal-components": [
-      "redemption:shrouded",
-      "redemption:judgement",
-      "redemption:flash",
-      "redemption:judge_flash",
-      "redemption:immolation_holder",
-      "redemption:immolation"
-    ]
-  },
-  "depends": {
-    "fabricloader": ">=0.15.11",
-    "minecraft": "~1.21.1",
-    "java": ">=21",
-    "fabric-api": "*"
-  }
+    "custom": {
+        "cardinal-components": [
+            "redemption:shrouded",
+            "redemption:judgement",
+            "redemption:flash",
+            "redemption:judge_flash",
+            "redemption:immolation_holder",
+            "redemption:immolation"
+        ]
+    },
+    "depends": {
+        "fabricloader": ">=0.15.11",
+        "minecraft": "~1.21.1",
+        "java": ">=21",
+        "fabric-api": "*"
+    }
 }

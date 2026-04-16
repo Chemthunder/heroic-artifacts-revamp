@@ -1,0 +1,6 @@
+{
+  "parent": "redemption:item/large_sheath_in_hand",
+  "textures": {
+    "layer0": "redemption:item/ashiro_sheath_in_hand"
+  }
+}

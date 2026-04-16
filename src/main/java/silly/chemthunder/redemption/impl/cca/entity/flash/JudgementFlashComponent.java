@@ -13,7 +13,7 @@ public class JudgementFlashComponent implements AutoSyncedComponent, CommonTicki
     public static final ComponentKey<JudgementFlashComponent> KEY = ComponentRegistry.getOrCreate(Redemption.id("judge_flash"), JudgementFlashComponent.class);
 
     private final LivingEntity player;
-    public int flashTicks = 0;
+    private int flashTicks = 0;
 
     public JudgementFlashComponent(LivingEntity player) {
         this.player = player;
@@ -23,20 +23,29 @@ public class JudgementFlashComponent implements AutoSyncedComponent, CommonTicki
         KEY.sync(this.player);
     }
 
-    public void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.flashTicks = nbtCompound.getInt("FlashTicks");
+    public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        this.flashTicks = nbt.getInt("FlashTicks");
     }
 
-    public void writeToNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        nbtCompound.putInt("FlashTicks", flashTicks);
+    public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.putInt("FlashTicks", this.flashTicks);
     }
 
     public void tick() {
-        if (flashTicks > 0) {
-            flashTicks--;
-            if (flashTicks == 0) {
-                sync();
+        if (this.flashTicks > 0) {
+            this.flashTicks--;
+            if (this.flashTicks == 0) {
+                this.sync();
             }
         }
+    }
+
+    public int getFlashTicks() {
+        return this.flashTicks;
+    }
+
+    public void setFlashTicks(int flashTicks) {
+        this.flashTicks = flashTicks;
+        this.sync();
     }
 }

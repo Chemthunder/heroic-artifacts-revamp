@@ -19,16 +19,16 @@ import silly.chemthunder.redemption.impl.Redemption;
 import silly.chemthunder.redemption.impl.cca.entity.flash.JudgementFlashComponent;
 import silly.chemthunder.redemption.impl.index.RedemptionItems;
 import silly.chemthunder.redemption.impl.index.RedemptionSoundEvents;
-import silly.chemthunder.redemption.impl.index.data.RedemptionDamageSources;
+import silly.chemthunder.redemption.impl.index.data.RedemptionDamageTypes;
 
 import java.util.List;
 
 public class JudgementComponent implements AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<JudgementComponent> KEY = ComponentRegistry.getOrCreate(Redemption.id("judgement"), JudgementComponent.class);
-    
     private final PlayerEntity player;
-    public boolean isJudgement = false;
-    public int monologueTicks = 0;
+
+    private boolean judgement = false;
+    private int monologueTicks = 0;
 
     public JudgementComponent(PlayerEntity player) {
         this.player = player;
@@ -38,25 +38,32 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
         KEY.sync(this.player);
     }
 
-    public void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.isJudgement = nbtCompound.getBoolean("IsJudgement");
-        this.monologueTicks = nbtCompound.getInt("MonologueTicks");
+    public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        this.judgement = nbt.getBoolean("Judgement");
+        this.monologueTicks = nbt.getInt("MonologueTicks");
     }
 
-    public void writeToNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        nbtCompound.putBoolean("IsJudgement", isJudgement);
-        nbtCompound.putInt("MonologueTicks", monologueTicks);
+    public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.putBoolean("Judgement", this.judgement);
+        nbt.putInt("MonologueTicks", this.monologueTicks);
     }
 
     public void tick() {
-        if (monologueTicks > 0) {
-            monologueTicks--;
-            if (player.getWorld() instanceof ServerWorld serverWorld) {
-                serverWorld.spawnParticles(ParticleTypes.SCULK_SOUL, player.getX(), player.getY(), player.getZ(), 1, 0.3f, 0.6f, 0.3f, 0.03);
+        if (this.monologueTicks > 0) {
+            this.monologueTicks--;
+            if (this.player.getWorld() instanceof ServerWorld serverWorld) {
+                serverWorld.spawnParticles(
+                        ParticleTypes.SCULK_SOUL,
+                        this.player.getX(), this.player.getY(), this.player.getZ(),
+                        1,
+                        0.3F, 0.6F, 0.3F,
+                        0.03F
+                );
             }
-            if (monologueTicks == 0) {
-                sync();
-                beginKillAnim(player, player.getWorld());
+
+            if (this.monologueTicks == 0) {
+                this.sync();
+                this.beginKillAnim(this.player, this.player.getWorld());
             }
         }
     }
@@ -65,7 +72,7 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
         if (world instanceof ServerWorld serverWorld) {
             player.dropStack(RedemptionItems.COURT_GLASS.getDefaultStack());
             player.setInvulnerable(false);
-            player.damage(RedemptionDamageSources.descend(player), player.getMaxHealth() * 50);
+            player.damage(RedemptionDamageTypes.create(world, RedemptionDamageTypes.DESCEND), player.getMaxHealth() * 50);
 
             serverWorld.spawnParticles(ParticleTypes.SOUL, player.getX(), player.getY(), player.getZ(), 75, 0.3f, 0.6f, 0.3f, 0.5);
             serverWorld.spawnParticles(ParticleTypes.END_ROD, player.getX(), player.getY(), player.getZ(), 75, 0.3f, 0.6f, 0.3f, 0.5);
@@ -79,18 +86,33 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
             for (LivingEntity living : entities) {
                 if (living instanceof ScreenShaker screenShaker) {
                     screenShaker.addScreenShake(10, 2);
-                    JudgementFlashComponent flash = JudgementFlashComponent.KEY.get(living);
-
-                    flash.flashTicks = 20;
-                    flash.sync();
+                    JudgementFlashComponent.KEY.get(living).setFlashTicks(20);
                 }
             }
 
-            for (ServerPlayerEntity sPlayer : serverWorld.getPlayers()) {
-                sPlayer.playSoundToPlayer(RedemptionSoundEvents.JUDGE_DEATH, SoundCategory.PLAYERS, 1, 1);
-                sPlayer.playSoundToPlayer(RedemptionSoundEvents.PING, SoundCategory.PLAYERS, 1, 1);
-                sPlayer.playSoundToPlayer(RedemptionSoundEvents.SONAR_PING, SoundCategory.PLAYERS, 1, 1);
+            for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
+                serverPlayer.playSoundToPlayer(RedemptionSoundEvents.JUDGE_DEATH, SoundCategory.PLAYERS, 1, 1);
+                serverPlayer.playSoundToPlayer(RedemptionSoundEvents.PING, SoundCategory.PLAYERS, 1, 1);
+                serverPlayer.playSoundToPlayer(RedemptionSoundEvents.SONAR_PING, SoundCategory.PLAYERS, 1, 1);
             }
         }
+    }
+
+    public boolean isJudgement() {
+        return this.judgement;
+    }
+
+    public void setJudgement(boolean judgement) {
+        this.judgement = judgement;
+        this.sync();
+    }
+
+    public int getMonologueTicks() {
+        return this.monologueTicks;
+    }
+
+    public void setMonologueTicks(int monologueTicks) {
+        this.monologueTicks = monologueTicks;
+        this.sync();
     }
 }

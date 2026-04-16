@@ -7,12 +7,11 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 import silly.chemthunder.redemption.impl.Redemption;
-import silly.chemthunder.redemption.impl.networking.IkirImmolationKeybindPayload;
-import silly.chemthunder.redemption.impl.networking.IkirSwitchGamemodesKeybindPayload;
+import silly.chemthunder.redemption.impl.networking.c2s.IkirGameModeSwitchPayload;
+import silly.chemthunder.redemption.impl.networking.c2s.IkirImmolationPayload;
 
 public class RedemptionKeybindings {
-
-    public static KeyBinding switchGamemodes;
+    public static KeyBinding switchGameMode;
     public static KeyBinding useImmolation;
 
     public static void register() {
@@ -22,8 +21,8 @@ public class RedemptionKeybindings {
 
     private static void registerKeyBindings() {
         String redemptionCategory = "category.redemption";
-        switchGamemodes = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.redemption.switch_gamemodes",
+        switchGameMode = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.redemption.switch_gamemode",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_UP,
                 redemptionCategory
@@ -39,9 +38,10 @@ public class RedemptionKeybindings {
 
     private static void setupPressDetection() {
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
-            if (client.player != null && switchGamemodes.isPressed()) {
+            if (client.player != null && switchGameMode.isPressed()) {
                 handleSwitch(client);
             }
+
             if (client.player != null && useImmolation.isPressed()) {
                 handleImmolation(client);
             }
@@ -51,7 +51,7 @@ public class RedemptionKeybindings {
     private static void handleSwitch(MinecraftClient client) {
         if (client.player != null) {
             try {
-                IkirSwitchGamemodesKeybindPayload.send();
+                IkirGameModeSwitchPayload.send();
             } catch (Exception e) {
                 Redemption.LOGGER.error("Failed to send Ikir Switch Payload");
             }
@@ -61,8 +61,7 @@ public class RedemptionKeybindings {
     private static void handleImmolation(MinecraftClient client) {
         if (client.player != null) {
             try {
-                IkirImmolationKeybindPayload.send();
-
+                IkirImmolationPayload.send();
             } catch (Exception e) {
                 Redemption.LOGGER.error("Failed to send Ikir Ability Payload");
             }

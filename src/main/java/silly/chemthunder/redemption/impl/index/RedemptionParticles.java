@@ -16,11 +16,11 @@ public interface RedemptionParticles {
         Registry.register(Registries.PARTICLE_TYPE, Redemption.id(name), particle);
     }
 
-    static void index() {
+    static void init() {
         create("hunters_omen", HUNTER_OMEN);
     }
 
-    static void clientIndex() {
+    static void clientInit() {
         ParticleFactoryRegistry.getInstance().register(HUNTER_OMEN, EndRodParticle.Factory::new);
     }
 }

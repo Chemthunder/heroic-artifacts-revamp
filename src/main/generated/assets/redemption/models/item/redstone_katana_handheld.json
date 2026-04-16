@@ -1,6 +1,0 @@
-{
-  "parent": "redemption:item/katana_handheld",
-  "textures": {
-    "layer0": "redemption:item/redstone_katana_handheld"
-  }
-}

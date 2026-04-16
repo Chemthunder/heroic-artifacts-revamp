@@ -1,6 +1,0 @@
-{
-  "parent": "redemption:item/sheath_handheld",
-  "textures": {
-    "layer0": "redemption:item/quartz_sheath_handheld"
-  }
-}

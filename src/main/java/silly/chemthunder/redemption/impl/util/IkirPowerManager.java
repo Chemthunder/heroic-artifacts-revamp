@@ -10,8 +10,7 @@ import silly.chemthunder.redemption.impl.index.RedemptionEntities;
 import java.util.UUID;
 
 public class IkirPowerManager {
-
-    public static void switchGamemode(PlayerEntity player) {
+    public static void switchGameMode(PlayerEntity player) {
         if (player instanceof ServerPlayerEntity serverPlayer) {
             if (serverPlayer.isCreative()) {
                 serverPlayer.changeGameMode(GameMode.SURVIVAL);

@@ -55,6 +55,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
         for (int i = 0; i < 3; i++) {
             tooltip.add(Text.translatable("lore.court_glass." + i).withColor(color));
         }
+
         super.appendTooltip(stack, context, tooltip, type);
     }
 
@@ -75,8 +76,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
         double z = player.getZ();
         JudgementComponent judge = JudgementComponent.KEY.get(player);
 
-        judge.isJudgement = true;
-        judge.sync();
+        judge.setJudgement(true);
         player.setHealth(player.getMaxHealth());
 
         net.minecraft.util.math.Box box = new Box(player.getBlockPos()).expand(100, 100, 100);
@@ -86,9 +86,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
         );
 
         for (LivingEntity entity : entities) {
-            JudgementFlashComponent flash = JudgementFlashComponent.KEY.get(entity);
-            flash.flashTicks = 20;
-            flash.sync();
+            JudgementFlashComponent.KEY.get(entity).setFlashTicks(20);
 
             entity.playSound(SoundEvents.BLOCK_CONDUIT_AMBIENT_SHORT);
             entity.playSound(SoundEvents.ENTITY_WARDEN_HEARTBEAT);

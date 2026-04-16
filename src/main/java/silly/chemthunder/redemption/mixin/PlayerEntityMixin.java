@@ -28,37 +28,33 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Inject(method = "playStepSound", at = @At("RETURN"), cancellable = true)
-    private void cancelStepSounds(BlockPos pos, BlockState state, CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
-
-        if (EnshroudedComponent.KEY.get(player).isShrouded) {
+    private void redemption$cancelStepSounds(BlockPos pos, BlockState state, CallbackInfo ci) {
+        if (EnshroudedComponent.KEY.get(this).isShrouded()) {
             ci.cancel();
         }
     }
 
     @Inject(method = "attack", at = @At("TAIL"))
-    private void disableShroudUponAttack(Entity target, CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
-        disableCloak(player);
+    private void redemption$disableShroudUponAttack(Entity target, CallbackInfo ci) {
+        redemption$disableCloak((PlayerEntity)(Object)this);
     }
 
     @Inject(method = "damage", at = @At("TAIL"))
-    private void disableShroudUponDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
-        disableCloak(player);
+    private void redemption$disableShroudUponDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        redemption$disableCloak((PlayerEntity)(Object)this);
     }
 
-    @Unique public void disableCloak(PlayerEntity player) {
+    @Unique
+    public void redemption$disableCloak(PlayerEntity player) {
         EnshroudedComponent comp = EnshroudedComponent.KEY.get(player);
         double x = player.getX();
         double y = player.getY();
         double z = player.getZ();
 
-        if (comp.isShrouded) {
-            comp.isShrouded = false;
-            comp.sync();
+        if (comp.isShrouded()) {
+            comp.setShrouded(false);
             player.setInvisible(false);
-            if (getWorld() instanceof ServerWorld serverWorld) {
+            if (this.getWorld() instanceof ServerWorld serverWorld) {
                 serverWorld.spawnParticles(RedemptionParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
                 serverWorld.spawnParticles(ParticleTypes.SQUID_INK, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
             }
@@ -66,10 +62,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
-    private void playerTicker(CallbackInfo ci) {
+    private void redemption$playerTicker(CallbackInfo ci) {
         PlayerEntity player = (PlayerEntity) (Object) this;
-        if (player.getStackInHand(player.getActiveHand()).isIn(RedemptionItemTags.KATANAS) && player.isUsingItem() && JudgementComponent.KEY.get(player).isJudgement) {
-            getWorld().addParticle(ParticleTypes.SCULK_SOUL, true, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+        if (player.getStackInHand(player.getActiveHand()).isIn(RedemptionItemTags.KATANAS) && player.isUsingItem() && JudgementComponent.KEY.get(player).isJudgement()) {
+            this.getWorld().addParticle(ParticleTypes.SCULK_SOUL, true, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
         }
     }
 }

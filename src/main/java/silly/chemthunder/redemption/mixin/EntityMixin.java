@@ -1,7 +1,6 @@
 package silly.chemthunder.redemption.mixin;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,13 +10,8 @@ import silly.chemthunder.redemption.impl.cca.entity.EnshroudedComponent;
 @Mixin(Entity.class)
 public abstract class EntityMixin {
     @Inject(method = "spawnSprintingParticles", at = @At("HEAD"), cancellable = true)
-    private void disableSprintingParticles(CallbackInfo ci) {
-        Entity entity = (Entity) (Object) this;
-
-        if (entity instanceof PlayerEntity player) {
-            if (EnshroudedComponent.KEY.get(player).isShrouded) {
-                ci.cancel();
-            }
-        }
+    private void redemption$disableSprintingParticles(CallbackInfo ci) {
+        EnshroudedComponent component = EnshroudedComponent.KEY.getNullable(this);
+        if (component != null && component.isShrouded()) ci.cancel();
     }
 }

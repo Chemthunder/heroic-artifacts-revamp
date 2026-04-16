@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
@@ -29,47 +30,45 @@ public abstract class InGameHudOverlay {
     @Unique private static final Identifier CUSTOM_HOTBAR_SELECTOR = Redemption.id("hud/custom_hotbar_selection");
 
     @Inject(method = "renderMiscOverlays", at = @At("TAIL"))
-    private void flowerOverlay(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+    private void redemption$flowerOverlay(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         if (MinecraftClient.getInstance().getCameraEntity() instanceof PlayerEntity player) {
-            int enfloweredTicks = JudgementFlashComponent.KEY.get(player).flashTicks;
-            if (enfloweredTicks > 0) {
-                float opacity = enfloweredTicks > 50 ? 1f : enfloweredTicks / 50.0f;
+            int judgeFlashTicks = JudgementFlashComponent.KEY.get(player).getFlashTicks();
+            if (judgeFlashTicks > 0) {
+                float opacity = judgeFlashTicks > 50 ? 1f : judgeFlashTicks / 50.0f;
                 this.renderOverlay(context, JUDGE_FLASH, opacity);
             }
 
-            int flashTicksYay = FlashComponent.KEY.get(player).flashTicks;
-            if (flashTicksYay > 0) {
-                float flashopacity = flashTicksYay > 50 ? 1f : flashTicksYay / 50.0f;
-                this.renderOverlay(context, FLASH, flashopacity);
+            int flashTicks = FlashComponent.KEY.get(player).getFlashTicks();
+            if (flashTicks > 0) {
+                float opacity = flashTicks > 50 ? 1f : flashTicks / 50.0f;
+                this.renderOverlay(context, FLASH, opacity);
             }
         }
     }
 
     @WrapOperation(
-        method = "renderHotbar",
-         at = @At(
-                value = "INVOKE",
-                target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V",
-                ordinal = 0
-        )
+            method = "renderHotbar",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V",
+                    ordinal = 0
+            )
     )
-    private void textureHotbar(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
-        if (MinecraftClient.getInstance().player != null) {
-            original.call(instance, JudgementComponent.KEY.get(MinecraftClient.getInstance().player).isJudgement ? CUSTOM_HOTBAR : texture, x, y, width, height);
-        }
+    private void redemption$textureHotbar(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        original.call(instance, player != null && JudgementComponent.KEY.get(player).isJudgement() ? CUSTOM_HOTBAR : texture, x, y, width, height);
     }
 
     @WrapOperation(
-        method = "renderHotbar",
-         at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V",
-            ordinal = 1
-        )
+            method = "renderHotbar",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V",
+                    ordinal = 1
+            )
     )
-    private void textureSelector(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
-        if (MinecraftClient.getInstance().player != null) {
-            original.call(instance, JudgementComponent.KEY.get(MinecraftClient.getInstance().player).isJudgement ? CUSTOM_HOTBAR_SELECTOR : texture, x, y, width, height);
-        }
+    private void redemption$textureSelector(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        original.call(instance, player != null && JudgementComponent.KEY.get(player).isJudgement() ? CUSTOM_HOTBAR_SELECTOR : texture, x, y, width, height);
     }
 }

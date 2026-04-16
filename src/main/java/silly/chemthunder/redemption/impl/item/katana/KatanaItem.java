@@ -4,7 +4,6 @@ import com.nitron.nitrogen.util.interfaces.ColorableItem;
 import net.acoyt.acornlib.api.item.CustomKillSourceItem;
 import net.acoyt.acornlib.api.item.ModelVaryingItem;
 import net.acoyt.acornlib.api.util.MiscUtils;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -13,52 +12,25 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SwordItem;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import silly.chemthunder.redemption.impl.Redemption;
 import silly.chemthunder.redemption.impl.cca.entity.JudgementComponent;
-import silly.chemthunder.redemption.impl.index.RedemptionItems;
-import silly.chemthunder.redemption.impl.index.data.RedemptionDamageSources;
+import silly.chemthunder.redemption.impl.index.data.RedemptionDamageTypes;
+import silly.chemthunder.redemption.impl.util.KatanaType;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class KatanaItem extends Item implements ColorableItem, CustomKillSourceItem, ModelVaryingItem {
-    public int startColor(ItemStack itemStack) {return 0xFF6e5353;}
-    public int endColor(ItemStack itemStack) {return 0xFF271e1e;}
-    public int backgroundColor(ItemStack itemStack) {return 0xFF1d1212;}
-
+public class KatanaItem extends SwordItem implements ColorableItem, CustomKillSourceItem, ModelVaryingItem {
     public KatanaItem(Settings settings) {
-        super(settings);
-    }
-
-    public static KatanaItem.KatanaType getKatanaType(Item item) {
-        KatanaItem.KatanaType type = KatanaType.AMETHYST;
-
-        if (item == RedemptionItems.AMETHYST_KATANA) {
-            type = KatanaItem.KatanaType.AMETHYST;
-        } else if (item == RedemptionItems.REDSTONE_KATANA) {
-            type = KatanaItem.KatanaType.REDSTONE;
-        } else if (item == RedemptionItems.SCULK_KATANA) {
-            type = KatanaItem.KatanaType.SCULK;
-        } else if (item == RedemptionItems.QUARTZ_KATANA) {
-            type = KatanaItem.KatanaType.QUARTZ;
-        } else if (item == RedemptionItems.EMERALD_KATANA) {
-            type = KatanaItem.KatanaType.EMERALD;
-        } else if (item == RedemptionItems.COPPER_KATANA) {
-            type = KatanaItem.KatanaType.COPPER;
-        } else if (item == RedemptionItems.NETHERITE_KATANA) {
-            type = KatanaItem.KatanaType.NETHERITE;
-        } else if (item == RedemptionItems.LAPIS_KATANA) {
-            type = KatanaItem.KatanaType.LAPIS;
-        }
-        return type;
+        super(ToolMaterials.NETHERITE, settings);
     }
 
     public static AttributeModifiersComponent createAttributeModifiers() {
@@ -75,88 +47,72 @@ public class KatanaItem extends Item implements ColorableItem, CustomKillSourceI
                 )
                 .add(
                         EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
-                        new EntityAttributeModifier(Identifier.ofVanilla("base_entity_interaction_range"), 1.5f, EntityAttributeModifier.Operation.ADD_VALUE),
+                        new EntityAttributeModifier(Identifier.ofVanilla("base_entity_interaction_range"), 0.5f, EntityAttributeModifier.Operation.ADD_VALUE),
                         AttributeModifierSlot.MAINHAND
                 )
                 .build();
     }
 
-    public DamageSource getKillSource(LivingEntity livingEntity) {
-        return RedemptionDamageSources.katana(livingEntity);
-    }
-
-    public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
-        return !miner.isCreative();
+    public DamageSource getKillSource(LivingEntity living) {
+        return RedemptionDamageTypes.create(living.getWorld(), RedemptionDamageTypes.KATANA);
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        JudgementComponent judge = JudgementComponent.KEY.get(user);
+        if (JudgementComponent.KEY.get(user).isJudgement()) {
+            user.setVelocity(user.getRotationVec(0).multiply(3));
+            user.velocityModified = true;
 
-        if (judge.isJudgement) {
-            if (user instanceof PlayerEntity player) {
-                player.setVelocity(user.getRotationVec(0).multiply(3));
-                player.useRiptide(10, 7f, user.getStackInHand(user.getActiveHand()));
-                player.getItemCooldownManager().set(this, 400);
-            }
+            user.useRiptide(10, 7f, user.getStackInHand(user.getActiveHand()));
+            user.getItemCooldownManager().set(this, 400);
+
+            return TypedActionResult.success(user.getStackInHand(hand));
         }
+
         return super.use(world, user, hand);
     }
 
     public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
-        String texture = "";
-        
-        switch (getKatanaType(this)) {
-            case AMETHYST -> texture = "amethyst";
-            case REDSTONE -> texture = "redstone";
-            case SCULK -> texture = "sculk";
-            case QUARTZ -> texture = "quartz";
-            case EMERALD -> texture = "emerald";
-            case COPPER -> texture = "copper";
-            case NETHERITE -> texture = "netherite";
-            case LAPIS -> texture = "lapis";
-        }
-
-        Identifier textureId = Redemption.id(texture + "_katana");
-        Identifier altId = Redemption.id(texture + "_katana_handheld");
-
-        return MiscUtils.isGui(renderMode) ? textureId : altId;
+        Identifier id = Redemption.id(KatanaType.getForItem(this).id + "_katana");
+        return id.withSuffixedPath(MiscUtils.isGui(renderMode) ? "" : "_in_hand");
     }
 
     public List<Identifier> getModelsToLoad() {
         return Arrays.asList(
                 Redemption.id("amethyst_katana"),
-                Redemption.id("amethyst_katana_handheld"),
+                Redemption.id("amethyst_katana_in_hand"),
 
                 Redemption.id("redstone_katana"),
-                Redemption.id("redstone_katana_handheld"),
+                Redemption.id("redstone_katana_in_hand"),
 
                 Redemption.id("sculk_katana"),
-                Redemption.id("sculk_katana_handheld"),
+                Redemption.id("sculk_katana_in_hand"),
 
                 Redemption.id("quartz_katana"),
-                Redemption.id("quartz_katana_handheld"),
+                Redemption.id("quartz_katana_in_hand"),
 
                 Redemption.id("emerald_katana"),
-                Redemption.id("emerald_katana_handheld"),
+                Redemption.id("emerald_katana_in_hand"),
 
                 Redemption.id("copper_katana"),
-                Redemption.id("copper_katana_handheld"),
+                Redemption.id("copper_katana_in_hand"),
 
                 Redemption.id("netherite_katana"),
-                Redemption.id("netherite_katana_handheld"),
+                Redemption.id("netherite_katana_in_hand"),
 
                 Redemption.id("lapis_katana"),
-                Redemption.id("lapis_katana_handheld"));
+                Redemption.id("lapis_katana_in_hand")
+        );
     }
 
-    public enum KatanaType {
-        REDSTONE,
-        EMERALD,
-        QUARTZ,
-        NETHERITE,
-        COPPER,
-        AMETHYST,
-        LAPIS,
-        SCULK
+    public int startColor(ItemStack itemStack) {
+        return 0xFF6e5353;
+    }
+
+    public int endColor(ItemStack itemStack) {
+        return 0xFF271e1e;
+    }
+
+    public int backgroundColor(ItemStack itemStack) {
+        return 0xFF1d1212;
     }
 }

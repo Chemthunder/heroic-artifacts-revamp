@@ -19,7 +19,7 @@ public class RedemptionComponents implements EntityComponentInitializer {
         registry.beginRegistration(LivingEntity.class, JudgementFlashComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(JudgementFlashComponent::new);
         registry.beginRegistration(LivingEntity.class, FlashComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(FlashComponent::new);
 
-        // IMMOLATION
+        // Immolation
         registry.beginRegistration(PlayerEntity.class, ImmolationHolderComponent.KEY).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(ImmolationHolderComponent::new);
         registry.beginRegistration(PlayerEntity.class, ImmolationComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(ImmolationComponent::new);
     }

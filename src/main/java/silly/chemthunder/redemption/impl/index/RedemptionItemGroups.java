@@ -14,14 +14,14 @@ import net.minecraft.text.Text;
 import silly.chemthunder.redemption.impl.Redemption;
 
 public interface RedemptionItemGroups {
-    RegistryKey<ItemGroup> GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Redemption.id("redemption"));
-    ItemGroup A_GROUP = FabricItemGroup.builder()
+    RegistryKey<ItemGroup> GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Redemption.id(Redemption.MOD_ID));
+    ItemGroup ITEM_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(RedemptionItems.COURT_GLASS))
-            .displayName(Text.translatable("itemGroup.redemption"))
+            .displayName(Text.translatable("itemGroup." + Redemption.MOD_ID))
             .build();
 
-    static void index() {
-        Registry.register(Registries.ITEM_GROUP, GROUP_KEY, A_GROUP);
+    static void init() {
+        Registry.register(Registries.ITEM_GROUP, GROUP_KEY, ITEM_GROUP);
         ItemGroupEvents.modifyEntriesEvent(GROUP_KEY).register(RedemptionItemGroups::addEntries);
     }
 

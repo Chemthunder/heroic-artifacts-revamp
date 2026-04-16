@@ -45,14 +45,12 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
         EnshroudedComponent shroud = EnshroudedComponent.KEY.get(user);
 
         if (user.getOffHandStack().isOf(this)) {
-            if (!shroud.isShrouded) {
-                shroud.isShrouded = true;
+            if (!shroud.isShrouded()) {
+                shroud.setShrouded(true);
                 user.setInvisible(true);
-                shroud.sync();
             } else {
-                shroud.isShrouded = false;
+                shroud.setShrouded(false);
                 user.setInvisible(false);
-                shroud.sync();
             }
 
             if (world instanceof ServerWorld serverWorld) {
@@ -74,6 +72,7 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
                 entity.playSound(RedemptionSoundEvents.HUNTER_BLACKOUT);
             }
         }
+
         return super.use(world, user, hand);
     }
 
@@ -83,6 +82,7 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
         for (int i = 0; i < 3; i++) {
             tooltip.add(Text.translatable("lore.hunters_glass." + i).withColor(color));
         }
+
         super.appendTooltip(stack, context, tooltip, type);
     }
 }

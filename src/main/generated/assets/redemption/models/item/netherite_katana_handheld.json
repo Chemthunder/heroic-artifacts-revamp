@@ -1,6 +1,0 @@
-{
-  "parent": "redemption:item/katana_handheld",
-  "textures": {
-    "layer0": "redemption:item/netherite_katana_handheld"
-  }
-}

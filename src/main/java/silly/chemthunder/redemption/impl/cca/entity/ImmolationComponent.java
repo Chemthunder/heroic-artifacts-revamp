@@ -10,31 +10,31 @@ import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
 import silly.chemthunder.redemption.impl.Redemption;
-import silly.chemthunder.redemption.impl.index.data.RedemptionDamageSources;
+import silly.chemthunder.redemption.impl.index.data.RedemptionDamageTypes;
 
 public class ImmolationComponent implements AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<ImmolationComponent> KEY = MiscUtils.getOrCreateKey(Redemption.id("immolation"), ImmolationComponent.class);
-
     private final LivingEntity living;
-    private boolean burning = false;
 
-    public void sync() {
-        KEY.sync(living);
-    }
+    private boolean burning = false;
 
     public ImmolationComponent(LivingEntity living) {
         this.living = living;
     }
 
-    public void tick() {
-        if (this.isBurning()) {
-            living.damage(RedemptionDamageSources.immolation(living), 1.0f);
+    public void sync() {
+        KEY.sync(this.living);
+    }
 
-            if (living.getWorld() instanceof ServerWorld serverWorld) {
+    public void tick() {
+        if (this.burning) {
+            this.living.damage(RedemptionDamageTypes.create(this.living.getWorld(), RedemptionDamageTypes.IMMOLATION), 1.0f);
+
+            if (this.living.getWorld() instanceof ServerWorld serverWorld) {
                 serverWorld.spawnParticles(ParticleTypes.FLAME,
-                        living.getX() + 0.5f,
-                        living.getY() + 0.5f,
-                        living.getZ() + 0.5f,
+                        this.living.getX() + 0.5f,
+                        this.living.getY() + 0.5f,
+                        this.living.getZ() + 0.5f,
                         6,
                         1,
                         2,
@@ -45,20 +45,20 @@ public class ImmolationComponent implements AutoSyncedComponent, CommonTickingCo
         }
     }
 
-    public void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.burning = nbtCompound.getBoolean("Burning");
+    public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        this.burning = nbt.getBoolean("Burning");
     }
 
-    public void writeToNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        nbtCompound.putBoolean("Burning", burning);
+    public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.putBoolean("Burning", this.burning);
     }
 
     public boolean isBurning() {
         return this.burning;
     }
 
-    public void setBurning(boolean bl) {
-        this.burning = bl;
-        sync();
+    public void setBurning(boolean burning) {
+        this.burning = burning;
+        this.sync();
     }
 }

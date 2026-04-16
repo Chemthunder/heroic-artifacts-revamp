@@ -6,15 +6,16 @@ import net.acoyt.acornlib.api.util.MiscUtils;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
@@ -22,125 +23,51 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import silly.chemthunder.redemption.impl.Redemption;
-import silly.chemthunder.redemption.impl.index.RedemptionItems;
 import silly.chemthunder.redemption.impl.index.RedemptionSoundEvents;
+import silly.chemthunder.redemption.impl.util.KatanaType;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class SheathedKatanaItem extends Item implements ColorableItem, ModelVaryingItem {
-    public int startColor(ItemStack itemStack) {return 0xFF6e5353;}
-    public int endColor(ItemStack itemStack) {return 0xFF271e1e;}
-    public int backgroundColor(ItemStack itemStack) {return 0xFF1d1212;}
-
     public SheathedKatanaItem(Settings settings) {
         super(settings);
     }
 
-    public static SheathedKatanaItem.KatanaType getKatanaType(Item item) {
-        SheathedKatanaItem.KatanaType type = KatanaType.AMETHYST;
-        if (item == RedemptionItems.AMETHYST_SHEATHED) {
-            type = KatanaType.AMETHYST;
-        } else if (item == RedemptionItems.REDSTONE_SHEATHED) {
-            type = KatanaType.REDSTONE;
-        } else if (item == RedemptionItems.SCULK_SHEATHED) {
-            type = KatanaType.SCULK;
-        } else if (item == RedemptionItems.QUARTZ_SHEATHED) {
-            type = KatanaType.QUARTZ;
-        } else if (item == RedemptionItems.EMERALD_SHEATHED) {
-            type = KatanaType.EMERALD;
-        } else if (item == RedemptionItems.COPPER_SHEATHED) {
-            type = KatanaType.COPPER;
-        } else if (item == RedemptionItems.NETHERITE_SHEATHED) {
-            type = KatanaType.NETHERITE;
-        } else if (item == RedemptionItems.LAPIS_SHEATHED) {
-            type = KatanaType.LAPIS;
-        }
-
-        return type;
-    }
-
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
-        Item item = stack.getItem();
-        int duration = 400;
+        KatanaType katanaType = KatanaType.getForItem(stack.getItem());
 
-        if (user.getOffHandStack().isEmpty()) {
-            ItemStack mainStack = null;
-            ItemStack offStack = null;
-            StatusEffectInstance effect = null;
+        ItemStack mainStack = new ItemStack(katanaType.katana);
+        ItemStack offStack = new ItemStack(katanaType.sheath);
+        List<StatusEffectInstance> effects = katanaType.effectInstances;
 
-            if (getKatanaType(item) == KatanaType.AMETHYST) {
-                mainStack = RedemptionItems.AMETHYST_KATANA.getDefaultStack();
-                offStack = RedemptionItems.AMETHYST_SHEATH.getDefaultStack();
-                effect = new StatusEffectInstance(StatusEffects.SPEED, duration);
-            }
-            if (getKatanaType(item) == KatanaType.LAPIS) {
-                mainStack = RedemptionItems.LAPIS_KATANA.getDefaultStack();
-                offStack = RedemptionItems.LAPIS_SHEATH.getDefaultStack();
-                effect = new StatusEffectInstance(StatusEffects.HASTE, duration);
+        user.setStackInHand(Hand.MAIN_HAND, mainStack);
+        user.getInventory().insertStack(PlayerInventory.OFF_HAND_SLOT, offStack);
+        stack.decrement(1);
 
+        if (!effects.isEmpty()) {
+            for (StatusEffectInstance instance : effects) {
+                user.addStatusEffect(instance);
             }
-            if (getKatanaType(item) == KatanaType.NETHERITE) {
-                mainStack = RedemptionItems.NETHERITE_KATANA.getDefaultStack();
-                offStack = RedemptionItems.NETHERITE_SHEATH.getDefaultStack();
-
-            }
-            if (getKatanaType(item) == KatanaType.EMERALD) {
-                mainStack = RedemptionItems.EMERALD_KATANA.getDefaultStack();
-                offStack = RedemptionItems.EMERALD_SHEATH.getDefaultStack();
-                effect = new StatusEffectInstance(StatusEffects.HERO_OF_THE_VILLAGE, duration);
-            }
-            if (getKatanaType(item) == KatanaType.REDSTONE) {
-                mainStack = RedemptionItems.REDSTONE_KATANA.getDefaultStack();
-                offStack = RedemptionItems.REDSTONE_SHEATH.getDefaultStack();
-                effect = new StatusEffectInstance(StatusEffects.STRENGTH, duration);
-            }
-            if (getKatanaType(item) == KatanaType.SCULK) {
-                mainStack = RedemptionItems.SCULK_KATANA.getDefaultStack();
-                offStack = RedemptionItems.SCULK_SHEATH.getDefaultStack();
-
-            }
-            if (getKatanaType(item) == KatanaType.QUARTZ) {
-                mainStack = RedemptionItems.QUARTZ_KATANA.getDefaultStack();
-                offStack = RedemptionItems.QUARTZ_SHEATH.getDefaultStack();
-                effect = new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, duration);
-            }
-            if (getKatanaType(item) == KatanaType.COPPER) {
-                mainStack = RedemptionItems.COPPER_KATANA.getDefaultStack();
-                offStack = RedemptionItems.COPPER_SHEATH.getDefaultStack();
-                effect = new StatusEffectInstance(StatusEffects.TRIAL_OMEN, duration);
-            }
-
-            stack.decrement(1);
-            user.equipStack(EquipmentSlot.MAINHAND, mainStack);
-            user.equipStack(EquipmentSlot.OFFHAND, offStack);
-
-            if (!(getKatanaType(item) == KatanaType.NETHERITE || getKatanaType(item) == KatanaType.SCULK)) {
-                user.addStatusEffect(effect);
-            } else if (getKatanaType(item) == KatanaType.NETHERITE) {
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, duration));
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, duration));
-                user.damage(user.getDamageSources().magic(), 4f);
-            } else if (getKatanaType(item) == KatanaType.SCULK) {
-                net.minecraft.util.math.Box box = new Box(user.getBlockPos()).expand(10, 10, 10);
-                List<LivingEntity> entities = user.getWorld().getEntitiesByClass(
-                        LivingEntity.class, box,
-                        entity -> true
-                );
-
-                for (LivingEntity entity : entities) {
-                    if (!(entity == user)) {
-                        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 400));
-                    }
-                }
-            }
-            user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400));
-
-            // sounds
-            user.playSound(RedemptionSoundEvents.UNSHEATHE);
         }
-        return super.use(world, user, hand);
+
+        if (katanaType == KatanaType.NETHERITE) {
+            user.damage(user.getDamageSources().magic(), 4.0F);
+        }
+
+        if (katanaType == KatanaType.SCULK) {
+            Box box = new Box(user.getBlockPos()).expand(10);
+
+            for (LivingEntity living : world.getEntitiesByClass(LivingEntity.class, box, EntityPredicates.EXCEPT_SPECTATOR.and(entity -> entity != user))) {
+                living.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 400));
+            }
+        }
+
+        user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400));
+        user.playSound(RedemptionSoundEvents.UNSHEATHE);
+
+        return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
     }
 
     public static AttributeModifiersComponent createAttributeModifiers() {
@@ -159,60 +86,47 @@ public class SheathedKatanaItem extends Item implements ColorableItem, ModelVary
     }
 
     public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
-        String texture = "";
-        
-        switch (getKatanaType(this)) {
-            case AMETHYST -> texture = "amethyst";
-            case REDSTONE -> texture = "redstone";
-            case SCULK -> texture = "sculk";
-            case QUARTZ -> texture = "quartz";
-            case EMERALD -> texture = "emerald";
-            case COPPER -> texture = "copper";
-            case NETHERITE -> texture = "netherite";
-            case LAPIS -> texture = "lapis";
-        }
-
-        Identifier textureId = Redemption.id(texture + "_sheathed");
-        Identifier altId = Redemption.id(texture + "_sheathed_handheld");
-
-        return MiscUtils.isGui(renderMode) ? textureId : altId;
+        Identifier id = Redemption.id(KatanaType.getForItem(this).id + "_sheathed");
+        return id.withSuffixedPath(MiscUtils.isGui(renderMode) ? "" : "_in_hand");
     }
 
     public List<Identifier> getModelsToLoad() {
         return Arrays.asList(
                 Redemption.id("amethyst_sheathed"),
-                Redemption.id("amethyst_sheathed_handheld"),
+                Redemption.id("amethyst_sheathed_in_hand"),
 
                 Redemption.id("redstone_sheathed"),
-                Redemption.id("redstone_sheathed_handheld"),
+                Redemption.id("redstone_sheathed_in_hand"),
 
                 Redemption.id("sculk_sheathed"),
-                Redemption.id("sculk_sheathed_handheld"),
+                Redemption.id("sculk_sheathed_in_hand"),
 
                 Redemption.id("quartz_sheathed"),
-                Redemption.id("quartz_sheathed_handheld"),
+                Redemption.id("quartz_sheathed_in_hand"),
 
                 Redemption.id("emerald_sheathed"),
-                Redemption.id("emerald_sheathed_handheld"),
+                Redemption.id("emerald_sheathed_in_hand"),
 
                 Redemption.id("copper_sheathed"),
-                Redemption.id("copper_sheathed_handheld"),
+                Redemption.id("copper_sheathed_in_hand"),
 
                 Redemption.id("netherite_sheathed"),
-                Redemption.id("netherite_sheathed_handheld"),
+                Redemption.id("netherite_sheathed_in_hand"),
 
                 Redemption.id("lapis_sheathed"),
-                Redemption.id("lapis_sheathed_handheld"));
+                Redemption.id("lapis_sheathed_in_hand")
+        );
     }
 
-    public enum KatanaType {
-        REDSTONE,
-        EMERALD,
-        QUARTZ,
-        NETHERITE,
-        COPPER,
-        AMETHYST,
-        LAPIS,
-        SCULK
+    public int startColor(ItemStack itemStack) {
+        return 0xFF6e5353;
+    }
+
+    public int endColor(ItemStack itemStack) {
+        return 0xFF271e1e;
+    }
+
+    public int backgroundColor(ItemStack itemStack) {
+        return 0xFF1d1212;
     }
 }
