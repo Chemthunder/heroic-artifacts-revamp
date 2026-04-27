@@ -23,15 +23,15 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         super(type, world);
     }
 
-    @Inject(method = "tryUseTotem", at = @At(value = "HEAD"), cancellable = true)
-    private void redemption$deathEffect(DamageSource deathSource, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "tryUseTotem", at = @At("RETURN"), cancellable = true)
+    private void redemption$deathEffect(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity living = (LivingEntity)(Object)this;
 
         if (living instanceof PlayerEntity player) {
             JudgementComponent judge = JudgementComponent.KEY.get(player);
 
-            if (judge.isJudgement()) {
-                if (!deathSource.isOf(RedemptionDamageTypes.DESCEND)) {
+            if (judge.isJudgement() && !cir.getReturnValue()) {
+                if (!source.isOf(RedemptionDamageTypes.DESCEND)) {
                     player.setHealth(player.getMaxHealth());
                     player.setVelocity(0, 0.3, 0);
                     player.velocityModified = true;
@@ -46,24 +46,15 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         }
     }
 
-    @ModifyReturnValue(method = "getMaxHealth", at = @At(value = "RETURN"))
+    @ModifyReturnValue(method = "getMaxHealth", at = @At("RETURN"))
     private float redemption$judgeMaxHealth(float original) {
-        LivingEntity living = (LivingEntity)(Object)this;
-        if (living instanceof PlayerEntity player && JudgementComponent.KEY.get(player).isJudgement()) {
-            return 40.0f;
-        }
-        
-        return original;
+        JudgementComponent component = JudgementComponent.KEY.getNullable(this);
+        return component != null && component.isJudgement() ? 40.0F : original;
     }
 
     @WrapMethod(method = "heal")
     private void redemption$judgeBoostedHeal(float amount, Operation<Void> original) {
-        LivingEntity living = (LivingEntity)(Object)this;
-
-        if (living instanceof PlayerEntity player) {
-            original.call(JudgementComponent.KEY.get(player).isJudgement() ? amount * 2 : amount);
-        } else {
-            original.call(amount);
-        }
+        JudgementComponent component = JudgementComponent.KEY.getNullable(this);
+        original.call(component != null && component.isJudgement() ? amount * 1.8F : amount);
     }
 }

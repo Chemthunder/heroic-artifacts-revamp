@@ -17,7 +17,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import silly.chemthunder.redemption.impl.cca.entity.EnshroudedComponent;
 import silly.chemthunder.redemption.impl.index.RedemptionParticles;
-import silly.chemthunder.redemption.impl.index.RedemptionSoundEvents;
+import silly.chemthunder.redemption.impl.index.RedemptionSounds;
 
 import java.util.List;
 
@@ -45,31 +45,18 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
         EnshroudedComponent shroud = EnshroudedComponent.KEY.get(user);
 
         if (user.getOffHandStack().isOf(this)) {
-            if (!shroud.isShrouded()) {
-                shroud.setShrouded(true);
-                user.setInvisible(true);
-            } else {
-                shroud.setShrouded(false);
-                user.setInvisible(false);
-            }
+            shroud.setShrouded(!shroud.isShrouded());
 
             if (world instanceof ServerWorld serverWorld) {
                 serverWorld.spawnParticles(RedemptionParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
                 serverWorld.spawnParticles(ParticleTypes.SQUID_INK, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
             }
         } else if (user.getMainHandStack().isOf(this)) {
-            net.minecraft.util.math.Box box = new Box(user.getBlockPos()).expand(10, 10, 10);
-            List<LivingEntity> entities = user.getWorld().getEntitiesByClass(
-                    LivingEntity.class, box,
-                    entity -> true
-            );
+            for (LivingEntity entity : world.getEntitiesByClass(LivingEntity.class, new Box(user.getBlockPos()).expand(10), living -> living != user)) {
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 600));
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600));
 
-            for (LivingEntity entity : entities) {
-                if (entity != user) {
-                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 600));
-                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600));
-                }
-                entity.playSound(RedemptionSoundEvents.HUNTER_BLACKOUT);
+                entity.playSound(RedemptionSounds.HUNTERS_GLASS_BLACKOUT);
             }
         }
 
@@ -77,10 +64,8 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
     }
 
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        int color = 0xb629eb;
-
         for (int i = 0; i < 3; i++) {
-            tooltip.add(Text.translatable("lore.hunters_glass." + i).withColor(color));
+            tooltip.add(Text.translatable("lore.hunters_glass." + i).withColor(0xFFb629eb));
         }
 
         super.appendTooltip(stack, context, tooltip, type);

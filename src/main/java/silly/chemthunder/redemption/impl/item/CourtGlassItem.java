@@ -4,7 +4,6 @@ import com.nitron.nitrogen.util.interfaces.ColorableItem;
 import com.nitron.nitrogen.util.interfaces.ScreenShaker;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.WitherSkeletonEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -19,12 +18,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import silly.chemthunder.redemption.impl.cca.entity.JudgementComponent;
 import silly.chemthunder.redemption.impl.cca.entity.flash.JudgementFlashComponent;
+import silly.chemthunder.redemption.impl.component.KatanaComponent;
+import silly.chemthunder.redemption.impl.index.RedemptionDataComponents;
 import silly.chemthunder.redemption.impl.index.RedemptionItems;
-import silly.chemthunder.redemption.impl.index.RedemptionSoundEvents;
+import silly.chemthunder.redemption.impl.index.RedemptionSounds;
+import silly.chemthunder.redemption.impl.util.ModUtil;
 
 import java.util.List;
 
@@ -34,26 +35,24 @@ public class CourtGlassItem extends Item implements ColorableItem {
     }
 
     public boolean hasGlint(ItemStack stack) {
-        return true;
+        return false;
     }
 
-    public int startColor(ItemStack itemStack) {
+    public int startColor(ItemStack stack) {
         return 0xFF00fbff;
     }
 
-    public int endColor(ItemStack itemStack) {
+    public int endColor(ItemStack stack) {
         return 0xFF153030;
     }
 
-    public int backgroundColor(ItemStack itemStack) {
+    public int backgroundColor(ItemStack stack) {
         return 0xF0040a0a;
     }
 
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        int color = 0x26bdbd;
-
         for (int i = 0; i < 3; i++) {
-            tooltip.add(Text.translatable("lore.court_glass." + i).withColor(color));
+            tooltip.add(Text.translatable("lore.court_glass." + i).withColor(0xFF26bdbd));
         }
 
         super.appendTooltip(stack, context, tooltip, type);
@@ -67,6 +66,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
                 summonCourt(world, user);
             }
         }
+
         return super.use(world, user, hand);
     }
 
@@ -74,24 +74,18 @@ public class CourtGlassItem extends Item implements ColorableItem {
         double x = player.getX();
         double y = player.getY();
         double z = player.getZ();
-        JudgementComponent judge = JudgementComponent.KEY.get(player);
+        JudgementComponent component = JudgementComponent.KEY.get(player);
 
-        judge.setJudgement(true);
+        component.setJudgement(true);
         player.setHealth(player.getMaxHealth());
 
-        net.minecraft.util.math.Box box = new Box(player.getBlockPos()).expand(100, 100, 100);
-        List<LivingEntity> entities = player.getWorld().getEntitiesByClass(
-                LivingEntity.class, box,
-                entity -> true
-        );
+        for (PlayerEntity playerEntity : world.getPlayers()) {
+            JudgementFlashComponent.KEY.get(playerEntity).setFlashTicks(20);
 
-        for (LivingEntity entity : entities) {
-            JudgementFlashComponent.KEY.get(entity).setFlashTicks(20);
-
-            entity.playSound(SoundEvents.BLOCK_CONDUIT_AMBIENT_SHORT);
-            entity.playSound(SoundEvents.ENTITY_WARDEN_HEARTBEAT);
-            entity.playSound(SoundEvents.ENTITY_WARDEN_EMERGE);
-            entity.playSound(RedemptionSoundEvents.BECOME_JUDGE);
+            playerEntity.playSound(SoundEvents.BLOCK_CONDUIT_AMBIENT_SHORT);
+            playerEntity.playSound(SoundEvents.ENTITY_WARDEN_HEARTBEAT);
+            playerEntity.playSound(SoundEvents.ENTITY_WARDEN_EMERGE);
+            playerEntity.playSound(RedemptionSounds.EVENT_BECOME_JUDGE);
         }
 
         if (!player.isInCreativeMode()) offStack.decrement(1);
@@ -104,9 +98,8 @@ public class CourtGlassItem extends Item implements ColorableItem {
                 screenShaker.addScreenShake(5, 1);
             }
 
-            // msg
-            for (ServerPlayerEntity sPlayer : serverWorld.getPlayers()) {
-                sPlayer.sendMessage(Text.translatable(player.getNameForScoreboard()).append(Text.literal(" was crowned for Judgement")), false);
+            for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
+                serverPlayer.sendMessage(Text.translatable(player.getNameForScoreboard()).append(Text.literal(" was crowned for Judgement")), false);
             }
         }
     }
@@ -115,18 +108,29 @@ public class CourtGlassItem extends Item implements ColorableItem {
         for (int i = 0; i < 15; i++) {
             WitherSkeletonEntity glassCannon = new WitherSkeletonEntity(EntityType.WITHER_SKELETON, world);
 
-            glassCannon.equipStack(EquipmentSlot.MAINHAND, RedemptionItems.SCULK_KATANA.getDefaultStack());
-            glassCannon.equipStack(EquipmentSlot.OFFHAND, RedemptionItems.SCULK_SHEATH.getDefaultStack());
+            ItemStack katana = RedemptionItems.SCULK_KATANA.getDefaultStack();
+            ItemStack sheath = ModUtil.copy(katana,
+                    RedemptionDataComponents.KATANA,
+                    KatanaComponent.get(katana)
+                            .withBladeType(KatanaComponent.BladeType.SHEATH)
+            );
+
+            glassCannon.equipStack(EquipmentSlot.MAINHAND, katana);
+            glassCannon.equipStack(EquipmentSlot.OFFHAND, sheath);
             glassCannon.equipStack(EquipmentSlot.HEAD, Items.DIAMOND_HELMET.getDefaultStack());
             glassCannon.equipStack(EquipmentSlot.CHEST, Items.DIAMOND_CHESTPLATE.getDefaultStack());
             glassCannon.equipStack(EquipmentSlot.LEGS, Items.DIAMOND_LEGGINGS.getDefaultStack());
             glassCannon.equipStack(EquipmentSlot.FEET, Items.DIAMOND_BOOTS.getDefaultStack());
 
+            for (EquipmentSlot slot : EquipmentSlot.values()) {
+                if (glassCannon.getEquippedStack(slot).isEmpty()) continue;
+                glassCannon.setEquipmentDropChance(slot, 0.0F);
+            }
+
             glassCannon.updatePosition(user.getX(), user.getY(), user.getZ());
             glassCannon.setCustomNameVisible(true);
             glassCannon.setCustomName(Text.translatable("lore.courtling").formatted(Formatting.BLUE));
             glassCannon.setGlowing(true);
-
 
             if (world instanceof ServerWorld serverWorld) {
                 serverWorld.spawnEntity(glassCannon);

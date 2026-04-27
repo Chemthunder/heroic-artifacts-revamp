@@ -10,10 +10,10 @@ import silly.chemthunder.redemption.impl.Redemption;
 import silly.chemthunder.redemption.impl.util.IkirPowerManager;
 
 public record IkirImmolationPayload() implements CustomPayload {
-    public static final CustomPayload.Id<IkirImmolationPayload> ID = new CustomPayload.Id<>(Redemption.id("ikir_immolation"));
+    public static final Id<IkirImmolationPayload> ID = new Id<>(Redemption.id("ikir_immolation"));
     public static final PacketCodec<RegistryByteBuf, IkirImmolationPayload> CODEC = PacketCodec.unit(new IkirImmolationPayload());
 
-    public CustomPayload.Id<? extends CustomPayload> getId() {
+    public Id<? extends CustomPayload> getId() {
         return ID;
     }
 

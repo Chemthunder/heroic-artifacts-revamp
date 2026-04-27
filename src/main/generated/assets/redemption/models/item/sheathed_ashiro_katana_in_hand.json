@@ -1,0 +1,6 @@
+{
+  "parent": "redemption:item/sheathed_katana_in_hand",
+  "textures": {
+    "layer0": "redemption:item/sheathed_ashiro_katana_in_hand"
+  }
+}

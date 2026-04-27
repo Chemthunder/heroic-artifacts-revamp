@@ -10,7 +10,7 @@ import silly.chemthunder.redemption.impl.Redemption;
 import silly.chemthunder.redemption.impl.util.IkirPowerManager;
 
 public record IkirGameModeSwitchPayload() implements CustomPayload {
-    public static final CustomPayload.Id<IkirGameModeSwitchPayload> ID = new CustomPayload.Id<>(Redemption.id("ikir_switch_gamemode"));
+    public static final Id<IkirGameModeSwitchPayload> ID = new Id<>(Redemption.id("ikir_switch_gamemode"));
     public static final PacketCodec<RegistryByteBuf, IkirGameModeSwitchPayload> CODEC = PacketCodec.unit(new IkirGameModeSwitchPayload());
 
     public Id<? extends CustomPayload> getId() {

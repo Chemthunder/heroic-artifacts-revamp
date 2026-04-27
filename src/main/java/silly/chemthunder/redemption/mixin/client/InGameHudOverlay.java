@@ -29,8 +29,8 @@ public abstract class InGameHudOverlay {
     @Unique private static final Identifier CUSTOM_HOTBAR = Redemption.id("hud/custom_hotbar");
     @Unique private static final Identifier CUSTOM_HOTBAR_SELECTOR = Redemption.id("hud/custom_hotbar_selection");
 
-    @Inject(method = "renderMiscOverlays", at = @At(value = "TAIL"))
-    private void redemption$flashOverlays(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+    @Inject(method = "renderMiscOverlays", at = @At("TAIL"))
+    private void redemption$flowerOverlay(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         if (MinecraftClient.getInstance().getCameraEntity() instanceof PlayerEntity player) {
             int judgeFlashTicks = JudgementFlashComponent.KEY.get(player).getFlashTicks();
             if (judgeFlashTicks > 0) {

@@ -21,6 +21,30 @@ public class RedemptionDamageTypeTagGen extends FabricTagProvider<DamageType> {
                 .add(RedemptionDamageTypes.IMMOLATION)
                 .setReplace(false);
 
+        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_SHIELD)
+                .add(RedemptionDamageTypes.DESCEND)
+                .setReplace(false);
+
+        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_INVULNERABILITY)
+                .add(RedemptionDamageTypes.DESCEND)
+                .setReplace(false);
+
+        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_COOLDOWN)
+                .add(RedemptionDamageTypes.DESCEND)
+                .setReplace(false);
+
+        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS)
+                .add(RedemptionDamageTypes.DESCEND)
+                .setReplace(false);
+
+        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE)
+                .add(RedemptionDamageTypes.DESCEND)
+                .setReplace(false);
+
+        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS)
+                .add(RedemptionDamageTypes.DESCEND)
+                .setReplace(false);
+
         this.getOrCreateTagBuilder(DamageTypeTags.NO_KNOCKBACK)
                 .add(RedemptionDamageTypes.DESCEND)
                 .setReplace(false);

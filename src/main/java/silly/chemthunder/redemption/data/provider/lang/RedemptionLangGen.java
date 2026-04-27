@@ -1,10 +1,12 @@
 package silly.chemthunder.redemption.data.provider.lang;
 
 
+import net.acoyt.acornlib.api.util.DataUtils;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.RegistryWrapper;
 import silly.chemthunder.redemption.impl.index.RedemptionItems;
+import silly.chemthunder.redemption.impl.index.data.RedemptionDamageTypes;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -18,13 +20,17 @@ public class RedemptionLangGen extends FabricLanguageProvider {
 
         builder.add("itemGroup.redemption", "Redemption");
 
-        builder.add("death.attack.katana", "%1$s was cut in half");
-        builder.add("death.attack.katana.player", "%1$s was cut in half by %2$s");
-        builder.add("death.attack.katana.item", "%1$s was cut in half by %2$s wielding %3$s");
+        DataUtils.registerDamageType(builder, RedemptionDamageTypes.KATANA,
+                "%1$s was cut in half",
+                "%1$s was cut in half by %2$s wielding %3$s",
+                "%1$s was cut in half by %2$s"
+        );
 
-        builder.add("death.attack.descend", "%1$s's purpose was revoked");
-        builder.add("death.attack.descend.player", "%1$s's purpose was revoked");
-        builder.add("death.attack.descend.item", "%1$s's purpose was revoked");
+        DataUtils.registerDamageType(builder, RedemptionDamageTypes.DESCEND,
+                "%1$s's purpose was revoked",
+                "%1$s's purpose was revoked by %2$s with %3$s",
+                "%1$s's purpose was revoked by %2$s"
+        );
 
         builder.add("lore.court_glass.0", "An ancient artifact that has been passed down");
         builder.add("lore.court_glass.1", "time and time again from one Judge to the next.");
@@ -34,12 +40,8 @@ public class RedemptionLangGen extends FabricLanguageProvider {
         builder.add("lore.hunters_glass.1", "It was said to be once wielded by the Last Judge.");
         builder.add("lore.hunters_glass.2", "Now, it's in your hands. Don't let her down.");
 
-        builder.add("category.redemption", "Ikir Abilities");
+        builder.add("category.redemption", "Redemption");
         builder.add("key.redemption.switch_gamemodes", "Switch Game Modes");
         builder.add("key.redemption.use_immolation", "Use Immolation");
-
-        // builder.add("tag.item.redemption.katanas", "Katanas");
-        // builder.add("tag.item.redemption.sheaths", "Sheaths");
-        // builder.add("tag.item.redemption.sheathed_katanas", "Sheathed Katanas");
     }
 }

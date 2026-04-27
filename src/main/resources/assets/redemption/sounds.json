@@ -1,38 +1,45 @@
 {
-  "item.hunter.blackout": {
-    "sounds": [
-      "redemption:item/blackout"
-    ],
-    "subtitle": "subtitles.redemption.blackout"
-  },
-  "item.unsheathe": {
-    "sounds": [
-      "redemption:item/unsheathe"
-    ],
-    "subtitle": "subtitles.redemption.unsheathe"
-  },
-  "event.become_judge": {
-    "sounds": [
-      "redemption:event/become_judge"
-    ],
-    "subtitle": "subtitles.redemption.become_judge"
-  },
-  "event.judge_death": {
-    "sounds": [
-      "redemption:event/judge_death"
-    ],
-    "subtitle": "subtitles.redemption.judge_death"
-  },
-  "event.ping": {
-    "sounds": [
-      "redemption:event/ping"
-    ],
-    "subtitle": "subtitles.redemption.ping"
-  },
-  "event.sonar_ping": {
-    "sounds": [
-      "redemption:event/sonar_ping"
-    ],
-    "subtitle": "subtitles.redemption.sonar_ping"
-  }
+    "item.hunters_glass.blackout": {
+        "sounds": [
+            "redemption:item/hunters_glass_blackout"
+        ],
+        "subtitle": "redemption.subtitles.item.hunters_glass.blackout"
+    },
+    "item.katana.unsheathe": {
+        "sounds": [
+            "redemption:item/katana_unsheathe"
+        ],
+        "subtitle": "redemption.subtitles.item.katana.unsheathe"
+    },
+    "item.katana.sheathe": {
+        "sounds": [
+            "redemption:item/katana_sheathe"
+        ],
+        "subtitle": "redemption.subtitles.item.katana.sheathe"
+    },
+
+    "event.become_judge": {
+        "sounds": [
+            "redemption:event/become_judge"
+        ],
+        "subtitle": "redemption.subtitles.event.become_judge"
+    },
+    "event.judge_death": {
+        "sounds": [
+            "redemption:event/judge_death"
+        ],
+        "subtitle": "redemption.subtitles.event.judge_death"
+    },
+    "event.ping": {
+        "sounds": [
+            "redemption:event/ping"
+        ],
+        "subtitle": "redemption.subtitles.event.ping"
+    },
+    "event.sonar_ping": {
+        "sounds": [
+            "redemption:event/sonar_ping"
+        ],
+        "subtitle": "redemption.subtitles.event.sonar_ping"
+    }
 }

@@ -22,7 +22,7 @@ public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extend
         super(context);
     }
 
-    @Inject(method = "renderArmor", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
     private void redemption$cancelArmorRenderingBecauseSimoneIsAwesome(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, EquipmentSlot armorSlot, int light, A model, CallbackInfo ci) {
         if (entity instanceof PlayerEntity player) {
             if (EnshroudedComponent.KEY.get(player).isShrouded() || JudgementComponent.KEY.get(player).isJudgement()) {

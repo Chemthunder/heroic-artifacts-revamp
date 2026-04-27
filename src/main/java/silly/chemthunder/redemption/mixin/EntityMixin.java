@@ -9,9 +9,10 @@ import silly.chemthunder.redemption.impl.cca.entity.EnshroudedComponent;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
-    @Inject(method = "spawnSprintingParticles", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "spawnSprintingParticles", at = @At("HEAD"), cancellable = true)
     private void redemption$disableSprintingParticles(CallbackInfo ci) {
-        EnshroudedComponent component = EnshroudedComponent.KEY.getNullable(this);
-        if (component != null && component.isShrouded()) ci.cancel();
+        EnshroudedComponent.KEY.maybeGet(this).ifPresent(component -> {
+            if (component.isShrouded()) ci.cancel();
+        });
     }
 }

@@ -11,16 +11,16 @@ import silly.chemthunder.redemption.impl.Redemption;
 
 public class FlashComponent implements AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<FlashComponent> KEY = ComponentRegistry.getOrCreate(Redemption.id("flash"), FlashComponent.class);
+    private final LivingEntity living;
 
-    private final LivingEntity player;
     private int flashTicks = 0;
 
-    public FlashComponent(LivingEntity player) {
-        this.player = player;
+    public FlashComponent(LivingEntity living) {
+        this.living = living;
     }
 
     public void sync() {
-        KEY.sync(this.player);
+        KEY.sync(this.living);
     }
 
     public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {

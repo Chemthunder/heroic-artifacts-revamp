@@ -8,6 +8,7 @@ import silly.chemthunder.redemption.data.provider.RedemptionDamageTypeTagGen;
 import silly.chemthunder.redemption.data.provider.RedemptionDynamicRegistryGen;
 import silly.chemthunder.redemption.data.provider.RedemptionItemTagGen;
 import silly.chemthunder.redemption.data.provider.lang.RedemptionLangGen;
+import silly.chemthunder.redemption.data.provider.lang.RedemptionLolLangGen;
 import silly.chemthunder.redemption.data.provider.resources.RedemptionModelGen;
 import silly.chemthunder.redemption.impl.index.data.RedemptionDamageTypes;
 
@@ -16,6 +17,7 @@ public class RedemptionDatagen implements DataGeneratorEntrypoint {
         FabricDataGenerator.Pack pack = generator.createPack();
 
         pack.addProvider(RedemptionLangGen::new);
+        pack.addProvider(RedemptionLolLangGen::new);
 
         pack.addProvider(RedemptionModelGen::new);
 
