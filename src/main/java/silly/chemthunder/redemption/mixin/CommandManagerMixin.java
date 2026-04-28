@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
  * @author AcoYT
  */
 @Mixin(CommandManager.class)
-public class CommandManagerMixin {
+public abstract class CommandManagerMixin {
     @ModifyExpressionValue(
             method = "<init>",
             at = @At(

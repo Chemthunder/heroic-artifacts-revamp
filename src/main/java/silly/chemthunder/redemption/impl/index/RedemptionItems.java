@@ -1,7 +1,11 @@
 package silly.chemthunder.redemption.impl.index;
 
 import net.acoyt.acornlib.api.registrants.ItemRegistrant;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import silly.chemthunder.redemption.impl.Redemption;
@@ -101,9 +105,18 @@ public interface RedemptionItems {
     Item HUNTERS_GLASS = ITEMS.register("hunters_glass", HuntersCourtGlassItem::new, new RedemptionItemSettings()
             .maxCount(1));
 
+    Item ICE_CREAM = ITEMS.register("ice_cream", Item::new, new Item.Settings()
+            .food(new FoodComponent.Builder().nutrition(4).saturationModifier(0.35F).build()));
+
     static void init() {
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(RedemptionItems::addFoodEntries);
+
         // Colors
         modifyItemNameColor(HUNTERS_GLASS, 0xFFb73aaa);
         modifyItemNameColor(COURT_GLASS, 0xFF517bb2);
+    }
+
+    private static void addFoodEntries(FabricItemGroupEntries entries) {
+        entries.addAfter(Items.COOKIE, ICE_CREAM);
     }
 }

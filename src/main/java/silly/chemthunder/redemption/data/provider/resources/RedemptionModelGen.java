@@ -27,6 +27,7 @@ public class RedemptionModelGen extends FabricModelProvider {
 
         generator.register(RedemptionItems.COURT_GLASS, Models.GENERATED);
         generator.register(RedemptionItems.HUNTERS_GLASS, Models.GENERATED);
+        generator.register(RedemptionItems.ICE_CREAM, RedemptionModels.HANDHELD_FLIPPED);
     }
 
     private static void registerKatana(ItemModelGenerator generator, Item item) {
