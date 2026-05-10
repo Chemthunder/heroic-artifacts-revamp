@@ -1,0 +1,23 @@
+package net.theherorobot.redemption.impl.index;
+
+import net.acoyt.acornlib.api.registrants.EntityTypeRegistrant;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.entity.EmptyEntityRenderer;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
+import net.theherorobot.redemption.impl.Redemption;
+import net.theherorobot.redemption.impl.entity.ImmolationFlamesEntity;
+
+public interface RedemptionEntities {
+    EntityTypeRegistrant ENTITIES = new EntityTypeRegistrant(Redemption.MOD_ID);
+
+    EntityType<ImmolationFlamesEntity> IMMOLATION_FLAMES = ENTITIES.register("immolation_flames",
+            EntityType.Builder.<ImmolationFlamesEntity>create(ImmolationFlamesEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.7f, 0.7f));
+
+    static void init() {}
+
+    static void clientInit() {
+        EntityRendererRegistry.register(IMMOLATION_FLAMES, EmptyEntityRenderer::new);
+    }
+}

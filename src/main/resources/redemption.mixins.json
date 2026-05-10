@@ -1,22 +1,23 @@
 {
-  "required": true,
-  "package": "silly.chemthunder.redemption.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-    "CommandManagerMixin",
-    "EntityMixin",
-    "LivingEntityMixin",
-    "PlayerEntityMixin",
-    "compat.acornlib.ItemRegistrantMixin"
-  ],
-  "client": [
-    "client.ArmorFeatureRendererMixin",
-    "client.ClientPlayerEntityMixin",
-    "client.EntityRenderDispatcherMixin",
-    "client.InGameHudOverlay",
-    "client.PlayerEntityRendererMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "required": true,
+    "package": "net.theherorobot.redemption.mixin",
+    "plugin": "net.theherorobot.redemption.impl.util.RedemptionMixinPlugin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "CommandManagerMixin",
+        "EntityMixin",
+        "LivingEntityMixin",
+        "PlayerEntityMixin",
+        "compat.acornlib.ItemRegistrantMixin"
+    ],
+    "client": [
+        "client.ArmorFeatureRendererMixin",
+        "client.ClientPlayerEntityMixin",
+        "client.EntityRenderDispatcherMixin",
+        "client.InGameHudOverlay",
+        "client.PlayerEntityRendererMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
 }
