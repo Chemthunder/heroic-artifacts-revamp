@@ -18,7 +18,7 @@ import net.the_hero_robot.redemption.impl.util.ModUtil;
  */
 @Mixin(ItemRegistrant.class)
 public abstract class ItemRegistrantMixin {
-    @WrapMethod(method = "lambda$registerLang$1")
+    @WrapMethod(method = "lambda$registerLang$2")
     private void redemption$registerMultipleForKatanas(FabricLanguageProvider.TranslationBuilder builder, Item item, Operation<Void> original) {
         if (item instanceof KatanaItem) {
             for (KatanaComponent.BladeType bladeType : KatanaComponent.BladeType.values()) {

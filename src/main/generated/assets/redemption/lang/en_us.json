@@ -39,10 +39,11 @@
   "itemGroup.redemption": "Redemption",
   "key.redemption.switch_gamemodes": "Switch Game Modes",
   "key.redemption.use_immolation": "Use Immolation",
-  "lore.court_glass.0": "An ancient artifact that has been passed down",
-  "lore.court_glass.1": "time and time again from one Judge to the next.",
-  "lore.court_glass.2": "It's your turn now.",
-  "lore.hunters_glass.0": "An artifact from a time long ago.",
-  "lore.hunters_glass.1": "It was said to be once wielded by the Last Judge.",
-  "lore.hunters_glass.2": "Now, it's in your hands. Don't let her down."
+  "tag.item.redemption.katanas": "Katanas",
+  "tooltip.redemption.court_glass.0": "An ancient artifact that has been passed down",
+  "tooltip.redemption.court_glass.1": "time and time again from one Judge to the next.",
+  "tooltip.redemption.court_glass.2": "It's your turn now.",
+  "tooltip.redemption.hunters_glass.0": "An artifact from a time long ago.",
+  "tooltip.redemption.hunters_glass.1": "It was said to be once wielded by the Last Judge.",
+  "tooltip.redemption.hunters_glass.2": "Now, it's in your hands. Don't let her down."
 }

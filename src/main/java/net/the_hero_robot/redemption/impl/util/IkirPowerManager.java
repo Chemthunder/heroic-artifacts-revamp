@@ -10,10 +10,8 @@ import net.the_hero_robot.redemption.impl.index.RedemptionEntities;
 import java.util.UUID;
 
 public class IkirPowerManager {
-    public static void switchGameMode(PlayerEntity player) {
-        if (player instanceof ServerPlayerEntity serverPlayer) {
-            serverPlayer.changeGameMode(serverPlayer.isCreative() ? GameMode.SURVIVAL : GameMode.CREATIVE);
-        }
+    public static void switchGameMode(ServerPlayerEntity player) {
+        player.changeGameMode(player.isCreative() ? GameMode.SURVIVAL : GameMode.CREATIVE);
     }
 
     public static void useImmolation(PlayerEntity player) {
@@ -26,6 +24,7 @@ public class IkirPowerManager {
     }
 
     public static boolean isHero(Entity entity) {
-        return entity != null && entity.getUuid().equals(UUID.fromString("ba9c2526-bf12-4705-9051-5886e41aad0d"));
+        if (entity == null) return false;
+        return entity.getUuid().equals(UUID.fromString("ba9c2526-bf12-4705-9051-5886e41aad0d"));
     }
 }

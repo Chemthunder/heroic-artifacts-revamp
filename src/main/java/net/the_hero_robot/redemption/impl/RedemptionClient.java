@@ -10,7 +10,7 @@ import net.the_hero_robot.redemption.impl.event.client.SelfTransparencyEvent;
 import net.the_hero_robot.redemption.impl.index.RedemptionEntities;
 import net.the_hero_robot.redemption.impl.networking.RedemptionNetworking;
 import net.the_hero_robot.redemption.impl.index.RedemptionParticles;
-import net.the_hero_robot.redemption.impl.util.RedemptionKeybindings;
+import net.the_hero_robot.redemption.impl.util.RedemptionKeyBindings;
 
 @Environment(EnvType.CLIENT)
 public class RedemptionClient implements ClientModInitializer {
@@ -19,7 +19,7 @@ public class RedemptionClient implements ClientModInitializer {
         RedemptionParticles.clientInit();
         RedemptionEntities.clientInit();
 
-        RedemptionKeybindings.register();
+        RedemptionKeyBindings.register();
 
         /* Networking */
         RedemptionNetworking.registerS2CPackets();
