@@ -1,7 +1,7 @@
 {
     "required": true,
-    "package": "net.theherorobot.redemption.mixin",
-    "plugin": "net.theherorobot.redemption.impl.util.RedemptionMixinPlugin",
+    "package": "net.the_hero_robot.redemption.mixin",
+    "plugin": "net.the_hero_robot.redemption.impl.util.RedemptionMixinPlugin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
         "CommandManagerMixin",

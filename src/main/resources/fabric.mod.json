@@ -15,16 +15,16 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "net.theherorobot.redemption.impl.Redemption"
+            "net.the_hero_robot.redemption.impl.Redemption"
         ],
         "client": [
-            "net.theherorobot.redemption.impl.RedemptionClient"
+            "net.the_hero_robot.redemption.impl.RedemptionClient"
         ],
         "fabric-datagen": [
-            "net.theherorobot.redemption.data.RedemptionDatagen"
+            "net.the_hero_robot.redemption.data.RedemptionDatagen"
         ],
         "cardinal-components": [
-            "net.theherorobot.redemption.impl.cca.RedemptionComponents"
+            "net.the_hero_robot.redemption.impl.cca.RedemptionComponents"
         ]
     },
     "mixins": [
