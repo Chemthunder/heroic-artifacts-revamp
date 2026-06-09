@@ -16,6 +16,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 @Mixin(ArmorFeatureRenderer.class)
 public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEntityModel<T>, A extends BipedEntityModel<T>> extends FeatureRenderer<T, M> {
     public ArmorFeatureRendererMixin(FeatureRendererContext<T, M> context) {

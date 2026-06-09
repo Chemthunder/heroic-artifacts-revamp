@@ -10,6 +10,9 @@ import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * @author AcoYT
+ */
 public class RedemptionDamageTypeTagGen extends FabricTagProvider<DamageType> {
     public RedemptionDamageTypeTagGen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, RegistryKeys.DAMAGE_TYPE, registriesFuture);
@@ -48,5 +51,9 @@ public class RedemptionDamageTypeTagGen extends FabricTagProvider<DamageType> {
         this.getOrCreateTagBuilder(DamageTypeTags.NO_KNOCKBACK)
                 .add(RedemptionDamageTypes.DESCEND)
                 .setReplace(false);
+    }
+
+        public String getName() {
+        return Redemption.MOD_ID + "_damage_type_tags";
     }
 }

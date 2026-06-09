@@ -12,6 +12,10 @@ import net.the_hero_robot.redemption.data.provider.lang.RedemptionLolLangGen;
 import net.the_hero_robot.redemption.data.provider.resources.RedemptionModelGen;
 import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class RedemptionDatagen implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
         FabricDataGenerator.Pack pack = generator.createPack();

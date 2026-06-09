@@ -11,6 +11,9 @@ import net.the_hero_robot.redemption.impl.index.client.RedemptionModels;
 import net.the_hero_robot.redemption.impl.item.KatanaItem;
 import net.the_hero_robot.redemption.impl.util.ModUtil;
 
+/**
+ * @author AcoYT
+ */
 public class RedemptionModelGen extends FabricModelProvider {
     public RedemptionModelGen(FabricDataOutput output) {
         super(output);
@@ -44,5 +47,9 @@ public class RedemptionModelGen extends FabricModelProvider {
 
             inHandModel.upload(inHandId, TextureMap.layer0(inHandId), generator.writer);
         }
+    }
+
+    public String getName() {
+        return Redemption.MOD_ID + "_models";
     }
 }

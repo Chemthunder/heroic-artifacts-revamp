@@ -9,6 +9,10 @@ import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
 import net.the_hero_robot.redemption.impl.Redemption;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class FlashComponent implements AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<FlashComponent> KEY = ComponentRegistry.getOrCreate(Redemption.id("flash"), FlashComponent.class);
     private final LivingEntity living;

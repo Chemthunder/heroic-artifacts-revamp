@@ -11,6 +11,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public record AshiroComponent(RegistryKey<World> world, Vec3d pos) {
     public static final AshiroComponent DEFAULT = new AshiroComponent(World.OVERWORLD, Vec3d.ZERO);
 

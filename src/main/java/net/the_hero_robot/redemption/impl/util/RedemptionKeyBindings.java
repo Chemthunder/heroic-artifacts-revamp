@@ -11,6 +11,10 @@ import net.the_hero_robot.redemption.impl.networking.c2s.IkirGameModeSwitchPaylo
 import net.the_hero_robot.redemption.impl.networking.c2s.IkirImmolationPayload;
 import org.lwjgl.glfw.GLFW;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class RedemptionKeyBindings {
     public static KeyBinding switchGameMode;
     public static KeyBinding useImmolation;

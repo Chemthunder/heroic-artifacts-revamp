@@ -8,6 +8,10 @@ import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.the_hero_robot.redemption.impl.Redemption;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class EnshroudedComponent implements AutoSyncedComponent {
     public static final ComponentKey<EnshroudedComponent> KEY = ComponentRegistry.getOrCreate(Redemption.id("shrouded"), EnshroudedComponent.class);
     private final PlayerEntity player;

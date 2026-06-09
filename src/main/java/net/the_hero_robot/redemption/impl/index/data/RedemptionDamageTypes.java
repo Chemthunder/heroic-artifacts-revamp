@@ -10,6 +10,9 @@ import net.minecraft.world.World;
 import net.the_hero_robot.redemption.impl.Redemption;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * @author AcoYT
+ */
 public interface RedemptionDamageTypes {
     KeyedBuilder<DamageType> TYPES = new KeyedBuilder<>(Redemption.MOD_ID, RegistryKeys.DAMAGE_TYPE);
 

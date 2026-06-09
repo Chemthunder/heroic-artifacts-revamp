@@ -19,6 +19,10 @@ import net.the_hero_robot.redemption.impl.index.RedemptionItems;
 import net.the_hero_robot.redemption.impl.index.RedemptionSounds;
 import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class JudgementComponent implements AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<JudgementComponent> KEY = ComponentRegistry.getOrCreate(Redemption.id("judgement"), JudgementComponent.class);
     private final PlayerEntity player;

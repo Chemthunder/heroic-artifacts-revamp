@@ -12,6 +12,10 @@ import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
 import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class ImmolationComponent implements AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<ImmolationComponent> KEY = MiscUtils.getOrCreateKey(Redemption.id("immolation"), ImmolationComponent.class);
     private final LivingEntity living;

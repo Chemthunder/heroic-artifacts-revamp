@@ -8,6 +8,10 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.util.IkirPowerManager;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public record IkirImmolationPayload() implements CustomPayload {
     public static final Id<IkirImmolationPayload> ID = new Id<>(Redemption.id("ikir_immolation"));
 

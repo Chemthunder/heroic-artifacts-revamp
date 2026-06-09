@@ -12,6 +12,9 @@ import java.util.List;
 
 import static net.the_hero_robot.redemption.impl.index.RedemptionItems.*;
 
+/**
+ * @author AcoYT
+ */
 @SuppressWarnings("deprecation")
 public enum KatanaType implements StringIdentifiable {
     AMETHYST("amethyst",

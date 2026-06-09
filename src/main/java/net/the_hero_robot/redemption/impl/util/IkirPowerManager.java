@@ -9,6 +9,10 @@ import net.the_hero_robot.redemption.impl.index.RedemptionEntities;
 
 import java.util.UUID;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class IkirPowerManager {
     public static void switchGameMode(ServerPlayerEntity player) {
         player.changeGameMode(player.isCreative() ? GameMode.SURVIVAL : GameMode.CREATIVE);

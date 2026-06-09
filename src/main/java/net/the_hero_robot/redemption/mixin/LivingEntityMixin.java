@@ -17,6 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements Attackable {
     public LivingEntityMixin(EntityType<?> type, World world) {

@@ -29,6 +29,10 @@ import net.the_hero_robot.redemption.impl.util.ModUtil;
 
 import java.util.List;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class CourtGlassItem extends Item implements ColorableItem {
     public CourtGlassItem(Settings settings) {
         super(settings);
@@ -52,7 +56,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
 
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         for (int i = 0; i < 3; i++) {
-            tooltip.add(Text.translatable("lore.court_glass." + i).withColor(0xFF26bdbd));
+            tooltip.add(Text.translatable("tooltip.redemption.court_glass." + i).withColor(0xFF26bdbd));
         }
 
         super.appendTooltip(stack, context, tooltip, type);
@@ -74,6 +78,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
         double x = player.getX();
         double y = player.getY();
         double z = player.getZ();
+
         JudgementComponent component = JudgementComponent.KEY.get(player);
 
         component.setJudgement(true);

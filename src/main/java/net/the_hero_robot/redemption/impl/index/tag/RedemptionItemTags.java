@@ -6,6 +6,9 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.the_hero_robot.redemption.impl.Redemption;
 
+/**
+ * @author AcoYT
+ */
 public interface RedemptionItemTags {
     TagBuilder<Item> ITEMS = new TagBuilder<>(Redemption.MOD_ID, RegistryKeys.ITEM);
 

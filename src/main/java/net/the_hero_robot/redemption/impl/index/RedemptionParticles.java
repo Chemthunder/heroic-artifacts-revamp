@@ -7,6 +7,10 @@ import net.minecraft.client.particle.EndRodParticle;
 import net.minecraft.particle.SimpleParticleType;
 import net.the_hero_robot.redemption.impl.Redemption;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public interface RedemptionParticles {
     ParticleTypeRegistrant PARTICLES = new ParticleTypeRegistrant(Redemption.MOD_ID);
 

@@ -9,6 +9,10 @@ import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
 import net.the_hero_robot.redemption.impl.Redemption;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class ImmolationHolderComponent implements AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<ImmolationHolderComponent> KEY = MiscUtils.getOrCreateKey(Redemption.id("immolation_holder"), ImmolationHolderComponent.class);
     private final PlayerEntity player;

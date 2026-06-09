@@ -8,6 +8,9 @@ import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * @author AcoYT
+ */
 public class RedemptionDynamicRegistryGen extends FabricDynamicRegistryProvider {
     public RedemptionDynamicRegistryGen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);

@@ -9,6 +9,10 @@ import net.the_hero_robot.redemption.impl.index.tag.RedemptionItemTags;
 
 import java.util.Optional;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class JudgementRiptideEvent implements CustomRiptideEvent {
     public Optional<Identifier> getRiptideTexture(PlayerEntity player, ItemStack stack) {
         return stack.isIn(RedemptionItemTags.KATANAS) ? Optional.of(Redemption.id("textures/entity/rush_of_souls.png")) : Optional.empty();

@@ -8,6 +8,9 @@ import net.the_hero_robot.redemption.impl.networking.RedemptionNetworking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author All
+ */
 public class Redemption implements ModInitializer {
     public static final String MOD_ID = "redemption";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);

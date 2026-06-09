@@ -14,6 +14,10 @@ import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.item.KatanaItem;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public interface RedemptionItemGroups {
     ItemGroupRegistrant GROUPS = new ItemGroupRegistrant(Redemption.MOD_ID);
 

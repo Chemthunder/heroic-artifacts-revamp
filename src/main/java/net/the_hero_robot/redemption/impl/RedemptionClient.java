@@ -12,6 +12,10 @@ import net.the_hero_robot.redemption.impl.networking.RedemptionNetworking;
 import net.the_hero_robot.redemption.impl.index.RedemptionParticles;
 import net.the_hero_robot.redemption.impl.util.RedemptionKeyBindings;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 @Environment(EnvType.CLIENT)
 public class RedemptionClient implements ClientModInitializer {
     public void onInitializeClient() {

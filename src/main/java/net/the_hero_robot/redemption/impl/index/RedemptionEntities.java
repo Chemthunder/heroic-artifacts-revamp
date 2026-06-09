@@ -8,6 +8,10 @@ import net.minecraft.entity.SpawnGroup;
 import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.entity.ImmolationFlamesEntity;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public interface RedemptionEntities {
     EntityTypeRegistrant ENTITIES = new EntityTypeRegistrant(Redemption.MOD_ID);
 

@@ -18,6 +18,10 @@ import net.the_hero_robot.redemption.impl.util.RedemptionItemSettings;
 
 import static net.acoyt.acornlib.api.util.ItemUtils.modifyItemNameColor;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public interface RedemptionItems {
     ItemRegistrant ITEMS = new ItemRegistrant(Redemption.MOD_ID);
 

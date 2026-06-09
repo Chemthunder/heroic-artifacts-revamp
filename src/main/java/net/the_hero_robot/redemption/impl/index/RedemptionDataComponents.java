@@ -8,6 +8,10 @@ import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.util.ModUtil;
 import org.joml.Vector4i;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public interface RedemptionDataComponents {
     ComponentTypeRegistrant COMPONENTS = new ComponentTypeRegistrant(Redemption.MOD_ID);
 

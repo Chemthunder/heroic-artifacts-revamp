@@ -21,6 +21,10 @@ import net.the_hero_robot.redemption.impl.index.RedemptionSounds;
 
 import java.util.List;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class HuntersCourtGlassItem extends Item implements ColorableItem {
     public HuntersCourtGlassItem(Settings settings) {
         super(settings);
@@ -42,6 +46,7 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
         double x = user.getX();
         double y = user.getY();
         double z = user.getZ();
+
         EnshroudedComponent shroud = EnshroudedComponent.KEY.get(user);
 
         if (user.getOffHandStack().isOf(this)) {
@@ -65,7 +70,7 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
 
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         for (int i = 0; i < 3; i++) {
-            tooltip.add(Text.translatable("lore.hunters_glass." + i).withColor(0xFFb629eb));
+            tooltip.add(Text.translatable("tooltip.redemption.hunters_glass." + i).withColor(0xFFb629eb));
         }
 
         super.appendTooltip(stack, context, tooltip, type);

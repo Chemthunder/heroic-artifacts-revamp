@@ -8,6 +8,10 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import net.the_hero_robot.redemption.impl.index.RedemptionEntities;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class ImmolationFlamesEntity extends ThrownEntity {
     private final int maxAge = 300;
 

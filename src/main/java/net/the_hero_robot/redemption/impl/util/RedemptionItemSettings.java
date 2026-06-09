@@ -7,6 +7,9 @@ import org.joml.Vector4i;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
 
+/**
+ * @author AcoYT
+ */
 public class RedemptionItemSettings extends AcornItemSettings {
     public RedemptionItemSettings katana(KatanaComponent.BladeType bladeType, KatanaType katanaType, ItemConvertible... materials) {
         this.component(RedemptionDataComponents.KATANA, new KatanaComponent(bladeType.isSheathed(), bladeType.isSheath(), katanaType, Ingredient.ofItems(materials)));

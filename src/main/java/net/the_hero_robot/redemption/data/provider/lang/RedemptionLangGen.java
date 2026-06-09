@@ -12,6 +12,9 @@ import java.util.concurrent.CompletableFuture;
 
 import static net.acoyt.acornlib.api.util.DataUtils.registerDamageType;
 
+/**
+ * @author AcoYT
+ */
 public class RedemptionLangGen extends OrganizedLanguageProvider {
     public RedemptionLangGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
@@ -52,4 +55,8 @@ public class RedemptionLangGen extends OrganizedLanguageProvider {
         builder.add("key.redemption.switch_gamemodes", "Switch Game Modes");
         builder.add("key.redemption.use_immolation", "Use Immolation");
     }
+
+    // public String getName() {
+    //     return Redemption.MOD_ID + "_lang";
+    // }
 }

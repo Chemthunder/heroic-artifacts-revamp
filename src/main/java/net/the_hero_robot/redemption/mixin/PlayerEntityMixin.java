@@ -21,6 +21,10 @@ import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.index.RedemptionParticles;
 import net.the_hero_robot.redemption.impl.index.tag.RedemptionItemTags;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {

@@ -4,6 +4,10 @@ import net.acoyt.acornlib.api.registrants.SoundEventRegistrant;
 import net.minecraft.sound.SoundEvent;
 import net.the_hero_robot.redemption.impl.Redemption;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public interface RedemptionSounds {
     SoundEventRegistrant SOUNDS = new SoundEventRegistrant(Redemption.MOD_ID);
 

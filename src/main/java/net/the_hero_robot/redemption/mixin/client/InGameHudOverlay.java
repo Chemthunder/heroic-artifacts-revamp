@@ -20,6 +20,10 @@ import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.FlashComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.JudgementFlashComponent;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 @Mixin(InGameHud.class)
 public abstract class InGameHudOverlay {
     @Shadow protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
@@ -30,7 +34,7 @@ public abstract class InGameHudOverlay {
     @Unique private static final Identifier CUSTOM_HOTBAR_SELECTOR = Redemption.id("hud/custom_hotbar_selection");
 
     @Inject(method = "renderMiscOverlays", at = @At("TAIL"))
-    private void redemption$flowerOverlay(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+    private void redemption$overlays(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         if (MinecraftClient.getInstance().getCameraEntity() instanceof PlayerEntity player) {
             int judgeFlashTicks = JudgementFlashComponent.KEY.get(player).getFlashTicks();
             if (judgeFlashTicks > 0) {

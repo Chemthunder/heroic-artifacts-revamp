@@ -7,6 +7,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 @Mixin(Entity.class)
 public abstract class EntityMixin {
     @Inject(method = "spawnSprintingParticles", at = @At("HEAD"), cancellable = true)

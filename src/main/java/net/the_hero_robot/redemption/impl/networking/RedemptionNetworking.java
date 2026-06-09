@@ -7,6 +7,10 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.the_hero_robot.redemption.impl.networking.c2s.IkirGameModeSwitchPayload;
 import net.the_hero_robot.redemption.impl.networking.c2s.IkirImmolationPayload;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public interface RedemptionNetworking {
     static void registerTypes() {
         PayloadTypeRegistry.playC2S().register(IkirGameModeSwitchPayload.ID, IkirGameModeSwitchPayload.CODEC);

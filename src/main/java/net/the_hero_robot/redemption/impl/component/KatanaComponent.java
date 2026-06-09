@@ -11,6 +11,9 @@ import net.minecraft.recipe.Ingredient;
 import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
 import net.the_hero_robot.redemption.impl.util.KatanaType;
 
+/**
+ * @author AcoYT
+ */
 public record KatanaComponent(boolean sheathed, boolean sheath, KatanaType type, Ingredient material) {
     public static final KatanaComponent DEFAULT = new KatanaComponent(false, false, KatanaType.AMETHYST, Ingredient.ofItems(Items.AMETHYST_SHARD));
 

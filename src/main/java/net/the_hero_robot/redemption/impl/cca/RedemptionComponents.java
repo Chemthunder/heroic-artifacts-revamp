@@ -12,6 +12,10 @@ import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.FlashComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.JudgementFlashComponent;
 
+/**
+ * @author AcoYT
+ * @author Chemthunder
+ */
 public class RedemptionComponents implements EntityComponentInitializer {
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
         registry.beginRegistration(PlayerEntity.class, EnshroudedComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(EnshroudedComponent::new);
