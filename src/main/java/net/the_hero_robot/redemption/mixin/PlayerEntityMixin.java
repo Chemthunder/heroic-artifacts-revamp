@@ -101,7 +101,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             ),
             ordinal = 3
     )
-    private boolean aestria$allowSweeping(boolean bl) {
+    private boolean redemption$allowSweeping(boolean bl) {
         ItemStack itemStack = this.getMainHandStack();
         KatanaComponent component = itemStack.get(RedemptionDataComponents.KATANA);
         if (component != null && component.bladeType() == KatanaComponent.BladeType.KATANA) {
@@ -118,7 +118,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                     target = "Lnet/minecraft/entity/player/PlayerEntity;spawnSweepAttackParticles()V"
             )
     )
-    private void aestria$noOriginalSweepParticle(PlayerEntity instance, Operation<Void> original) {
+    private void redemption$noOriginalSweepParticle(PlayerEntity instance, Operation<Void> original) {
         if (instance.getMainHandStack().contains(RedemptionDataComponents.KATANA)) return;
         original.call(instance);
     }
