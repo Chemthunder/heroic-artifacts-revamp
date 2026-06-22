@@ -6,6 +6,8 @@
     "mixins": [
         "CommandManagerMixin",
         "EntityMixin",
+        "ExplosionMixin",
+        "FireballEntityMixin",
         "LivingEntityMixin",
         "MobEntityMixin",
         "PlayerEntityMixin",

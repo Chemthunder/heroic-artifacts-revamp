@@ -4,13 +4,12 @@ import net.acoyt.acornlib.api.registrants.ItemRegistrant;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.type.FoodComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.sound.SoundEvents;
 import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.item.CourtGlassItem;
+import net.the_hero_robot.redemption.impl.item.DragonSwordItem;
 import net.the_hero_robot.redemption.impl.item.HuntersCourtGlassItem;
 import net.the_hero_robot.redemption.impl.item.KatanaItem;
 import net.the_hero_robot.redemption.impl.util.KatanaType;
@@ -111,6 +110,11 @@ public interface RedemptionItems {
 
     Item ICE_CREAM = ITEMS.register("ice_cream", Item::new, new Item.Settings()
             .food(new FoodComponent.Builder().nutrition(4).saturationModifier(0.35F).build()));
+
+    Item DRAGON_SWORD = ITEMS.register("dragon_sword", DragonSwordItem::new, new Item.Settings()
+            .attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.NETHERITE, 4, -2.8F))
+            .maxCount(1)
+            .fireproof());
 
     static void init() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(RedemptionItems::addFoodEntries);

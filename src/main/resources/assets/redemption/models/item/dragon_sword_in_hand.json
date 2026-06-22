@@ -1,0 +1,28 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "redemption:item/dragon_sword_in_hand"
+    },
+    "display": {
+        "thirdperson_righthand": {
+            "rotation": [0, -90, 55],
+            "translation": [0, 8.25, -1.75],
+            "scale": [1.7, 1.7, 1]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [0, 90, -55],
+            "translation": [0, 8.25, -1.75],
+            "scale": [1.7, 1.7, 1]
+        },
+        "firstperson_righthand": {
+            "rotation": [0, -90, 35],
+            "translation": [1.13, 5.95, 1.13],
+            "scale": [1.16, 1.16, 0.68]
+        },
+        "firstperson_lefthand": {
+            "rotation": [0, 90, -35],
+            "translation": [1.13, 5.95, 1.13],
+            "scale": [1.16, 1.16, 0.68]
+        }
+    }
+}

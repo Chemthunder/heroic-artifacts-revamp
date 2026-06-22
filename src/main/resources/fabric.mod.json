@@ -5,10 +5,12 @@
     "name": "Redemption",
     "description": "Revamp of the Heroic Artifacts datapack from Memory Lapse",
     "authors": [
-        "Chemthunder",
-        "AcoYT",
-        "The_Hero_Robot",
-        "Vbinnie (woah)"
+        "The_Hero_Robot"
+    ],
+    "contributors": [
+        "AcoYT - Art, Coding",
+        "Chemthunder - Coding",
+        "Vbinnie - Coding"
     ],
     "license": "ARR",
     "icon": "assets/redemption/icon.png",
@@ -27,6 +29,7 @@
             "net.the_hero_robot.redemption.impl.cca.RedemptionComponents"
         ]
     },
+    "accessWidener": "redemption.accesswidener",
     "mixins": [
         "redemption.mixins.json"
     ],
@@ -35,9 +38,7 @@
             "redemption:shrouded",
             "redemption:judgement",
             "redemption:flash",
-            "redemption:judge_flash",
-            "redemption:immolation_holder",
-            "redemption:immolation"
+            "redemption:judge_flash"
         ]
     },
     "depends": {
