@@ -38,36 +38,19 @@ public class CourtGlassItem extends Item implements ColorableItem {
         super(settings);
     }
 
-    public boolean hasGlint(ItemStack stack) {
-        return false;
-    }
-
-    public int startColor(ItemStack stack) {
-        return 0xFF00fbff;
-    }
-
-    public int endColor(ItemStack stack) {
-        return 0xFF153030;
-    }
-
-    public int backgroundColor(ItemStack stack) {
-        return 0xF0040a0a;
-    }
-
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        for (int i = 0; i < 3; i++) {
-            tooltip.add(Text.translatable("tooltip.redemption.court_glass." + i).withColor(0xFF26bdbd));
-        }
-
-        super.appendTooltip(stack, context, tooltip, type);
-    }
-
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        ItemStack stack = user.getStackInHand(hand);
         if (user.isSneaking()) {
-            if (user.getOffHandStack().isOf(this)) {
+            if (hand == Hand.OFF_HAND && !JudgementComponent.KEY.get(user).isJudgement()) {
                 becomeJudgement(user, world, user.getOffHandStack());
-            } else if (user.getMainHandStack().isOf(this)) {
+
+                user.getItemCooldownManager().set(stack.getItem(), 180);
+                return TypedActionResult.success(user.getStackInHand(hand));
+            } else if (hand == Hand.MAIN_HAND && JudgementComponent.KEY.get(user).isJudgement()) {
                 summonCourt(world, user);
+
+                user.getItemCooldownManager().set(stack.getItem(), 320);
+                return TypedActionResult.success(user.getStackInHand(hand));
             }
         }
 
@@ -110,7 +93,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
     }
 
     public void summonCourt(World world, PlayerEntity user) {
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 3; i++) {
             WitherSkeletonEntity glassCannon = new WitherSkeletonEntity(EntityType.WITHER_SKELETON, world);
 
             ItemStack katana = RedemptionItems.SCULK_KATANA.getDefaultStack();
@@ -136,10 +119,31 @@ public class CourtGlassItem extends Item implements ColorableItem {
             glassCannon.setCustomNameVisible(true);
             glassCannon.setCustomName(Text.translatable("lore.courtling").formatted(Formatting.BLUE));
             glassCannon.setGlowing(true);
+            glassCannon.getCommandTags().add("courtling");
 
             if (world instanceof ServerWorld serverWorld) {
                 serverWorld.spawnEntity(glassCannon);
             }
         }
+    }
+
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        for (int i = 0; i < 3; i++) {
+            tooltip.add(Text.translatable("tooltip.redemption.court_glass." + i).withColor(0xFF26bdbd));
+        }
+
+        super.appendTooltip(stack, context, tooltip, type);
+    }
+
+    public int startColor(ItemStack stack) {
+        return 0xFF00fbff;
+    }
+
+    public int endColor(ItemStack stack) {
+        return 0xFF153030;
+    }
+
+    public int backgroundColor(ItemStack stack) {
+        return 0xF0040a0a;
     }
 }

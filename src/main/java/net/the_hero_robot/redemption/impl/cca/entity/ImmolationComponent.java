@@ -6,11 +6,12 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.Vec3d;
+import net.the_hero_robot.redemption.impl.Redemption;
+import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
-import net.the_hero_robot.redemption.impl.Redemption;
-import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 
 /**
  * @author AcoYT
@@ -27,22 +28,21 @@ public class ImmolationComponent implements AutoSyncedComponent, CommonTickingCo
     }
 
     public void sync() {
-        KEY.sync(this.living);
+        KEY.sync(living);
     }
 
     public void tick() {
-        if (this.burning) {
-            this.living.damage(RedemptionDamageTypes.create(this.living.getWorld(), RedemptionDamageTypes.IMMOLATION), 1.0f);
+        if (burning) {
+            Vec3d pos = living.getPos();
 
-            if (this.living.getWorld() instanceof ServerWorld serverWorld) {
-                serverWorld.spawnParticles(ParticleTypes.FLAME,
-                        this.living.getX() + 0.5f,
-                        this.living.getY() + 0.5f,
-                        this.living.getZ() + 0.5f,
+            living.damage(RedemptionDamageTypes.create(living.getWorld(), RedemptionDamageTypes.IMMOLATION), 1.0f);
+
+            if (living.getWorld() instanceof ServerWorld serverWorld) {
+                serverWorld.spawnParticles(
+                        ParticleTypes.FLAME,
+                        pos.x + 0.5f, pos.y + 0.5f, pos.z + 0.5f,
                         6,
-                        1,
-                        2,
-                        1,
+                        1, 2, 1,
                         0.1f
                 );
             }
@@ -50,19 +50,19 @@ public class ImmolationComponent implements AutoSyncedComponent, CommonTickingCo
     }
 
     public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        this.burning = nbt.getBoolean("Burning");
+        burning = nbt.getBoolean("Burning");
     }
 
     public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putBoolean("Burning", this.burning);
+        nbt.putBoolean("Burning", burning);
     }
 
     public boolean isBurning() {
-        return this.burning;
+        return burning;
     }
 
     public void setBurning(boolean burning) {
         this.burning = burning;
-        this.sync();
+        sync();
     }
 }

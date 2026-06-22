@@ -8,18 +8,18 @@ import net.minecraft.item.Items;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.StringIdentifiable;
 import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
 import net.the_hero_robot.redemption.impl.util.KatanaType;
 
 /**
  * @author AcoYT
  */
-public record KatanaComponent(boolean sheathed, boolean sheath, KatanaType type, Ingredient material) {
-    public static final KatanaComponent DEFAULT = new KatanaComponent(false, false, KatanaType.AMETHYST, Ingredient.ofItems(Items.AMETHYST_SHARD));
+public record KatanaComponent(BladeType bladeType, KatanaType type, Ingredient material) {
+    public static final KatanaComponent DEFAULT = new KatanaComponent(BladeType.KATANA, KatanaType.AMETHYST, Ingredient.ofItems(Items.AMETHYST_SHARD));
 
     public static final Codec<KatanaComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.BOOL.optionalFieldOf("sheathed", false).forGetter(KatanaComponent::sheathed),
-            Codec.BOOL.optionalFieldOf("sheath", false).forGetter(KatanaComponent::sheath),
+            BladeType.CODEC.optionalFieldOf("bladeType", BladeType.KATANA).forGetter(KatanaComponent::bladeType),
             KatanaType.CODEC.optionalFieldOf("type", KatanaType.AMETHYST).forGetter(KatanaComponent::type),
             Ingredient.ALLOW_EMPTY_CODEC.optionalFieldOf("material", Ingredient.ofItems(Items.AMETHYST_SHARD)).forGetter(KatanaComponent::material)
     ).apply(instance, KatanaComponent::new));
@@ -31,28 +31,22 @@ public record KatanaComponent(boolean sheathed, boolean sheath, KatanaType type,
     }
 
     public KatanaComponent withBladeType(BladeType bladeType) {
-        return new KatanaComponent(bladeType.sheathed, bladeType.sheath, this.type, this.material);
+        return new KatanaComponent(bladeType, this.type, this.material);
     }
 
-    public BladeType getBladeType() {
-        for (BladeType bladeType : BladeType.values()) {
-            if (bladeType.sheathed == this.sheathed && bladeType.sheath == this.sheath) {
-                return bladeType;
-            }
-        }
+    public enum BladeType implements StringIdentifiable {
+        KATANA("katana", false, false),
+        SHEATH("sheath", false, true),
+        SHEATHED("sheathed", true, false);
 
-        return BladeType.KATANA;
-    }
+        public static final Codec<BladeType> CODEC = StringIdentifiable.createCodec(BladeType::values);
 
-    public enum BladeType {
-        KATANA(false, false),
-        SHEATH(false, true),
-        SHEATHED(true, false);
-
+        private final String id;
         private final boolean sheathed;
         private final boolean sheath;
 
-        BladeType(boolean sheathed, boolean sheath) {
+        BladeType(String id, boolean sheathed, boolean sheath) {
+            this.id = id;
             this.sheathed = sheathed;
             this.sheath = sheath;
         }
@@ -63,6 +57,10 @@ public record KatanaComponent(boolean sheathed, boolean sheath, KatanaType type,
 
         public boolean isSheath() {
             return this.sheath;
+        }
+
+        public String asString() {
+            return this.id;
         }
     }
 }

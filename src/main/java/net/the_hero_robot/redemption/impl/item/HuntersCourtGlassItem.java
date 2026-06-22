@@ -30,18 +30,6 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
         super(settings);
     }
 
-    public int startColor(ItemStack itemStack) {
-        return 0xFFb629eb;
-    }
-
-    public int endColor(ItemStack itemStack) {
-        return 0xFF460350;
-    }
-
-    public int backgroundColor(ItemStack itemStack) {
-        return 0xF01b1121;
-    }
-
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         double x = user.getX();
         double y = user.getY();
@@ -74,5 +62,17 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
         }
 
         super.appendTooltip(stack, context, tooltip, type);
+    }
+
+    public int startColor(ItemStack itemStack) {
+        return 0xFFb629eb;
+    }
+
+    public int endColor(ItemStack itemStack) {
+        return 0xFF460350;
+    }
+
+    public int backgroundColor(ItemStack itemStack) {
+        return 0xF01b1121;
     }
 }

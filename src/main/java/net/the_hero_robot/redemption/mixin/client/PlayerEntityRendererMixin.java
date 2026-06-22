@@ -32,11 +32,11 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
         KatanaComponent component = stack.get(RedemptionDataComponents.KATANA);
         if (component == null) return;
 
-        if (component.getBladeType() == KatanaComponent.BladeType.SHEATH && player.getActiveItem() == stack) {
+        if (component.bladeType() == KatanaComponent.BladeType.SHEATH && player.getActiveItem() == stack) {
             cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
         }
 
-        if (component.getBladeType() == KatanaComponent.BladeType.KATANA && player.getActiveItem() == stack && JudgementComponent.KEY.get(player).isJudgement()) {
+        if (component.bladeType() == KatanaComponent.BladeType.KATANA && player.getActiveItem() == stack && JudgementComponent.KEY.get(player).isJudgement()) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
     }

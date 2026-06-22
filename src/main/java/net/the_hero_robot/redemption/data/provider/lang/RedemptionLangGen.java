@@ -54,9 +54,7 @@ public class RedemptionLangGen extends OrganizedLanguageProvider {
         builder.add("category.redemption", "Redemption");
         builder.add("key.redemption.switch_gamemodes", "Switch Game Modes");
         builder.add("key.redemption.use_immolation", "Use Immolation");
-    }
 
-    // public String getName() {
-    //     return Redemption.MOD_ID + "_lang";
-    // }
+        builder.add("lore.courtling", "Courtling");
+    }
 }

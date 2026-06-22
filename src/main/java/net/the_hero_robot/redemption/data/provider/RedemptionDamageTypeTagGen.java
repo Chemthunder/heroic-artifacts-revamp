@@ -52,8 +52,4 @@ public class RedemptionDamageTypeTagGen extends FabricTagProvider<DamageType> {
                 .add(RedemptionDamageTypes.DESCEND)
                 .setReplace(false);
     }
-
-        public String getName() {
-        return Redemption.MOD_ID + "_damage_type_tags";
-    }
 }

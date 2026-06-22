@@ -10,12 +10,12 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
+import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
+import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
-import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 
 /**
  * @author AcoYT
@@ -60,5 +60,14 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
     private void redemption$judgeBoostedHeal(float amount, Operation<Void> original) {
         JudgementComponent component = JudgementComponent.KEY.getNullable(this);
         original.call(component != null && component.isJudgement() ? amount * 1.8F : amount);
+    }
+
+    @WrapMethod(method = "canTarget(Lnet/minecraft/entity/LivingEntity;)Z")
+    private boolean redemption$canTarget(LivingEntity target, Operation<Boolean> original) {
+        if (this.getCommandTags().contains("courtling") && target instanceof PlayerEntity player && JudgementComponent.KEY.get(player).isJudgement()) {
+            return false;
+        }
+
+        return original.call(target);
     }
 }

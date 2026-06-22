@@ -59,7 +59,7 @@ public class RedemptionKeyBindings {
     private static final long COOLDOWN_TIME = 500;  // Cooldown time in milliseconds (500 ms = 0.5 seconds)
 
     private static void handleSwitch(MinecraftClient client) {
-        if (client.player == null) return;
+        if (!IkirPowerManager.isHero(client.player)) return;
 
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastToggleTime < COOLDOWN_TIME) return;
@@ -74,7 +74,7 @@ public class RedemptionKeyBindings {
     }
 
     private static void handleImmolation(MinecraftClient client) {
-        if (client.player == null) return;
+        if (!IkirPowerManager.isHero(client.player)) return;
 
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastToggleTime < COOLDOWN_TIME) return;

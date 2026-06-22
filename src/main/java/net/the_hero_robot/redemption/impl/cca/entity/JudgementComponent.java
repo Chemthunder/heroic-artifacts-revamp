@@ -8,16 +8,17 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.ladysnake.cca.api.v3.component.ComponentKey;
-import org.ladysnake.cca.api.v3.component.ComponentRegistry;
-import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
-import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
 import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.JudgementFlashComponent;
 import net.the_hero_robot.redemption.impl.index.RedemptionItems;
 import net.the_hero_robot.redemption.impl.index.RedemptionSounds;
 import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
+import org.ladysnake.cca.api.v3.component.ComponentKey;
+import org.ladysnake.cca.api.v3.component.ComponentRegistry;
+import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
+import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
 
 /**
  * @author AcoYT
@@ -35,47 +36,63 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
     }
 
     public void sync() {
-        KEY.sync(this.player);
+        KEY.sync(player);
     }
 
     public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        this.judgement = nbt.getBoolean("Judgement");
-        this.monologueTicks = nbt.getInt("MonologueTicks");
+        judgement = nbt.getBoolean("Judgement");
+        monologueTicks = nbt.getInt("MonologueTicks");
     }
 
     public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putBoolean("Judgement", this.judgement);
-        nbt.putInt("MonologueTicks", this.monologueTicks);
+        nbt.putBoolean("Judgement", judgement);
+        nbt.putInt("MonologueTicks", monologueTicks);
     }
 
     public void tick() {
-        if (this.monologueTicks > 0) {
-            this.monologueTicks--;
-            if (this.player.getWorld() instanceof ServerWorld serverWorld) {
+        if (monologueTicks > 0) {
+            monologueTicks--;
+            if (player.getWorld() instanceof ServerWorld serverWorld) {
+                Vec3d pos = player.getPos();
+
                 serverWorld.spawnParticles(
                         ParticleTypes.SCULK_SOUL,
-                        this.player.getX(), this.player.getY(), this.player.getZ(),
+                        pos.x, pos.y, pos.z,
                         1,
                         0.3F, 0.6F, 0.3F,
                         0.03F
                 );
             }
 
-            if (this.monologueTicks == 0) {
-                this.sync();
-                this.beginKillAnim(this.player, this.player.getWorld());
+            if (monologueTicks == 0) {
+                sync();
+                beginKillAnim(player.getWorld());
             }
         }
     }
 
-    public void beginKillAnim(PlayerEntity player, World world) {
+    public void beginKillAnim(World world) {
         if (world instanceof ServerWorld serverWorld) {
+            Vec3d pos = player.getPos();
+
             player.dropStack(RedemptionItems.COURT_GLASS.getDefaultStack());
             player.setInvulnerable(false);
             player.damage(RedemptionDamageTypes.create(world, RedemptionDamageTypes.DESCEND), Float.MAX_VALUE);
 
-            serverWorld.spawnParticles(ParticleTypes.SOUL, player.getX(), player.getY(), player.getZ(), 75, 0.3f, 0.6f, 0.3f, 0.5);
-            serverWorld.spawnParticles(ParticleTypes.END_ROD, player.getX(), player.getY(), player.getZ(), 75, 0.3f, 0.6f, 0.3f, 0.5);
+            serverWorld.spawnParticles(
+                    ParticleTypes.SOUL,
+                    pos.x, pos.y, pos.z,
+                    75,
+                    0.3F, 0.6F, 0.3F,
+                    0.5F
+            );
+            serverWorld.spawnParticles(
+                    ParticleTypes.END_ROD,
+                    pos.x, pos.y, pos.z,
+                    75,
+                    0.3F, 0.6F, 0.3F,
+                    0.5F
+            );
 
             for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
                 if (serverPlayer instanceof ScreenShaker screenShaker) {
@@ -83,28 +100,39 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
                     JudgementFlashComponent.KEY.get(serverPlayer).setFlashTicks(20);
                 }
 
-                serverPlayer.playSoundToPlayer(RedemptionSounds.EVENT_JUDGE_DEATH, SoundCategory.PLAYERS, 1, 1);
-                serverPlayer.playSoundToPlayer(RedemptionSounds.EVENT_PING, SoundCategory.PLAYERS, 1, 1);
-                serverPlayer.playSoundToPlayer(RedemptionSounds.EVENT_SONAR_PING, SoundCategory.PLAYERS, 1, 1);
+                serverPlayer.playSoundToPlayer(
+                        RedemptionSounds.EVENT_JUDGE_DEATH, SoundCategory.PLAYERS,
+                        1.0F, 1.0F
+                );
+
+                serverPlayer.playSoundToPlayer(
+                        RedemptionSounds.EVENT_PING, SoundCategory.PLAYERS,
+                        1.0F, 1.0F
+                );
+
+                serverPlayer.playSoundToPlayer(
+                        RedemptionSounds.EVENT_SONAR_PING, SoundCategory.PLAYERS,
+                        1.0F, 1.0F
+                );
             }
         }
     }
 
     public boolean isJudgement() {
-        return this.judgement;
+        return judgement;
     }
 
     public void setJudgement(boolean judgement) {
         this.judgement = judgement;
-        this.sync();
+        sync();
     }
 
     public int getMonologueTicks() {
-        return this.monologueTicks;
+        return monologueTicks;
     }
 
     public void setMonologueTicks(int monologueTicks) {
         this.monologueTicks = monologueTicks;
-        this.sync();
+        sync();
     }
 }

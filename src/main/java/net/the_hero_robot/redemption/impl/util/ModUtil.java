@@ -36,7 +36,7 @@ public class ModUtil {
 
     public static Identifier formatKatanaId(ItemStack stack, boolean itemPrefix) {
         KatanaComponent component = KatanaComponent.get(stack);
-        return formatKatanaId(stack.getItem(), component.getBladeType(), component.type(), itemPrefix);
+        return formatKatanaId(stack.getItem(), component.bladeType(), component.type(), itemPrefix);
     }
 
     public static Identifier formatKatanaId(Item item, KatanaComponent.BladeType bladeType, KatanaType katanaType, boolean itemPrefix) {

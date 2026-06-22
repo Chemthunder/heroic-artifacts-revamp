@@ -24,28 +24,28 @@ public class ImmolationHolderComponent implements AutoSyncedComponent, CommonTic
     }
 
     public void sync() {
-        KEY.sync(this.player);
+        KEY.sync(player);
     }
 
     public void tick() {
-        if (this.delayTicks > 0) {
-            this.delayTicks--;
-            if (this.delayTicks == 0) {
-                this.sync();
+        if (delayTicks > 0) {
+            delayTicks--;
+            if (delayTicks == 0) {
+                sync();
             }
         }
     }
 
     public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        this.delayTicks = nbt.getInt("DelayTicks");
+        delayTicks = nbt.getInt("DelayTicks");
     }
 
     public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putInt("DelayTicks", this.delayTicks);
+        nbt.putInt("DelayTicks", delayTicks);
     }
 
     public int getDelayTicks() {
-        return this.delayTicks;
+        return delayTicks;
     }
 
     public void setDelayTicks(int delayTicks) {

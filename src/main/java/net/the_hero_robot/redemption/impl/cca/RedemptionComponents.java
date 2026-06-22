@@ -1,16 +1,14 @@
 package net.the_hero_robot.redemption.impl.cca;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
-import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
-import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
 import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.ImmolationComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.ImmolationHolderComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.FlashComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.JudgementFlashComponent;
+import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
+import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
+import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
 
 /**
  * @author AcoYT
@@ -18,13 +16,14 @@ import net.the_hero_robot.redemption.impl.cca.entity.flash.JudgementFlashCompone
  */
 public class RedemptionComponents implements EntityComponentInitializer {
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-        registry.beginRegistration(PlayerEntity.class, EnshroudedComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(EnshroudedComponent::new);
-        registry.beginRegistration(PlayerEntity.class, JudgementComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(JudgementComponent::new);
-        registry.beginRegistration(LivingEntity.class, JudgementFlashComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(JudgementFlashComponent::new);
-        registry.beginRegistration(LivingEntity.class, FlashComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(FlashComponent::new);
+        registry.registerForPlayers(FlashComponent.KEY, FlashComponent::new, RespawnCopyStrategy.NEVER_COPY);
+        registry.registerForPlayers(JudgementFlashComponent.KEY, JudgementFlashComponent::new, RespawnCopyStrategy.NEVER_COPY);
+
+        registry.registerForPlayers(EnshroudedComponent.KEY, EnshroudedComponent::new, RespawnCopyStrategy.NEVER_COPY);
+        registry.registerForPlayers(JudgementComponent.KEY, JudgementComponent::new, RespawnCopyStrategy.NEVER_COPY);
 
         // Immolation
-        registry.beginRegistration(PlayerEntity.class, ImmolationHolderComponent.KEY).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(ImmolationHolderComponent::new);
-        registry.beginRegistration(PlayerEntity.class, ImmolationComponent.KEY).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(ImmolationComponent::new);
+        registry.registerForPlayers(ImmolationComponent.KEY, ImmolationComponent::new, RespawnCopyStrategy.NEVER_COPY);
+        registry.registerForPlayers(ImmolationHolderComponent.KEY, ImmolationHolderComponent::new, RespawnCopyStrategy.ALWAYS_COPY);
     }
 }

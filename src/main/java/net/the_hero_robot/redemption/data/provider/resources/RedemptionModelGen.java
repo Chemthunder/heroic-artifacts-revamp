@@ -48,8 +48,4 @@ public class RedemptionModelGen extends FabricModelProvider {
             inHandModel.upload(inHandId, TextureMap.layer0(inHandId), generator.writer);
         }
     }
-
-    public String getName() {
-        return Redemption.MOD_ID + "_models";
-    }
 }

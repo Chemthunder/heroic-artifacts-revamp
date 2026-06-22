@@ -2,24 +2,30 @@ package net.the_hero_robot.redemption.mixin;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
+import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
+import net.the_hero_robot.redemption.impl.component.KatanaComponent;
+import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
+import net.the_hero_robot.redemption.impl.index.RedemptionParticles;
+import net.the_hero_robot.redemption.impl.index.tag.RedemptionItemTags;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
-import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
-import net.the_hero_robot.redemption.impl.index.RedemptionParticles;
-import net.the_hero_robot.redemption.impl.index.tag.RedemptionItemTags;
 
 /**
  * @author AcoYT
@@ -27,6 +33,8 @@ import net.the_hero_robot.redemption.impl.index.tag.RedemptionItemTags;
  */
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
+    @Shadow public abstract ItemCooldownManager getItemCooldownManager();
+
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -67,6 +75,17 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         PlayerEntity player = (PlayerEntity) (Object) this;
         if (player.getStackInHand(player.getActiveHand()).isIn(RedemptionItemTags.KATANAS) && player.isUsingItem() && JudgementComponent.KEY.get(player).isJudgement()) {
             this.getWorld().addParticle(ParticleTypes.SCULK_SOUL, true, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+        }
+    }
+
+    @Inject(method = "takeShieldHit", at = @At("TAIL"))
+    private void redemption$disableSheathedKatana(LivingEntity attacker, CallbackInfo ci) {
+        ItemStack blockingItem = this.getActiveItem();
+        KatanaComponent component = blockingItem.get(RedemptionDataComponents.KATANA);
+        if (attacker.disablesShield() && component != null && component.bladeType() == KatanaComponent.BladeType.SHEATHED) {
+            this.getItemCooldownManager().set(blockingItem.getItem(), 100);
+            this.clearActiveItem();
+            this.getWorld().sendEntityStatus(this, EntityStatuses.BREAK_SHIELD);
         }
     }
 }

@@ -23,8 +23,4 @@ public class RedemptionItemTagGen extends FabricTagProvider.ItemTagProvider {
                 .add(RedemptionItems.ITEMS.toRegister.stream().filter(item -> item instanceof KatanaItem).toArray(Item[]::new))
                 .setReplace(false);
     }
-
-    public String getName() {
-        return Redemption.MOD_ID + "_item_tags";
-    }
 }

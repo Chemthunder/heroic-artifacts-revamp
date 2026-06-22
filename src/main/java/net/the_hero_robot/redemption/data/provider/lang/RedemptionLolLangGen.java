@@ -21,8 +21,4 @@ public class RedemptionLolLangGen extends FabricLanguageProvider {
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder builder) {
         builder.add(COURT_GLASS, "Aortic Work of Art");
     }
-
-    public String getName() {
-        return Redemption.MOD_ID + "_lol_lang";
-    }
 }

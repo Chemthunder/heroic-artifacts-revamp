@@ -23,23 +23,23 @@ public class EnshroudedComponent implements AutoSyncedComponent {
     }
 
     public void sync() {
-        KEY.sync(this.player);
+        KEY.sync(player);
     }
 
     public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        this.shrouded = nbt.getBoolean("Shrouded");
+        shrouded = nbt.getBoolean("Shrouded");
     }
 
     public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putBoolean("Shrouded", this.shrouded);
+        nbt.putBoolean("Shrouded", shrouded);
     }
 
     public boolean isShrouded() {
-        return this.shrouded;
+        return shrouded;
     }
 
     public void setShrouded(boolean shrouded) {
         this.shrouded = shrouded;
-        this.sync();
+        sync();
     }
 }
