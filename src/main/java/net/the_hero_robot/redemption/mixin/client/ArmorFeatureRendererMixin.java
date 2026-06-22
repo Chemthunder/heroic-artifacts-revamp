@@ -9,12 +9,12 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
+import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
-import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 
 /**
  * @author AcoYT

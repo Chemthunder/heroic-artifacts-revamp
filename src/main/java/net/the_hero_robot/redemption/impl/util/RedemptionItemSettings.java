@@ -3,9 +3,9 @@ package net.the_hero_robot.redemption.impl.util;
 import net.acoyt.acornlib.api.item.AcornItemSettings;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
-import org.joml.Vector4i;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
+import org.joml.Vector4i;
 
 /**
  * @author AcoYT

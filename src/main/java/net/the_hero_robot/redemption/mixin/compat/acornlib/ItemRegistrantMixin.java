@@ -8,10 +8,10 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-import org.spongepowered.asm.mixin.Mixin;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.item.KatanaItem;
 import net.the_hero_robot.redemption.impl.util.ModUtil;
+import org.spongepowered.asm.mixin.Mixin;
 
 /**
  * @author AcoYT

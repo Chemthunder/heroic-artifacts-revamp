@@ -10,8 +10,8 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-import org.joml.Vector4i;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
+import org.joml.Vector4i;
 
 import java.util.List;
 

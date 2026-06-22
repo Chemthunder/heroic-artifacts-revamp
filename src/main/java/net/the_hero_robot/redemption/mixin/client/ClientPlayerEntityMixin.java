@@ -6,9 +6,9 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
+import net.the_hero_robot.redemption.impl.index.RedemptionItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import net.the_hero_robot.redemption.impl.index.RedemptionItems;
 
 /**
  * @author AcoYT

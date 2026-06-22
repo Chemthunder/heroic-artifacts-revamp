@@ -1,11 +1,11 @@
 package net.the_hero_robot.redemption.mixin;
 
 import net.minecraft.entity.Entity;
+import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
 
 /**
  * @author AcoYT

@@ -3,10 +3,10 @@ package net.the_hero_robot.redemption.impl.cca.entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.the_hero_robot.redemption.impl.Redemption;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
-import net.the_hero_robot.redemption.impl.Redemption;
 
 /**
  * @author AcoYT
