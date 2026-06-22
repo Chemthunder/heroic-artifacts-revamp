@@ -4,12 +4,13 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
-import net.the_hero_robot.redemption.data.provider.RedemptionDamageTypeTagGen;
-import net.the_hero_robot.redemption.data.provider.RedemptionDynamicRegistryGen;
-import net.the_hero_robot.redemption.data.provider.RedemptionItemTagGen;
-import net.the_hero_robot.redemption.data.provider.lang.RedemptionLangGen;
-import net.the_hero_robot.redemption.data.provider.lang.RedemptionLolLangGen;
-import net.the_hero_robot.redemption.data.provider.resources.RedemptionModelGen;
+import net.the_hero_robot.redemption.data.provider.RedemptionDamageTypeTagProvider;
+import net.the_hero_robot.redemption.data.provider.RedemptionDynamicRegistryProvider;
+import net.the_hero_robot.redemption.data.provider.RedemptionItemTagProvider;
+import net.the_hero_robot.redemption.data.provider.RedemptionRecipeProvider;
+import net.the_hero_robot.redemption.data.provider.lang.RedemptionLanguageProvider;
+import net.the_hero_robot.redemption.data.provider.lang.RedemptionLolLanguageProvider;
+import net.the_hero_robot.redemption.data.provider.resources.RedemptionModelProvider;
 import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 
 /**
@@ -20,15 +21,17 @@ public class RedemptionDatagen implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
         FabricDataGenerator.Pack pack = generator.createPack();
 
-        pack.addProvider(RedemptionLangGen::new);
-        pack.addProvider(RedemptionLolLangGen::new);
+        pack.addProvider(RedemptionLanguageProvider::new);
+        pack.addProvider(RedemptionLolLanguageProvider::new);
 
-        pack.addProvider(RedemptionModelGen::new);
+        pack.addProvider(RedemptionModelProvider::new);
 
-        pack.addProvider(RedemptionDamageTypeTagGen::new);
-        pack.addProvider(RedemptionItemTagGen::new);
+        pack.addProvider(RedemptionDamageTypeTagProvider::new);
+        pack.addProvider(RedemptionItemTagProvider::new);
 
-        pack.addProvider(RedemptionDynamicRegistryGen::new);
+        pack.addProvider(RedemptionRecipeProvider::new);
+
+        pack.addProvider(RedemptionDynamicRegistryProvider::new);
     }
 
     public void buildRegistry(RegistryBuilder builder) {

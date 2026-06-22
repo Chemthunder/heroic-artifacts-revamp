@@ -15,8 +15,8 @@ import static net.acoyt.acornlib.api.util.DataUtils.registerDamageType;
 /**
  * @author AcoYT
  */
-public class RedemptionLangGen extends OrganizedLanguageProvider {
-    public RedemptionLangGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+public class RedemptionLanguageProvider extends OrganizedLanguageProvider {
+    public RedemptionLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
     }
 

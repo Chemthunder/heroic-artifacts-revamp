@@ -11,8 +11,8 @@ import java.util.concurrent.CompletableFuture;
 /**
  * @author AcoYT
  */
-public class RedemptionDynamicRegistryGen extends FabricDynamicRegistryProvider {
-    public RedemptionDynamicRegistryGen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+public class RedemptionDynamicRegistryProvider extends FabricDynamicRegistryProvider {
+    public RedemptionDynamicRegistryProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
 

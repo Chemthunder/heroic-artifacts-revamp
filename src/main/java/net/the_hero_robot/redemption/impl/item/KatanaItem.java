@@ -150,8 +150,8 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
 
                 user.getItemCooldownManager().set(stack.getItem(), 20);
 
-                ItemStack mainStack = ModUtil.copy(stack, RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.KATANA));
-                ItemStack offStack = ModUtil.copy(stack, RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATH));
+                ItemStack mainStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.KATANA));
+                ItemStack offStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATH));
                 List<StatusEffectInstance> effects = katanaType.effectInstances;
 
                 user.setStackInHand(Hand.MAIN_HAND, mainStack);
@@ -185,7 +185,12 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
                 user.velocityModified = true;
 
                 user.useRiptide(10, 7.0F, user.getStackInHand(user.getActiveHand()));
-                user.getItemCooldownManager().set(this, 400);
+                for (int i = 0; i < user.getInventory().size(); i++) {
+                    ItemStack itemStack = user.getInventory().getStack(i);
+                    if (itemStack.getItem() instanceof KatanaItem) {
+                        user.getItemCooldownManager().set(itemStack.getItem(), 220);
+                    }
+                }
 
                 return TypedActionResult.success(user.getStackInHand(hand));
             } else if (component.type() == KatanaType.ASHIRO && component.bladeType() == KatanaComponent.BladeType.KATANA) {
@@ -253,11 +258,11 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
         ItemStack cursorStack = cursorStackReference.get();
 
         KatanaComponent component = KatanaComponent.get(stack);
-        KatanaComponent cursorComponent = KatanaComponent.get(cursorStack);
+        KatanaComponent cursorComponent = KatanaComponent.get(cursorStack.copy());
 
         if (clickType == ClickType.RIGHT
                 && component.bladeType() == KatanaComponent.BladeType.SHEATH
-                && cursorComponent.bladeType() == KatanaComponent.BladeType.KATANA
+                && cursorStack.contains(RedemptionDataComponents.KATANA) && cursorComponent.bladeType() == KatanaComponent.BladeType.KATANA
         ) {
             if (player.getInventory().contains(itemStack -> component.material().isEmpty() || component.material().test(itemStack))) {
                 cursorStack.decrement(1);

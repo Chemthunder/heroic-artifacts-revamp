@@ -13,8 +13,8 @@ import static net.the_hero_robot.redemption.impl.index.RedemptionItems.COURT_GLA
  * @author AcoYT
  * @author Chemthunder
  */
-public class RedemptionLolLangGen extends FabricLanguageProvider {
-    public RedemptionLolLangGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+public class RedemptionLolLanguageProvider extends FabricLanguageProvider {
+    public RedemptionLolLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, "lol_us", registryLookup);
     }
 

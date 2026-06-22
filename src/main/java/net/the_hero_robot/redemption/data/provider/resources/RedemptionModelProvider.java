@@ -14,8 +14,8 @@ import net.the_hero_robot.redemption.impl.util.ModUtil;
 /**
  * @author AcoYT
  */
-public class RedemptionModelGen extends FabricModelProvider {
-    public RedemptionModelGen(FabricDataOutput output) {
+public class RedemptionModelProvider extends FabricModelProvider {
+    public RedemptionModelProvider(FabricDataOutput output) {
         super(output);
     }
 

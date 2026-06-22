@@ -1,5 +1,7 @@
 package net.the_hero_robot.redemption.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityStatuses;
@@ -24,6 +26,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -87,5 +90,36 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             this.clearActiveItem();
             this.getWorld().sendEntityStatus(this, EntityStatuses.BREAK_SHIELD);
         }
+    }
+
+    @ModifyVariable(
+            method = "attack",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/Entity;getVelocity()Lnet/minecraft/util/math/Vec3d;",
+                    ordinal = 0
+            ),
+            ordinal = 3
+    )
+    private boolean aestria$allowSweeping(boolean bl) {
+        ItemStack itemStack = this.getMainHandStack();
+        KatanaComponent component = itemStack.get(RedemptionDataComponents.KATANA);
+        if (component != null && component.bladeType() == KatanaComponent.BladeType.KATANA) {
+            return true;
+        }
+
+        return bl;
+    }
+
+    @WrapOperation(
+            method = "attack",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/player/PlayerEntity;spawnSweepAttackParticles()V"
+            )
+    )
+    private void aestria$noOriginalSweepParticle(PlayerEntity instance, Operation<Void> original) {
+        if (instance.getMainHandStack().contains(RedemptionDataComponents.KATANA)) return;
+        original.call(instance);
     }
 }

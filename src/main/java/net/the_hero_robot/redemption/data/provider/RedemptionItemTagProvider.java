@@ -13,8 +13,8 @@ import java.util.concurrent.CompletableFuture;
 /**
  * @author AcoYT
  */
-public class RedemptionItemTagGen extends FabricTagProvider.ItemTagProvider {
-    public RedemptionItemTagGen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+public class RedemptionItemTagProvider extends FabricTagProvider.ItemTagProvider {
+    public RedemptionItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);
     }
 

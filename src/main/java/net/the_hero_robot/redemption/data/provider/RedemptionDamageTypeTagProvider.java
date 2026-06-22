@@ -13,8 +13,8 @@ import java.util.concurrent.CompletableFuture;
 /**
  * @author AcoYT
  */
-public class RedemptionDamageTypeTagGen extends FabricTagProvider<DamageType> {
-    public RedemptionDamageTypeTagGen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+public class RedemptionDamageTypeTagProvider extends FabricTagProvider<DamageType> {
+    public RedemptionDamageTypeTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, RegistryKeys.DAMAGE_TYPE, registriesFuture);
     }
 
