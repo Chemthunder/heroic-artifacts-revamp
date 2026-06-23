@@ -5,6 +5,11 @@ import net.acoyt.acornlib.api.event.PlayerOpacityEvent;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.particle.EndRodParticle;
+import net.minecraft.client.render.entity.EmptyEntityRenderer;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.the_hero_robot.redemption.impl.event.client.JudgementRiptideEvent;
 import net.the_hero_robot.redemption.impl.event.client.SelfTransparencyEvent;
 import net.the_hero_robot.redemption.impl.index.RedemptionEntities;
@@ -20,8 +25,10 @@ import net.the_hero_robot.redemption.impl.util.RedemptionKeyBindings;
 public class RedemptionClient implements ClientModInitializer {
     public void onInitializeClient() {
         /* Initialization */
-        RedemptionParticles.clientInit();
-        RedemptionEntities.clientInit();
+        ParticleFactoryRegistry.getInstance().register(RedemptionParticles.HUNTER_OMEN, EndRodParticle.Factory::new);
+
+        EntityRendererRegistry.register(RedemptionEntities.IMMOLATION_FLAMES, EmptyEntityRenderer::new);
+        EntityRendererRegistry.register(RedemptionEntities.DRAGON_SWORD_FIREBALL, context -> new FlyingItemEntityRenderer<>(context, 3.0F, true));
 
         RedemptionKeyBindings.register();
 

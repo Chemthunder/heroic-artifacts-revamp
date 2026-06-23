@@ -1,9 +1,6 @@
 package net.the_hero_robot.redemption.impl.index;
 
 import net.acoyt.acornlib.api.registrants.EntityTypeRegistrant;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.client.render.entity.EmptyEntityRenderer;
-import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.the_hero_robot.redemption.impl.Redemption;
@@ -30,9 +27,4 @@ public interface RedemptionEntities {
                     .trackingTickInterval(10));
 
     static void init() {}
-
-    static void clientInit() {
-        EntityRendererRegistry.register(IMMOLATION_FLAMES, EmptyEntityRenderer::new);
-        EntityRendererRegistry.register(DRAGON_SWORD_FIREBALL, context -> new FlyingItemEntityRenderer<>(context, 3.0F, true));
-    }
 }

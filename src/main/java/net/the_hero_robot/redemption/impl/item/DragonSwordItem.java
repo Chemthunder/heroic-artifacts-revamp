@@ -9,6 +9,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterials;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
@@ -42,11 +44,12 @@ public class DragonSwordItem extends SwordItem implements ModelVaryingItem, AdvB
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
         if (!user.getItemCooldownManager().isCoolingDown(stack.getItem())) {
-            DragonSwordFireballEntity entity = new DragonSwordFireballEntity(world, user, user.getRotationVector().multiply(1.5F), 4);
+            DragonSwordFireballEntity entity = new DragonSwordFireballEntity(world, user, user.getRotationVector().multiply(1.2F), 2);
             entity.setPosition(user.getEyePos());
             world.spawnEntity(entity);
+            world.playSoundFromEntity(null, entity, SoundEvents.ENTITY_GHAST_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
-            user.getItemCooldownManager().set(stack.getItem(), user.isInCreativeMode() ? 20 : 120);
+            user.getItemCooldownManager().set(stack.getItem(), user.isInCreativeMode() ? 20 : 140);
             return TypedActionResult.success(user.getStackInHand(hand));
         }
 

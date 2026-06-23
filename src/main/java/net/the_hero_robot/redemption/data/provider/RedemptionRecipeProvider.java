@@ -3,8 +3,10 @@ package net.the_hero_robot.redemption.data.provider;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
@@ -15,6 +17,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
+import net.the_hero_robot.redemption.impl.index.RedemptionItems;
 import net.the_hero_robot.redemption.impl.item.KatanaItem;
 
 import java.util.ArrayList;
@@ -56,6 +59,13 @@ public class RedemptionRecipeProvider extends FabricRecipeProvider {
                     .criterion(hasItem(ingredient), conditionsFromItem(ingredient))
                     .offerTo(exporter, Registries.ITEM.getId(katana.asItem()).withSuffixedPath("_from_" + Registries.ITEM.getId(ingredient.asItem()).getPath()));
         });
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, RedemptionItems.ICE_CREAM)
+                .input(Ingredient.fromTag(ConventionalItemTags.MILK_DRINKS))
+                .input(Ingredient.ofItems(Items.ICE, Items.PACKED_ICE, Items.BLUE_ICE))
+                .input(Items.WHEAT)
+                .criterion(hasItem(Items.MILK_BUCKET), conditionsFromItem(Items.MILK_BUCKET))
+                .offerTo(exporter);
     }
 
     public List<ItemConvertible> getFromIngredient(Ingredient ingredient) {
