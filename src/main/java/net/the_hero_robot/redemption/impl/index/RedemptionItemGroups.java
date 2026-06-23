@@ -47,7 +47,5 @@ public interface RedemptionItemGroups {
                 itemGroup.add(item);
             }
         });
-
-        itemGroup.add(RedemptionItems.DRAGON_SWORD);
     }
 }

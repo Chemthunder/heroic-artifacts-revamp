@@ -16,7 +16,7 @@ import net.the_hero_robot.redemption.impl.util.KatanaType;
  * @author AcoYT
  */
 public record KatanaComponent(BladeType bladeType, KatanaType type, Ingredient material) {
-    public static final KatanaComponent DEFAULT = new KatanaComponent(BladeType.KATANA, KatanaType.AMETHYST, Ingredient.ofItems(Items.AMETHYST_SHARD));
+    public static final KatanaComponent DEFAULT = new KatanaComponent(BladeType.SHEATHED, KatanaType.AMETHYST, Ingredient.ofItems(Items.AMETHYST_SHARD));
 
     public static final Codec<KatanaComponent> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             BladeType.CODEC.optionalFieldOf("bladeType", BladeType.KATANA).forGetter(KatanaComponent::bladeType),

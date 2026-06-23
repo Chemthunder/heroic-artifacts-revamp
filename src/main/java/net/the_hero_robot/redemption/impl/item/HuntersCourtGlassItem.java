@@ -35,21 +35,28 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
         double y = user.getY();
         double z = user.getZ();
 
-        EnshroudedComponent shroud = EnshroudedComponent.KEY.get(user);
+        EnshroudedComponent component = EnshroudedComponent.KEY.get(user);
 
-        if (user.getOffHandStack().isOf(this)) {
-            shroud.setShrouded(!shroud.isShrouded());
+        if (!user.getItemCooldownManager().isCoolingDown(this)) {
+            if (hand == Hand.OFF_HAND && !(component.getCooldown() > 0)) {
+                component.setShrouded(!component.isShrouded());
 
-            if (world instanceof ServerWorld serverWorld) {
-                serverWorld.spawnParticles(RedemptionParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
-                serverWorld.spawnParticles(ParticleTypes.SQUID_INK, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
-            }
-        } else if (user.getMainHandStack().isOf(this)) {
-            for (LivingEntity entity : world.getEntitiesByClass(LivingEntity.class, new Box(user.getBlockPos()).expand(10), living -> living != user)) {
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 600));
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600));
+                if (world instanceof ServerWorld serverWorld) {
+                    serverWorld.spawnParticles(RedemptionParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
+                    serverWorld.spawnParticles(ParticleTypes.SQUID_INK, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
+                }
 
-                entity.playSound(RedemptionSounds.HUNTERS_GLASS_BLACKOUT);
+                return TypedActionResult.success(user.getStackInHand(hand));
+            } else if (hand == Hand.MAIN_HAND) {
+                for (LivingEntity entity : world.getEntitiesByClass(LivingEntity.class, new Box(user.getBlockPos()).expand(10), living -> living != user)) {
+                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 600));
+                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600));
+
+                    entity.playSound(RedemptionSounds.HUNTERS_GLASS_BLACKOUT);
+                }
+
+                user.getItemCooldownManager().set(this, 20);
+                return TypedActionResult.success(user.getStackInHand(hand));
             }
         }
 

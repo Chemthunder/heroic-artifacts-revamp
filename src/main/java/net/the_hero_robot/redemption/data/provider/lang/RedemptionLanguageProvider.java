@@ -51,9 +51,9 @@ public class RedemptionLanguageProvider extends OrganizedLanguageProvider {
         builder.add("tooltip.redemption.hunters_glass.1", "It was said to be once wielded by the Last Judge.");
         builder.add("tooltip.redemption.hunters_glass.2", "Now, it's in your hands. Don't let her down.");
 
-        builder.add("category.redemption", "Redemption");
-        builder.add("key.redemption.switch_gamemodes", "Switch Game Modes");
+        builder.add("key.categories.redemption", "Redemption");
         builder.add("key.redemption.use_immolation", "Use Immolation");
+        builder.add("key.redemption.switch_gamemode", "Switch Game Mode");
 
         builder.add("lore.courtling", "Courtling");
     }

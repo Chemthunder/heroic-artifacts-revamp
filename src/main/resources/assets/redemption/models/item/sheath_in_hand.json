@@ -20,6 +20,11 @@
             "rotation": [0, 90, -105],
             "translation": [1.13, 5.2, -2.12],
             "scale": [1.36, 1.36, 1.06]
+        },
+        "head": {
+            "rotation": [0, 0, -90],
+            "translation": [3, 9, 7],
+            "scale": [1, 1, 1]
         }
     }
 }

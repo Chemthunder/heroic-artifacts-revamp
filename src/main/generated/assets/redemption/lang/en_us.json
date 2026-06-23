@@ -1,5 +1,4 @@
 {
-  "category.redemption": "Redemption",
   "death.attack.descend": "%1$s's purpose was revoked",
   "death.attack.descend.item": "%1$s's purpose was revoked by %2$s with %3$s",
   "death.attack.descend.player": "%1$s's purpose was revoked by %2$s",
@@ -38,7 +37,8 @@
   "item.redemption.sheathed_redstone_katana": "Sheathed Redstone Katana",
   "item.redemption.sheathed_sculk_katana": "Sheathed Sculk Katana",
   "itemGroup.redemption": "Redemption",
-  "key.redemption.switch_gamemodes": "Switch Game Modes",
+  "key.categories.redemption": "Redemption",
+  "key.redemption.switch_gamemode": "Switch Game Mode",
   "key.redemption.use_immolation": "Use Immolation",
   "lore.courtling": "Courtling",
   "tag.item.redemption.katanas": "Katanas",

@@ -1,0 +1,8 @@
+{
+    "item": "#redemption:katanas",
+    "scale": [1.7, 1.7, 1.1],
+    "rotation": [0.0, 0.0, 0.0],
+    "translation": [-0.1, -0.7, 0.4],
+    "mode": "HEAD",
+    "sway": 0.4
+}
