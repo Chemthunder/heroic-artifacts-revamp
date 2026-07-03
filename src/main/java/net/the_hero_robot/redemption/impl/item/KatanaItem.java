@@ -4,10 +4,12 @@ import com.nitron.nitrogen.util.interfaces.ColorableItem;
 import net.acoyt.acornlib.api.item.CustomKillSourceItem;
 import net.acoyt.acornlib.api.item.ModelVaryingItem;
 import net.acoyt.acornlib.api.util.MiscUtils;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.ToolComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -20,8 +22,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -52,7 +56,14 @@ import java.util.List;
  */
 public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem, CustomKillSourceItem {
     public KatanaItem(Settings settings) {
-        super(settings);
+        super(settings.component(DataComponentTypes.TOOL, createToolComponent())
+                .maxDamage(ToolMaterials.NETHERITE.getDurability()));
+    }
+
+    private static ToolComponent createToolComponent() {
+        return new ToolComponent(
+                List.of(ToolComponent.Rule.ofAlwaysDropping(List.of(Blocks.COBWEB), 15.0F), ToolComponent.Rule.of(BlockTags.SWORD_EFFICIENT, 1.5F)), 1.0F, 2
+        );
     }
 
     public static AttributeModifiersComponent createAttributeModifiers(KatanaComponent.BladeType bladeType) {
@@ -68,7 +79,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
                             AttributeModifierSlot.MAINHAND
                     ).add(
                             EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
-                            new EntityAttributeModifier(Identifier.ofVanilla("base_entity_interaction_range"), 0.5F, Operation.ADD_VALUE),
+                            new EntityAttributeModifier(Identifier.ofVanilla("base_entity_interaction_range"), 0.15F, Operation.ADD_VALUE),
                             AttributeModifierSlot.MAINHAND
                     ).build();
         } else if (bladeType == KatanaComponent.BladeType.SHEATHED) {
