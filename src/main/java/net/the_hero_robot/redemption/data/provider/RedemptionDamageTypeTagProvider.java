@@ -6,9 +6,16 @@ import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.DamageTypeTags;
-import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
+import static net.minecraft.registry.tag.DamageTypeTags.*;
+import static net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes.DESCEND;
+import static net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes.IMMOLATION;
 
 /**
  * @author AcoYT
@@ -19,37 +26,22 @@ public class RedemptionDamageTypeTagProvider extends FabricTagProvider<DamageTyp
     }
 
     public void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        List<TagKey<DamageType>> bypasses = Arrays.asList(BYPASSES_ARMOR, BYPASSES_SHIELD, BYPASSES_INVULNERABILITY, BYPASSES_COOLDOWN, BYPASSES_EFFECTS, BYPASSES_RESISTANCE, BYPASSES_ENCHANTMENTS);
+
+        bypasses.forEach(tagKey -> this.getOrCreateTagBuilder(tagKey)
+                .add(DESCEND)
+                .setReplace(false));
+
         this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR)
-                .add(RedemptionDamageTypes.DESCEND)
-                .add(RedemptionDamageTypes.IMMOLATION)
-                .setReplace(false);
-
-        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_SHIELD)
-                .add(RedemptionDamageTypes.DESCEND)
-                .setReplace(false);
-
-        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_INVULNERABILITY)
-                .add(RedemptionDamageTypes.DESCEND)
-                .setReplace(false);
-
-        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_COOLDOWN)
-                .add(RedemptionDamageTypes.DESCEND)
-                .setReplace(false);
-
-        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS)
-                .add(RedemptionDamageTypes.DESCEND)
-                .setReplace(false);
-
-        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE)
-                .add(RedemptionDamageTypes.DESCEND)
-                .setReplace(false);
-
-        this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS)
-                .add(RedemptionDamageTypes.DESCEND)
+                .add(IMMOLATION)
                 .setReplace(false);
 
         this.getOrCreateTagBuilder(DamageTypeTags.NO_KNOCKBACK)
-                .add(RedemptionDamageTypes.DESCEND)
+                .add(DESCEND)
+                .setReplace(false);
+
+        this.getOrCreateTagBuilder(TagKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of("vitality", "bypasses_vitality")))
+                .add(DESCEND, IMMOLATION)
                 .setReplace(false);
     }
 }
