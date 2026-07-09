@@ -91,12 +91,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
-    @Inject(method = "takeShieldHit", at = @At("TAIL"))
+    @Inject(method = "takeShieldHit", at = @At("HEAD"))
     private void redemption$disableKatanaSheath(LivingEntity attacker, CallbackInfo ci) {
 
         ItemStack blockingItem = this.getActiveItem();
         KatanaComponent component = blockingItem.get(RedemptionDataComponents.KATANA);
-        Redemption.LOGGER.info(" " + (component != null));
+
+
+        Redemption.LOGGER.info(String.valueOf((attacker.disablesShield() && component != null && component.bladeType() == KatanaComponent.BladeType.SHEATH)));
+        
         if (attacker.disablesShield() && component != null && component.bladeType() == KatanaComponent.BladeType.SHEATH) {
             this.getItemCooldownManager().set(blockingItem.getItem(), 100);
 
