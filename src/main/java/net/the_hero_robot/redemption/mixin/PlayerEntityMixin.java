@@ -10,17 +10,22 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
+import net.the_hero_robot.redemption.impl.index.RedemptionItems;
 import net.the_hero_robot.redemption.impl.index.RedemptionParticles;
 import net.the_hero_robot.redemption.impl.index.tag.RedemptionItemTags;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -37,6 +42,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow public abstract ItemCooldownManager getItemCooldownManager();
+
+    @Shadow
+    @Final
+    private PlayerInventory inventory;
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -83,11 +92,14 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Inject(method = "takeShieldHit", at = @At("TAIL"))
-    private void redemption$disableSheathedKatana(LivingEntity attacker, CallbackInfo ci) {
+    private void redemption$disableKatanaSheath(LivingEntity attacker, CallbackInfo ci) {
+
         ItemStack blockingItem = this.getActiveItem();
         KatanaComponent component = blockingItem.get(RedemptionDataComponents.KATANA);
-        if (attacker.disablesShield() && component != null && component.bladeType() == KatanaComponent.BladeType.SHEATHED) {
+        Redemption.LOGGER.info(" " + (component != null));
+        if (attacker.disablesShield() && component != null && component.bladeType() == KatanaComponent.BladeType.SHEATH) {
             this.getItemCooldownManager().set(blockingItem.getItem(), 100);
+
             this.clearActiveItem();
             this.getWorld().sendEntityStatus(this, EntityStatuses.BREAK_SHIELD);
         }
