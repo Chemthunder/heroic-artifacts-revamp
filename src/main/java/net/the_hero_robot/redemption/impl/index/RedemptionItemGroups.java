@@ -21,17 +21,24 @@ import net.the_hero_robot.redemption.impl.item.KatanaItem;
 public interface RedemptionItemGroups {
     ItemGroupRegistrant GROUPS = new ItemGroupRegistrant(Redemption.MOD_ID);
 
-    RegistryKey<ItemGroup> GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Redemption.id(Redemption.MOD_ID));
-    ItemGroup MAIN = GROUPS.register(GROUP_KEY.getValue().getPath(), FabricItemGroup.builder()
+    RegistryKey<ItemGroup> MAIN_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Redemption.id(Redemption.MOD_ID));
+    ItemGroup MAIN = GROUPS.register(MAIN_KEY.getValue().getPath(), FabricItemGroup.builder()
             .icon(() -> new ItemStack(RedemptionItems.COURT_GLASS))
             .displayName(Text.translatable("itemGroup." + Redemption.MOD_ID))
             .build());
 
+    RegistryKey<ItemGroup> ARCANE_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Redemption.id(Redemption.MOD_ID));
+    ItemGroup ARCANE_KINGS = GROUPS.register(ARCANE_KEY.getValue().getPath(), FabricItemGroup.builder()
+            .icon(() -> new ItemStack(RedemptionItems.ARCHMAGE_BLADE))
+            .displayName(Text.translatable("itemGroup.arcane_kings"))
+            .build());
+
     static void init() {
-        ItemGroupEvents.modifyEntriesEvent(GROUP_KEY).register(RedemptionItemGroups::addEntries);
+        ItemGroupEvents.modifyEntriesEvent(MAIN_KEY).register(RedemptionItemGroups::addMainEntries);
+        ItemGroupEvents.modifyEntriesEvent(ARCANE_KEY).register(RedemptionItemGroups::addArcaneKingsEntries);
     }
 
-    private static void addEntries(FabricItemGroupEntries itemGroup) {
+    private static void addMainEntries(FabricItemGroupEntries itemGroup) {
         RedemptionItems.ITEMS.toRegister.forEach(item -> {
             if (item instanceof KatanaItem) {
                 for (KatanaComponent.BladeType bladeType : KatanaComponent.BladeType.values()) {
@@ -47,5 +54,9 @@ public interface RedemptionItemGroups {
                 itemGroup.add(item);
             }
         });
+    }
+
+    private static void addArcaneKingsEntries(FabricItemGroupEntries itemGroup) {
+        itemGroup.add(RedemptionItems.ARCHMAGE_BLADE);
     }
 }
