@@ -12,6 +12,7 @@ import net.the_hero_robot.redemption.impl.item.CourtGlassItem;
 import net.the_hero_robot.redemption.impl.item.DragonSwordItem;
 import net.the_hero_robot.redemption.impl.item.HuntersCourtGlassItem;
 import net.the_hero_robot.redemption.impl.item.KatanaItem;
+import net.the_hero_robot.redemption.impl.item.ak.EvocationKatanaItem;
 import net.the_hero_robot.redemption.impl.util.KatanaType;
 import net.the_hero_robot.redemption.impl.util.RedemptionItemSettings;
 
@@ -104,6 +105,12 @@ public interface RedemptionItems {
             .food(new FoodComponent.Builder().nutrition(4).saturationModifier(0.35F).build()));
 
     Item DRAGON_SWORD = ITEMS.register("dragon_sword", DragonSwordItem::new, new Item.Settings()
+            .attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.NETHERITE, 4, -2.8F))
+            .maxCount(1)
+            .fireproof());
+
+    // Arcane Kings
+    Item ARCHMAGE_BLADE = ITEMS.register("archmage_blade", EvocationKatanaItem::new, new Item.Settings()
             .attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.NETHERITE, 4, -2.8F))
             .maxCount(1)
             .fireproof());

@@ -6,6 +6,7 @@ import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.component.AshiroComponent;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.util.ModUtil;
+import net.the_hero_robot.redemption.impl.arcane_kings.evocation.EvocationSpell;
 import org.joml.Vector4i;
 
 /**
@@ -18,6 +19,7 @@ public interface RedemptionDataComponents {
     ComponentType<AshiroComponent> ASHIRO = COMPONENTS.register("ashiro", AshiroComponent.CODEC, AshiroComponent.PACKET_CODEC);
     ComponentType<KatanaComponent> KATANA = COMPONENTS.register("katana", KatanaComponent.CODEC, KatanaComponent.PACKET_CODEC);
     ComponentType<Vector4i> COLORS = COMPONENTS.register("colors", ModUtil.VECTOR_4I_CODEC, ModUtil.VECTOR_4I_PACKET_CODEC);
+    ComponentType<EvocationSpell> EVOCATION_SPELL = COMPONENTS.register("evocation_spell", EvocationSpell.CODEC, EvocationSpell.PACKET_CODEC);
 
     static void init() {}
 }
