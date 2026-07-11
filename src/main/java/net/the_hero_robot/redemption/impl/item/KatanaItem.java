@@ -1,9 +1,12 @@
 package net.the_hero_robot.redemption.impl.item;
 
 import com.nitron.nitrogen.util.interfaces.ColorableItem;
+import net.acoyt.acornlib.api.item.CustomHitParticleItem;
 import net.acoyt.acornlib.api.item.CustomKillSourceItem;
 import net.acoyt.acornlib.api.item.ModelVaryingItem;
 import net.acoyt.acornlib.api.util.MiscUtils;
+import net.acoyt.acornlib.api.util.ParticleUtils;
+import net.acoyt.acornlib.impl.client.particle.SweepParticleEffect;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.component.DataComponentTypes;
@@ -44,6 +47,7 @@ import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 import net.the_hero_robot.redemption.impl.util.KatanaType;
 import net.the_hero_robot.redemption.impl.util.ModUtil;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector2i;
 import org.joml.Vector4i;
 
 import java.util.Arrays;
@@ -54,7 +58,7 @@ import java.util.List;
  * Serves to act as a universal standin for all the classes, meaning it will contain the functionalities of all three of the classes
  * Don't forget to add a method in the class for getting the BladeType
  */
-public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem, CustomKillSourceItem {
+public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem, CustomKillSourceItem, CustomHitParticleItem {
     public KatanaItem(Settings settings) {
         super(settings.component(DataComponentTypes.TOOL, createToolComponent())
                 .maxDamage(ToolMaterials.NETHERITE.getDurability()));
@@ -124,6 +128,25 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
 
     public String getTranslationKey(ItemStack stack) {
         return Util.createTranslationKey("item", ModUtil.formatKatanaId(stack, false));
+    }
+
+    public void spawnHitParticles(PlayerEntity player, Entity target) {
+        KatanaComponent katana = KatanaComponent.get(player.getMainHandStack());
+        Vector2i color = katana.bladeType() == KatanaComponent.BladeType.KATANA ? switch (katana.type()) {
+            case AMETHYST -> new Vector2i(0xFFffffff, 0xFFc1c2c2);
+            case COPPER -> new Vector2i(0xFFea8770, 0xFF904931);
+            case EMERALD -> new Vector2i(0xFF20d64b, 0xFF096a31);
+            case LAPIS -> new Vector2i(0xFFc9edf9, 0xFF8bcadd);
+            case NETHERITE -> new Vector2i(0xFF1a1a1a, 0xFF0e0e0e);
+            case QUARTZ -> new Vector2i(0xFFc1c1d2, 0xFF535373);
+            case REDSTONE -> new Vector2i(0xFFe95050, 0xFF63374a);
+            case SCULK -> new Vector2i(0xFF111b21, 0xFF034150);
+            case ASHIRO -> null;
+        } : null;
+
+        if (color != null) {
+            ParticleUtils.spawnSweepParticles(new SweepParticleEffect(color.x, color.y), player);
+        }
     }
 
     public DamageSource getKillSource(LivingEntity living, @Nullable Entity attacker, float amount) {
@@ -244,8 +267,8 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
         return component.bladeType() == KatanaComponent.BladeType.KATANA
                 ? MiscUtils.isGui(renderMode) ? katanaId : katanaId.withSuffixedPath("_in_hand")
                 : component.bladeType() == KatanaComponent.BladeType.SHEATHED
-                ? MiscUtils.isGui(renderMode) ? sheathedId : sheathedId.withSuffixedPath("_in_hand")
-                : MiscUtils.isGui(renderMode) ? sheathId : sheathId.withSuffixedPath("_in_hand");
+                  ? MiscUtils.isGui(renderMode) ? sheathedId : sheathedId.withSuffixedPath("_in_hand")
+                  : MiscUtils.isGui(renderMode) ? sheathId : sheathId.withSuffixedPath("_in_hand");
     }
 
     public List<Identifier> getModelsToLoad() {
