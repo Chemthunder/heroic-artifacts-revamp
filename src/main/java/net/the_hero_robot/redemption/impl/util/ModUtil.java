@@ -3,14 +3,18 @@ package net.the_hero_robot.redemption.impl.util;
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.component.ComponentType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
+import net.the_hero_robot.redemption.impl.index.RedemptionItems;
 import org.joml.Vector4i;
 
 import java.util.List;
@@ -32,6 +36,20 @@ public class ModUtil {
         ItemStack itemStack = stack.copy();
         itemStack.set(type, value);
         return itemStack;
+    }
+
+    public static void cooldownAllSheath(PlayerEntity player, int cd) {
+        player.getItemCooldownManager().set(RedemptionItems.AMETHYST_KATANA, cd);
+        player.getItemCooldownManager().set(RedemptionItems.ASHIRO_KATANA, cd);
+        player.getItemCooldownManager().set(RedemptionItems.COPPER_KATANA, cd);
+        player.getItemCooldownManager().set(RedemptionItems.EMERALD_KATANA, cd);
+        player.getItemCooldownManager().set(RedemptionItems.LAPIS_KATANA, cd);
+        player.getItemCooldownManager().set(RedemptionItems.NETHERITE_KATANA, cd);
+        player.getItemCooldownManager().set(RedemptionItems.QUARTZ_KATANA, cd);
+        player.getItemCooldownManager().set(RedemptionItems.REDSTONE_KATANA, cd);
+        player.getItemCooldownManager().set(RedemptionItems.SCULK_KATANA, cd);
+
+
     }
 
     public static Identifier formatKatanaId(ItemStack stack, boolean itemPrefix) {

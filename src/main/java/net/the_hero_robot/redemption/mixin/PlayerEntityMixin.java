@@ -21,8 +21,10 @@ import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
+import net.the_hero_robot.redemption.impl.index.RedemptionItems;
 import net.the_hero_robot.redemption.impl.index.RedemptionParticles;
 import net.the_hero_robot.redemption.impl.index.tag.RedemptionItemTags;
+import net.the_hero_robot.redemption.impl.util.ModUtil;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -89,20 +91,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
-    @Inject(method = "takeShieldHit", at = @At("HEAD"))
-    private void redemption$disableKatanaSheath(LivingEntity attacker, CallbackInfo ci) {
-
-        ItemStack blockingItem = this.getActiveItem();
-        KatanaComponent component = blockingItem.get(RedemptionDataComponents.KATANA);
-
-
-        Redemption.LOGGER.info(String.valueOf((attacker.disablesShield() && component != null && component.bladeType() == KatanaComponent.BladeType.SHEATH)));
-        
-        if (attacker.disablesShield() && component != null && component.bladeType() == KatanaComponent.BladeType.SHEATH) {
-            this.getItemCooldownManager().set(blockingItem.getItem(), 100);
-
-            this.clearActiveItem();
-            this.getWorld().sendEntityStatus(this, EntityStatuses.BREAK_SHIELD);
+    @Inject(method = "disableShield", at = @At("HEAD"))
+    private void redemption$disableKatanaSheath(CallbackInfo ci) {
+        if (KatanaComponent.get(getActiveItem()) != null && KatanaComponent.get(getActiveItem()).bladeType().isSheath()) {
+            ModUtil.cooldownAllSheath((PlayerEntity) (Object) this, 100);
         }
     }
 
