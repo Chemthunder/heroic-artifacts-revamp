@@ -27,15 +27,15 @@ public interface RedemptionItemGroups {
             .displayName(Text.translatable("itemGroup." + Redemption.MOD_ID))
             .build());
 
-//    RegistryKey<ItemGroup> ARCANE_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Redemption.id(Redemption.MOD_ID));
-//    ItemGroup ARCANE_KINGS = GROUPS.register(ARCANE_KEY.getValue().getPath(), FabricItemGroup.builder()
-//            .icon(() -> new ItemStack(RedemptionItems.ARCHMAGE_BLADE))
-//            .displayName(Text.translatable("itemGroup.arcane_kings"))
-//            .build());
+    RegistryKey<ItemGroup> ARCANE_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Redemption.id("arcane_kings"));
+    ItemGroup ARCANE_KINGS = GROUPS.register(ARCANE_KEY.getValue().getPath(), FabricItemGroup.builder()
+            .icon(() -> new ItemStack(RedemptionItems.ARCHMAGE_BLADE))
+            .displayName(Text.translatable("itemGroup.arcane_kings"))
+            .build());
 
     static void init() {
         ItemGroupEvents.modifyEntriesEvent(MAIN_KEY).register(RedemptionItemGroups::addMainEntries);
-//        ItemGroupEvents.modifyEntriesEvent(ARCANE_KEY).register(RedemptionItemGroups::addArcaneKingsEntries);
+        ItemGroupEvents.modifyEntriesEvent(ARCANE_KEY).register(RedemptionItemGroups::addArcaneKingsEntries);
     }
 
     private static void addMainEntries(FabricItemGroupEntries itemGroup) {
@@ -50,7 +50,9 @@ public interface RedemptionItemGroups {
 
                     itemGroup.add(stack);
                 }
-            } else {
+            }
+
+            else if (item != RedemptionItems.ARCHMAGE_BLADE) {
                 itemGroup.add(item);
             }
         });
