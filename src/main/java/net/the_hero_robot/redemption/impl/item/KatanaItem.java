@@ -19,6 +19,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.world.ServerWorld;
@@ -186,15 +188,16 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
 
                 ItemStack mainStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.KATANA));
                 ItemStack offStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATH));
-                List<StatusEffectInstance> effects = katanaType.effectInstances;
+                List<RegistryEntry<StatusEffect>> effects = katanaType.effectInstances;
 
                 user.setStackInHand(Hand.MAIN_HAND, mainStack);
                 user.setStackInHand(Hand.OFF_HAND, offStack);
                 stack.decrement(1);
 
                 if (!effects.isEmpty()) {
-                    for (StatusEffectInstance instance : effects) {
-                        user.addStatusEffect(instance);
+                    for (RegistryEntry<StatusEffect> registries : effects) {
+                        user.addStatusEffect(new StatusEffectInstance(registries, 400));
+
                     }
                 }
 

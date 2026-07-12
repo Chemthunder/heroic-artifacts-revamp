@@ -4,6 +4,8 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.StringIdentifiable;
 
@@ -57,12 +59,12 @@ public enum KatanaType implements StringIdentifiable {
 
     public final String id;
     public final Item katana;
-    public final List<StatusEffectInstance> effectInstances;
+    public final List<RegistryEntry<StatusEffect>> effectInstances;
 
     KatanaType(String id, Item katana, RegistryEntry<StatusEffect>... effects) {
         this.id = id;
         this.katana = katana;
-        this.effectInstances = Arrays.stream(effects).map(entry -> new StatusEffectInstance(entry, 400)).toList();
+        this.effectInstances = List.of(effects);
     }
 
     public String asString() {
