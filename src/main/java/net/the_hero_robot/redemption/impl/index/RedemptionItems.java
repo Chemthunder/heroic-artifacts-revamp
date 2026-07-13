@@ -78,7 +78,7 @@ public interface RedemptionItems {
             .attributeModifiers(KatanaItem.createAttributeModifiers(KatanaComponent.BladeType.SHEATHED)));
 
     Item SCULK_KATANA = ITEMS.register("sculk_katana", KatanaItem::new, new RedemptionItemSettings()
-            .katana(KatanaComponent.BladeType.SHEATHED, KatanaType.SCULK, Items.ECHO_SHARD)
+            .katana(KatanaComponent.BladeType.SHEATHED, KatanaType.SCULK, Items.SCULK_CATALYST)
             .colors(0xFF22423f)
             .hitSound(SoundEvents.BLOCK_SCULK_PLACE)
             .maxCount(1)
