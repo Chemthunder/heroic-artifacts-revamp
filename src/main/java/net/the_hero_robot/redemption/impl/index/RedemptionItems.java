@@ -34,7 +34,7 @@ public interface RedemptionItems {
             .attributeModifiers(KatanaItem.createAttributeModifiers(KatanaComponent.BladeType.SHEATHED)));
 
     Item REDSTONE_KATANA = ITEMS.register("redstone_katana", KatanaItem::new, new RedemptionItemSettings()
-            .katana(KatanaComponent.BladeType.SHEATHED, KatanaType.REDSTONE, Items.REDSTONE)
+            .katana(KatanaComponent.BladeType.SHEATHED, KatanaType.REDSTONE, Items.REDSTONE_BLOCK)
             .colors(0xFF6a1b28)
             .maxCount(1)
             .fireproof()
