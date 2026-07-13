@@ -3,10 +3,10 @@ package net.the_hero_robot.redemption.impl.index;
 import net.acoyt.acornlib.api.registrants.ComponentTypeRegistrant;
 import net.minecraft.component.ComponentType;
 import net.the_hero_robot.redemption.impl.Redemption;
+import net.the_hero_robot.redemption.impl.arcane_kings.evocation.EvocationSpell;
 import net.the_hero_robot.redemption.impl.component.AshiroComponent;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.util.ModUtil;
-import net.the_hero_robot.redemption.impl.arcane_kings.evocation.EvocationSpell;
 import org.joml.Vector4i;
 
 /**

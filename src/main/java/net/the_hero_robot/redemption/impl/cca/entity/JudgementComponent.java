@@ -1,6 +1,7 @@
 package net.the_hero_robot.redemption.impl.cca.entity;
 
 import com.nitron.nitrogen.util.interfaces.ScreenShaker;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -134,5 +135,10 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
     public void setMonologueTicks(int monologueTicks) {
         this.monologueTicks = monologueTicks;
         sync();
+    }
+
+    public static boolean isJudgement(Entity entity) {
+        if (!(entity instanceof PlayerEntity player)) return false;
+        return KEY.get(player).isJudgement();
     }
 }

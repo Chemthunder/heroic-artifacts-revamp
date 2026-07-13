@@ -1,5 +1,6 @@
 package net.the_hero_robot.redemption.impl.cca.entity;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
@@ -63,5 +64,16 @@ public class EnshroudedComponent implements AutoSyncedComponent, CommonTickingCo
     public void setCooldown(int cooldown) {
         this.cooldown = cooldown;
         sync();
+    }
+
+    public void set(boolean shrouded, int cooldown) {
+        this.shrouded = shrouded;
+        this.cooldown = cooldown;
+        sync();
+    }
+
+    public static boolean isShrouded(Entity entity) {
+        if (!(entity instanceof PlayerEntity player)) return false;
+        return KEY.get(player).isShrouded();
     }
 }

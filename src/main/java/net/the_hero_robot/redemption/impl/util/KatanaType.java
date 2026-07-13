@@ -1,15 +1,11 @@
 package net.the_hero_robot.redemption.impl.util;
 
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.StringIdentifiable;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static net.the_hero_robot.redemption.impl.index.RedemptionItems.*;

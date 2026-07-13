@@ -12,7 +12,7 @@ import java.util.Optional;
  */
 public class SelfTransparencyEvent implements PlayerOpacityEvent {
     public Optional<Double> getOpacity(PlayerEntity player) {
-        if (EnshroudedComponent.KEY.get(player).isShrouded()) {
+        if (EnshroudedComponent.isShrouded(player)) {
             return player == MinecraftClient.getInstance().player ? Optional.of(0.4) : Optional.of(0.0);
         }
 

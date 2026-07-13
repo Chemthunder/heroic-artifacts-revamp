@@ -15,8 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class EntityMixin {
     @Inject(method = "spawnSprintingParticles", at = @At("HEAD"), cancellable = true)
     private void redemption$disableSprintingParticles(CallbackInfo ci) {
-        EnshroudedComponent.KEY.maybeGet(this).ifPresent(component -> {
-            if (component.isShrouded()) ci.cancel();
-        });
+        if (EnshroudedComponent.isShrouded((Entity)(Object)this)) ci.cancel();
     }
 }

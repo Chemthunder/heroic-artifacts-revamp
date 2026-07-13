@@ -21,11 +21,6 @@ public abstract class EntityRenderDispatcherMixin {
             )
     )
     private boolean redemption$cancelRenderHitboxes(Entity instance, Operation<Boolean> original) {
-        EnshroudedComponent component = EnshroudedComponent.KEY.getNullable(instance);
-        if (component != null) {
-            return original.call(instance) || component.isShrouded();
-        }
-
-        return original.call(instance);
+        return original.call(instance) || EnshroudedComponent.isShrouded(instance);
     }
 }

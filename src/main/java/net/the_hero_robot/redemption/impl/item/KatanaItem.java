@@ -184,7 +184,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
             } else if (component.bladeType() == KatanaComponent.BladeType.SHEATHED && user.getOffHandStack().isEmpty()) {
                 KatanaType katanaType = component.type();
 
-                user.getItemCooldownManager().set(stack.getItem(), 20);
+                user.getItemCooldownManager().set(stack.getItem(), 200);
 
                 ItemStack mainStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.KATANA));
                 ItemStack offStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATH));
@@ -195,9 +195,8 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
                 stack.decrement(1);
 
                 if (!effects.isEmpty()) {
-                    for (RegistryEntry<StatusEffect> registries : effects) {
-                        user.addStatusEffect(new StatusEffectInstance(registries, 400));
-
+                    for (RegistryEntry<StatusEffect> effect : effects) {
+                        user.addStatusEffect(new StatusEffectInstance(effect, effect == StatusEffects.STRENGTH ? 200 : effect == StatusEffects.RESISTANCE ? 120 : 400));
                     }
                 }
 
@@ -217,7 +216,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
                 user.playSound(RedemptionSounds.KATANA_UNSHEATHE, 1.0F, (float) (1.0F + user.getRandom().nextGaussian() / 10.0F));
 
                 return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
-            } else if (component.bladeType() == KatanaComponent.BladeType.KATANA && JudgementComponent.KEY.get(user).isJudgement()) {
+            } else if (component.bladeType() == KatanaComponent.BladeType.KATANA && JudgementComponent.isJudgement(user)) {
                 user.setVelocity(user.getRotationVector().multiply(3));
                 user.velocityModified = true;
 

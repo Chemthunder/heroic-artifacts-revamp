@@ -5,7 +5,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
@@ -13,6 +12,7 @@ import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.FlashComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.JudgementFlashComponent;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -26,12 +26,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(InGameHud.class)
 public abstract class InGameHudOverlay {
-    @Shadow protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
-
     @Unique private static final Identifier JUDGE_FLASH = Redemption.id("textures/gui/judge_flash.png");
     @Unique private static final Identifier FLASH = Redemption.id("textures/gui/flash.png");
     @Unique private static final Identifier CUSTOM_HOTBAR = Redemption.id("hud/custom_hotbar");
     @Unique private static final Identifier CUSTOM_HOTBAR_SELECTOR = Redemption.id("hud/custom_hotbar_selection");
+
+    @Shadow protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
+
+    @Shadow @Final private MinecraftClient client;
 
     @Inject(method = "renderMiscOverlays", at = @At("TAIL"))
     private void redemption$overlays(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
@@ -59,8 +61,7 @@ public abstract class InGameHudOverlay {
             )
     )
     private void redemption$textureHotbar(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        original.call(instance, player != null && JudgementComponent.KEY.get(player).isJudgement() ? CUSTOM_HOTBAR : texture, x, y, width, height);
+        original.call(instance, JudgementComponent.isJudgement(client.player) ? CUSTOM_HOTBAR : texture, x, y, width, height);
     }
 
     @WrapOperation(
@@ -72,7 +73,6 @@ public abstract class InGameHudOverlay {
             )
     )
     private void redemption$textureSelector(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        original.call(instance, player != null && JudgementComponent.KEY.get(player).isJudgement() ? CUSTOM_HOTBAR_SELECTOR : texture, x, y, width, height);
+        original.call(instance, JudgementComponent.isJudgement(client.player) ? CUSTOM_HOTBAR_SELECTOR : texture, x, y, width, height);
     }
 }

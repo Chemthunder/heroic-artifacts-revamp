@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "I": {
-      "item": "minecraft:redstone"
+      "item": "minecraft:sculk_catalyst"
     },
     "N": {
       "item": "minecraft:netherite_ingot"
@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "redemption:redstone_katana"
+    "id": "redemption:sculk_katana"
   }
 }

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_echo_shard": {
+    "has_sculk_catalyst": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:echo_shard"
+            "items": "minecraft:sculk_catalyst"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "redemption:sculk_katana_from_echo_shard"
+        "recipe": "redemption:sculk_katana_from_sculk_catalyst"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_echo_shard"
+      "has_sculk_catalyst"
     ]
   ],
   "rewards": {
     "recipes": [
-      "redemption:sculk_katana_from_echo_shard"
+      "redemption:sculk_katana_from_sculk_catalyst"
     ]
   }
 }

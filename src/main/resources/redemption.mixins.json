@@ -4,14 +4,15 @@
     "plugin": "net.the_hero_robot.redemption.impl.util.RedemptionMixinPlugin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
-        "CommandManagerMixin",
         "EntityMixin",
         "ExplosionMixin",
         "FireballEntityMixin",
         "LivingEntityMixin",
         "MobEntityMixin",
         "PlayerEntityMixin",
-        "compat.acornlib.ItemRegistrantMixin"
+        "RepairItemRecipeMixin",
+        "compat.acornlib.ItemRegistrantMixin",
+        "compat.xaerominimap.RadarRendererMixin"
     ],
     "client": [
         "client.ArmorFeatureRendererMixin",

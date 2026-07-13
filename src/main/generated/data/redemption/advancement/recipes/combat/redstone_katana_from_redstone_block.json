@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_redstone": {
+    "has_redstone_block": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:redstone"
+            "items": "minecraft:redstone_block"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "redemption:redstone_katana_from_redstone"
+        "recipe": "redemption:redstone_katana_from_redstone_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_redstone"
+      "has_redstone_block"
     ]
   ],
   "rewards": {
     "recipes": [
-      "redemption:redstone_katana_from_redstone"
+      "redemption:redstone_katana_from_redstone_block"
     ]
   }
 }

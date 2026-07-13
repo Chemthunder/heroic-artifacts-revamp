@@ -8,7 +8,6 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,10 +27,6 @@ public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extend
 
     @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
     private void redemption$cancelArmorRenderingBecauseSimoneIsAwesome(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, EquipmentSlot armorSlot, int light, A model, CallbackInfo ci) {
-        if (entity instanceof PlayerEntity player) {
-            if (EnshroudedComponent.KEY.get(player).isShrouded() || JudgementComponent.KEY.get(player).isJudgement()) {
-                ci.cancel();
-            }
-        }
+        if (EnshroudedComponent.isShrouded(entity) || JudgementComponent.isJudgement(entity)) ci.cancel();
     }
 }

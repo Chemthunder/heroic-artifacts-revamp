@@ -77,6 +77,9 @@ dependencies {
     // CCA
     modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cca_version}")
     modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
+
+    // Compat
+    modCompileOnly "maven.modrinth:xaeros-minimap:${project.minimap_version}"
 }
 
 processResources {

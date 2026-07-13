@@ -41,12 +41,12 @@ public class CourtGlassItem extends Item implements ColorableItem {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
         if (user.isSneaking()) {
-            if (hand == Hand.OFF_HAND && !JudgementComponent.KEY.get(user).isJudgement()) {
+            if (hand == Hand.OFF_HAND && !JudgementComponent.isJudgement(user)) {
                 becomeJudgement(user, world, user.getOffHandStack());
 
                 user.getItemCooldownManager().set(stack.getItem(), 180);
                 return TypedActionResult.success(user.getStackInHand(hand));
-            } else if (hand == Hand.MAIN_HAND && JudgementComponent.KEY.get(user).isJudgement()) {
+            } else if (hand == Hand.MAIN_HAND && JudgementComponent.isJudgement(user)) {
                 summonCourt(world, user);
 
                 user.getItemCooldownManager().set(stack.getItem(), 320);
