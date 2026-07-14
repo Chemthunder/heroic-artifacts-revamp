@@ -9,12 +9,20 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolItem;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
+import net.the_hero_robot.redemption.impl.cca.entity.UndeadComponent;
 import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
@@ -25,6 +33,66 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingEntityMixin extends Entity implements Attackable {
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
+    }
+
+    @Unique
+    protected boolean isAffectedByDaylight(LivingEntity player) {
+
+        if (player.getWorld().isDay() && !player.getWorld().isClient) {
+            float f = player.getBrightnessAtEyes();
+            BlockPos blockPos = BlockPos.ofFloored(player.getX(), player.getEyeY(), player.getZ());
+            if (f > 0.5F && player.getRandom().nextFloat() * 30.0F < (f - 0.4F) * 2.0F && player.getWorld().isSkyVisible(blockPos)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Inject(method = "tickMovement", at = @At("HEAD"), cancellable = true)
+    public void redemption$undeadIsBurnedInDaylightOrDissolvedInWater(CallbackInfo ci) {
+        if ((LivingEntity) (Object) this instanceof PlayerEntity) {
+            if (UndeadComponent.KEY.get(this).isSunWeak() && isAffectedByDaylight((LivingEntity) (Object) this)) {
+                this.setOnFireFor(8.0F);
+            }
+            if (UndeadComponent.KEY.get(this).isVampire() && this.getWorld().getFluidState(this.getBlockPos()).getFluid() == Fluids.WATER.getFlowing()) {
+
+                this.damage(this.getWorld().getDamageSources().magic(), 1);
+            }
+        }
+    }
+
+
+
+
+    @WrapMethod(method = "damage")
+    private boolean redemption$damageNullifyConditions(DamageSource source, float amount, Operation<Boolean> original) {
+        if (source.getAttacker() instanceof PlayerEntity attackerPlayer) {
+            if (UndeadComponent.KEY.maybeGet(attackerPlayer).isPresent()) {
+
+                if (UndeadComponent.KEY.get(attackerPlayer).isAnyGreyed()) {
+                    return original.call(source, amount * 0);
+                }
+
+                if ((LivingEntity) (Object) this instanceof PlayerEntity player) {
+                    if (player.getHealth() <= amount && UndeadComponent.KEY.get(attackerPlayer).isVampire() && !UndeadComponent.KEY.get(player).isUndead()) {
+                        UndeadComponent.KEY.get(player).setUndead(2);
+                        // add some sort of visual effect for eye candy
+
+                        return original.call(source, amount * 0);
+                    }
+
+
+
+                    if (attackerPlayer.getMainHandStack().getItem() == Items.WOODEN_SWORD) {
+                        if (UndeadComponent.KEY.get(this).isVampire()) {
+
+                            return original.call(source, amount + 4);
+                        }
+                    }
+                }
+            }
+        }
+        return original.call(source, amount);
     }
 
     @Inject(method = "tryUseTotem", at = @At("RETURN"), cancellable = true)
@@ -49,6 +117,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
             }
         }
     }
+
 
 
     @ModifyReturnValue(method = "getMaxHealth", at = @At("RETURN"))
