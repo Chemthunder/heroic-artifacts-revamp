@@ -12,8 +12,20 @@ import net.minecraft.world.World;
 /**
  * @author Chemthunder
  */
-@SuppressWarnings("ClassCanBeRecord")
 public class EvocationSpell {
+    public static final Codec<EvocationSpell> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.INT.optionalFieldOf("color", 0).forGetter(EvocationSpell::getColor),
+            Codec.INT.optionalFieldOf("cooldown", 0).forGetter(EvocationSpell::getCooldown),
+            Codec.STRING.optionalFieldOf("name", "").forGetter(EvocationSpell::getName)
+    ).apply(instance, EvocationSpell::new));
+
+    public static final PacketCodec<ByteBuf, EvocationSpell> PACKET_CODEC = PacketCodec.tuple(
+            PacketCodecs.VAR_INT, EvocationSpell::getColor,
+            PacketCodecs.VAR_INT, EvocationSpell::getCooldown,
+            PacketCodecs.STRING, EvocationSpell::getName,
+            EvocationSpell::new
+    );
+
     private final int color;
     private final int cooldown;
     private final String name;
@@ -37,12 +49,4 @@ public class EvocationSpell {
     }
 
     public void use(PlayerEntity player, ItemStack stack, World world) {}
-
-    public static final Codec<EvocationSpell> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.INT.optionalFieldOf("color", 0).forGetter(EvocationSpell::getColor),
-            Codec.INT.optionalFieldOf("cooldown", 0).forGetter(EvocationSpell::getCooldown),
-            Codec.STRING.optionalFieldOf("name", "").forGetter(EvocationSpell::getName)
-    ).apply(instance, EvocationSpell::new));
-
-    public static final PacketCodec<ByteBuf, EvocationSpell> PACKET_CODEC = PacketCodecs.codec(CODEC);
 }

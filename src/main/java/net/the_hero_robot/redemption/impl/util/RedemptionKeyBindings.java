@@ -65,7 +65,7 @@ public class RedemptionKeyBindings {
         if (currentTime - lastToggleTime < COOLDOWN_TIME) return;
 
         try {
-            ClientPlayNetworking.send(new IkirGameModeSwitchPayload());
+            ClientPlayNetworking.send(IkirGameModeSwitchPayload.INSTANCE);
 
             lastToggleTime = System.currentTimeMillis();
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class RedemptionKeyBindings {
         if (currentTime - lastToggleTime < COOLDOWN_TIME) return;
 
         try {
-            ClientPlayNetworking.send(new IkirImmolationPayload());
+            ClientPlayNetworking.send(IkirImmolationPayload.INSTANCE);
 
             lastToggleTime = System.currentTimeMillis();
         } catch (Exception e) {

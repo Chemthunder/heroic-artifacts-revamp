@@ -1,16 +1,16 @@
 package net.the_hero_robot.redemption.impl.util;
 
 import com.mojang.serialization.Codec;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.component.ComponentType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.Vec3d;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
 import net.the_hero_robot.redemption.impl.index.RedemptionItems;
 import org.joml.Vector4i;
@@ -21,6 +21,18 @@ import java.util.List;
  * @author AcoYT
  */
 public class ModUtil {
+    public static final PacketCodec<PacketByteBuf, Vec3d> VEC3D_PACKET_CODEC = new PacketCodec<PacketByteBuf, Vec3d>() {
+        @Override
+        public Vec3d decode(PacketByteBuf buf) {
+            return buf.readVec3d();
+        }
+
+        @Override
+        public void encode(PacketByteBuf buf, Vec3d value) {
+            buf.writeVec3d(value);
+        }
+    };
+
     public static final Codec<Vector4i> VECTOR_4I_CODEC = Codec.INT.listOf()
             .comapFlatMap(list ->
                     Util.decodeFixedLengthList(list, 4).map(listX -> new Vector4i(
@@ -28,7 +40,20 @@ public class ModUtil {
                     ), vec4i -> List.of(vec4i.x(), vec4i.y(), vec4i.z(), vec4i.w())
             );
 
-    public static final PacketCodec<ByteBuf, Vector4i> VECTOR_4I_PACKET_CODEC = PacketCodecs.codec(VECTOR_4I_CODEC);
+    public static final PacketCodec<PacketByteBuf, Vector4i> VECTOR_4I_PACKET_CODEC = new PacketCodec<>() {
+        @Override
+        public Vector4i decode(PacketByteBuf buf) {
+            return new Vector4i(buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt());
+        }
+
+        @Override
+        public void encode(PacketByteBuf buf, Vector4i value) {
+            buf.writeVarInt(value.x);
+            buf.writeVarInt(value.y);
+            buf.writeVarInt(value.z);
+            buf.writeVarInt(value.w);
+        }
+    };
 
     public static <T> ItemStack copy(ItemStack stack, ComponentType<T> type, T value) {
         ItemStack itemStack = stack.copy();

@@ -42,6 +42,8 @@ public record KatanaComponent(BladeType bladeType, KatanaType type, Ingredient m
         SHEATHED("sheathed", true, false);
 
         public static final Codec<BladeType> CODEC = StringIdentifiable.createCodec(BladeType::values);
+        //public static final IntFunction<BladeType> ID_TO_VALUE_FUNCTION = ValueLists.createIdToValueFunction(BladeType::ordinal, values(), ValueLists.OutOfBoundsHandling.WRAP);
+        //public static final PacketCodec<ByteBuf, BladeType> PACKET_CODEC = PacketCodecs.indexed(ID_TO_VALUE_FUNCTION, BladeType::ordinal);
 
         private final String id;
         private final boolean sheathed;
