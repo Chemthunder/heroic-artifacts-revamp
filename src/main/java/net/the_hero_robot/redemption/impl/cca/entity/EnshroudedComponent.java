@@ -26,30 +26,30 @@ public class EnshroudedComponent implements AutoSyncedComponent, CommonTickingCo
     }
 
     public void sync() {
-        KEY.sync(player);
+        KEY.sync(this.player);
     }
 
     public void tick() {
-        if (cooldown > 0) {
-            cooldown--;
-            if (cooldown == 0) {
+        if (this.cooldown > 0) {
+            this.cooldown--;
+            if (this.cooldown == 0) {
                 sync();
             }
         }
     }
 
     public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        shrouded = nbt.getBoolean("Shrouded");
-        cooldown = nbt.getInt("Cooldown");
+        this.shrouded = nbt.getBoolean("Shrouded");
+        this.cooldown = nbt.getInt("Cooldown");
     }
 
     public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putBoolean("Shrouded", shrouded);
-        nbt.putInt("Cooldown", cooldown);
+        nbt.putBoolean("Shrouded", this.shrouded);
+        nbt.putInt("Cooldown", this.cooldown);
     }
 
     public boolean isShrouded() {
-        return shrouded;
+        return this.shrouded;
     }
 
     public void setShrouded(boolean shrouded) {
@@ -58,7 +58,7 @@ public class EnshroudedComponent implements AutoSyncedComponent, CommonTickingCo
     }
 
     public int getCooldown() {
-        return cooldown;
+        return this.cooldown;
     }
 
     public void setCooldown(int cooldown) {

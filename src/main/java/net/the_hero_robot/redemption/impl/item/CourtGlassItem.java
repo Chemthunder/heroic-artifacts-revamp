@@ -70,6 +70,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
         for (PlayerEntity playerEntity : world.getPlayers()) {
             JudgementFlashComponent.KEY.get(playerEntity).setFlashTicks(20);
 
+            // This plays a new sound at the position of every player, in both the ClientWorld and ServerWorld. Do you only want this to play once? - SkyNotTheLimit
             playerEntity.playSound(SoundEvents.BLOCK_CONDUIT_AMBIENT_SHORT);
             playerEntity.playSound(SoundEvents.ENTITY_WARDEN_HEARTBEAT);
             playerEntity.playSound(SoundEvents.ENTITY_WARDEN_EMERGE);
@@ -87,6 +88,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
             }
 
             for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
+                // iterating through players twice, consider doing that only once - SkyNotTheLimit
                 serverPlayer.sendMessage(Text.translatable(player.getNameForScoreboard()).append(Text.literal(" was crowned for Judgement")), false);
             }
         }

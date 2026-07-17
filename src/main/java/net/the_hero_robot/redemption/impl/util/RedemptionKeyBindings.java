@@ -69,7 +69,7 @@ public class RedemptionKeyBindings {
 
             lastToggleTime = System.currentTimeMillis();
         } catch (Exception e) {
-            Redemption.LOGGER.error("Failed to send Ikir Switch Payload");
+            Redemption.LOGGER.error("Failed to send Ikir Switch Payload!", e);
         }
     }
 
@@ -84,7 +84,7 @@ public class RedemptionKeyBindings {
 
             lastToggleTime = System.currentTimeMillis();
         } catch (Exception e) {
-            Redemption.LOGGER.error("Failed to send Ikir Ability Payload");
+            Redemption.LOGGER.error("Failed to send Ikir Ability Payload!", e);
         }
     }
 }

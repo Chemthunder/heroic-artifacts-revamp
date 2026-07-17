@@ -24,28 +24,28 @@ public class FlashComponent implements AutoSyncedComponent, CommonTickingCompone
     }
 
     public void sync() {
-        KEY.sync(player);
+        KEY.sync(this.player);
     }
 
     public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        flashTicks = nbt.getInt("FlashTicks");
+        this.flashTicks = nbt.getInt("FlashTicks");
     }
 
     public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putInt("FlashTicks", flashTicks);
+        nbt.putInt("FlashTicks", this.flashTicks);
     }
 
     public void tick() {
-        if (flashTicks > 0) {
-            flashTicks--;
-            if (flashTicks == 0) {
+        if (this.flashTicks > 0) {
+            this.flashTicks--;
+            if (this.flashTicks == 0) {
                 sync();
             }
         }
     }
 
     public int getFlashTicks() {
-        return flashTicks;
+        return this.flashTicks;
     }
 
     public void setFlashTicks(int flashTicks) {

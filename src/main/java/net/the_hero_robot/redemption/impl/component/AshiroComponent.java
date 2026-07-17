@@ -14,6 +14,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
 import net.the_hero_robot.redemption.impl.util.ModUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public record AshiroComponent(RegistryKey<World> world, Vec3d pos) {
             AshiroComponent::new
     );
 
+    @NotNull
     public static AshiroComponent get(ItemStack stack) {
         return stack.getOrDefault(RedemptionDataComponents.ASHIRO, DEFAULT);
     }

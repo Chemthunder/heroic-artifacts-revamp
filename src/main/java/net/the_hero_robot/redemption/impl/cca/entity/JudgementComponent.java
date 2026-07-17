@@ -37,24 +37,24 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
     }
 
     public void sync() {
-        KEY.sync(player);
+        KEY.sync(this.player);
     }
 
     public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        judgement = nbt.getBoolean("Judgement");
-        monologueTicks = nbt.getInt("MonologueTicks");
+        this.judgement = nbt.getBoolean("Judgement");
+        this.monologueTicks = nbt.getInt("MonologueTicks");
     }
 
     public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putBoolean("Judgement", judgement);
-        nbt.putInt("MonologueTicks", monologueTicks);
+        nbt.putBoolean("Judgement", this.judgement);
+        nbt.putInt("MonologueTicks", this.monologueTicks);
     }
 
     public void tick() {
-        if (monologueTicks > 0) {
-            monologueTicks--;
-            if (player.getWorld() instanceof ServerWorld serverWorld) {
-                Vec3d pos = player.getPos();
+        if (this.monologueTicks > 0) {
+            this.monologueTicks--;
+            if (this.player.getWorld() instanceof ServerWorld serverWorld) {
+                Vec3d pos = this.player.getPos();
 
                 serverWorld.spawnParticles(
                         ParticleTypes.SCULK_SOUL,
@@ -65,20 +65,20 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
                 );
             }
 
-            if (monologueTicks == 0) {
+            if (this.monologueTicks == 0) {
                 sync();
-                beginKillAnim(player.getWorld());
+                beginKillAnim(this.player.getWorld());
             }
         }
     }
 
     public void beginKillAnim(World world) {
         if (world instanceof ServerWorld serverWorld) {
-            Vec3d pos = player.getPos();
+            Vec3d pos = this.player.getPos();
 
-            player.dropStack(RedemptionItems.COURT_GLASS.getDefaultStack());
-            player.setInvulnerable(false);
-            player.damage(RedemptionDamageTypes.create(world, RedemptionDamageTypes.DESCEND), Float.MAX_VALUE);
+            this.player.dropStack(RedemptionItems.COURT_GLASS.getDefaultStack());
+            this.player.setInvulnerable(false);
+            this.player.damage(RedemptionDamageTypes.create(world, RedemptionDamageTypes.DESCEND), Float.MAX_VALUE);
 
             serverWorld.spawnParticles(
                     ParticleTypes.SOUL,
@@ -120,7 +120,7 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
     }
 
     public boolean isJudgement() {
-        return judgement;
+        return this.judgement;
     }
 
     public void setJudgement(boolean judgement) {
@@ -129,7 +129,7 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
     }
 
     public int getMonologueTicks() {
-        return monologueTicks;
+        return this.monologueTicks;
     }
 
     public void setMonologueTicks(int monologueTicks) {
