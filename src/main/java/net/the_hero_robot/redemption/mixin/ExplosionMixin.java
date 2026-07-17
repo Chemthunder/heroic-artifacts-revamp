@@ -29,6 +29,7 @@ public abstract class ExplosionMixin {
     )
     private boolean redemption$applyVelocityIfOwner(Entity instance, DamageSource source, float amount, Operation<Boolean> original) {
         boolean value = original.call(instance, source, amount);
+
         if (source.getSource() instanceof DragonSwordFireballEntity swordFireball && swordFireball.getKnockbackAgainst(instance) > 0.0F) {
             Vec3d pos = this.getPosition();
             float multiplier = amount * -swordFireball.getKnockbackAgainst(instance);

@@ -8,27 +8,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Items;
-import net.minecraft.item.ToolItem;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * @author AcoYT
@@ -40,14 +25,16 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         super(type, world);
     }
 
-    @Inject(method = "tryUseTotem", at = @At("RETURN"), cancellable = true)
-    private void redemption$deathEffect(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-        LivingEntity living = (LivingEntity)(Object)this;
+    @ModifyReturnValue(method = "tryUseTotem", at = @At("RETURN"))
+    private boolean redemption$deathEffect(boolean original, DamageSource source) {
+        if (original) {
+            return true;
+        }
 
-        if (living instanceof PlayerEntity player) {
+        if ((LivingEntity) (Object) this instanceof PlayerEntity player) {
             JudgementComponent judge = JudgementComponent.KEY.get(player);
 
-            if (JudgementComponent.isJudgement(player) && !cir.getReturnValue()) {
+            if (JudgementComponent.isJudgement(player)) {
                 if (!source.isOf(RedemptionDamageTypes.DESCEND)) {
                     player.setHealth(player.getMaxHealth());
                     player.setVelocity(0, 0.3, 0);
@@ -57,13 +44,13 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
                     player.noClip = true;
 
                     judge.setMonologueTicks(200);
-                    cir.setReturnValue(true);
+                    return true;
                 }
             }
         }
+
+        return false;
     }
-
-
 
     @ModifyReturnValue(method = "getMaxHealth", at = @At("RETURN"))
     private float redemption$judgeMaxHealth(float original) {

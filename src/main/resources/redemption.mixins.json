@@ -11,15 +11,15 @@
         "MobEntityMixin",
         "PlayerEntityMixin",
         "RepairItemRecipeMixin",
-        "compat.acornlib.ItemRegistrantMixin",
-        "compat.xaerominimap.RadarRendererMixin"
+        "compat.acornlib.ItemRegistrantMixin"
     ],
     "client": [
         "client.ArmorFeatureRendererMixin",
         "client.ClientPlayerEntityMixin",
         "client.EntityRenderDispatcherMixin",
         "client.InGameHudOverlay",
-        "client.PlayerEntityRendererMixin"
+        "client.PlayerEntityRendererMixin",
+        "compat.xaerominimap.RadarRendererMixin"
     ],
     "injectors": {
         "defaultRequire": 1

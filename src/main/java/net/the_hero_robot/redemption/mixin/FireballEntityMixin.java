@@ -30,7 +30,7 @@ public abstract class FireballEntityMixin extends AbstractFireballEntity {
             )
     )
     private Explosion redemption$allowFireballJumping(World instance, Entity entity, double x, double y, double z, float power, boolean createFire, ExplosionSourceType explosionSourceType, Operation<Explosion> original) {
-        if ((FireballEntity)(Object)this instanceof DragonSwordFireballEntity swordFireball) {
+        if ((FireballEntity) (Object) this instanceof DragonSwordFireballEntity swordFireball) {
             return instance.createExplosion(
                     entity,
                     Explosion.createDamageSource(instance, entity),

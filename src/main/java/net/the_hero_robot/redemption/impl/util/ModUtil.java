@@ -36,18 +36,16 @@ public class ModUtil {
         return itemStack;
     }
 
-    public static void cooldownAllSheath(PlayerEntity player, int cd) {
-        player.getItemCooldownManager().set(RedemptionItems.AMETHYST_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.ASHIRO_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.COPPER_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.EMERALD_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.LAPIS_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.NETHERITE_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.QUARTZ_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.REDSTONE_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.SCULK_KATANA, cd);
-
-
+    public static void cooldownAllSheath(PlayerEntity player, int ticks) {
+        player.getItemCooldownManager().set(RedemptionItems.AMETHYST_KATANA, ticks);
+        player.getItemCooldownManager().set(RedemptionItems.ASHIRO_KATANA, ticks);
+        player.getItemCooldownManager().set(RedemptionItems.COPPER_KATANA, ticks);
+        player.getItemCooldownManager().set(RedemptionItems.EMERALD_KATANA, ticks);
+        player.getItemCooldownManager().set(RedemptionItems.LAPIS_KATANA, ticks);
+        player.getItemCooldownManager().set(RedemptionItems.NETHERITE_KATANA, ticks);
+        player.getItemCooldownManager().set(RedemptionItems.QUARTZ_KATANA, ticks);
+        player.getItemCooldownManager().set(RedemptionItems.REDSTONE_KATANA, ticks);
+        player.getItemCooldownManager().set(RedemptionItems.SCULK_KATANA, ticks);
     }
 
     public static Identifier formatKatanaId(ItemStack stack, boolean itemPrefix) {
