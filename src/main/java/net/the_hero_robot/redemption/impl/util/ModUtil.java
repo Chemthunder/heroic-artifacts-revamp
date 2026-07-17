@@ -21,7 +21,7 @@ import java.util.List;
  * @author AcoYT
  */
 public class ModUtil {
-    public static final PacketCodec<PacketByteBuf, Vec3d> VEC3D_PACKET_CODEC = new PacketCodec<PacketByteBuf, Vec3d>() {
+    public static final PacketCodec<PacketByteBuf, Vec3d> VEC3D_PACKET_CODEC = new PacketCodec<>() {
         @Override
         public Vec3d decode(PacketByteBuf buf) {
             return buf.readVec3d();
