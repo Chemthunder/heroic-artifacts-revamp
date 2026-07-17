@@ -1,6 +1,8 @@
 package net.the_hero_robot.redemption.impl.event.client;
 
 import net.acoyt.acornlib.api.event.PlayerOpacityEvent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
@@ -10,6 +12,7 @@ import java.util.Optional;
 /**
  * @author AcoYT
  */
+@Environment(EnvType.CLIENT)
 public class SelfTransparencyEvent implements PlayerOpacityEvent {
     public Optional<Double> getOpacity(PlayerEntity player) {
         if (EnshroudedComponent.isShrouded(player)) {

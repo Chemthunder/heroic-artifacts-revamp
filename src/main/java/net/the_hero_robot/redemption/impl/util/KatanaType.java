@@ -57,6 +57,7 @@ public enum KatanaType implements StringIdentifiable {
     public final Item katana;
     public final List<RegistryEntry<StatusEffect>> effectInstances;
 
+    @SafeVarargs
     KatanaType(String id, Item katana, RegistryEntry<StatusEffect>... effects) {
         this.id = id;
         this.katana = katana;

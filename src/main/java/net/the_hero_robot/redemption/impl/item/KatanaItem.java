@@ -174,85 +174,95 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        if (user.getItemCooldownManager().isCoolingDown(this)) {
+            return super.use(world, user, hand);
+        }
+
         ItemStack stack = user.getStackInHand(hand);
         KatanaComponent component = KatanaComponent.get(stack);
-        if (!user.getItemCooldownManager().isCoolingDown(this)) {
-            if (component.bladeType() == KatanaComponent.BladeType.SHEATH) {
-                super.use(world, user, hand);
-                user.setCurrentHand(hand);
-                return TypedActionResult.consume(user.getStackInHand(hand));
-            } else if (component.bladeType() == KatanaComponent.BladeType.SHEATHED && user.getOffHandStack().isEmpty()) {
-                KatanaType katanaType = component.type();
 
-                user.getItemCooldownManager().set(stack.getItem(), 200);
+        if (component.bladeType() == KatanaComponent.BladeType.SHEATH) {
+            super.use(world, user, hand);
+            user.setCurrentHand(hand);
+            return TypedActionResult.consume(user.getStackInHand(hand));
+        }
 
-                ItemStack mainStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.KATANA));
-                ItemStack offStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATH));
-                List<RegistryEntry<StatusEffect>> effects = katanaType.effectInstances;
+        if (component.bladeType() == KatanaComponent.BladeType.SHEATHED && user.getOffHandStack().isEmpty()) {
+            KatanaType katanaType = component.type();
 
-                user.setStackInHand(Hand.MAIN_HAND, mainStack);
-                user.setStackInHand(Hand.OFF_HAND, offStack);
-                stack.decrement(1);
+            user.getItemCooldownManager().set(stack.getItem(), 200);
 
-                if (!effects.isEmpty()) {
-                    for (RegistryEntry<StatusEffect> effect : effects) {
-                        user.addStatusEffect(new StatusEffectInstance(effect, effect == StatusEffects.STRENGTH ? 200 : effect == StatusEffects.RESISTANCE ? 120 : 400));
-                    }
+            ItemStack mainStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.KATANA));
+            ItemStack offStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATH));
+            List<RegistryEntry<StatusEffect>> effects = katanaType.effectInstances;
+
+            user.setStackInHand(Hand.MAIN_HAND, mainStack);
+            user.setStackInHand(Hand.OFF_HAND, offStack);
+            stack.decrement(1);
+
+            if (!effects.isEmpty()) {
+                for (RegistryEntry<StatusEffect> effect : effects) {
+                    user.addStatusEffect(new StatusEffectInstance(effect, effect == StatusEffects.STRENGTH ? 200 : effect == StatusEffects.RESISTANCE ? 120 : 400));
                 }
+            }
 
-                if (katanaType == KatanaType.NETHERITE) {
-                    user.damage(user.getDamageSources().magic(), 4.0F);
+            if (katanaType == KatanaType.NETHERITE) {
+                user.damage(user.getDamageSources().magic(), 4.0F);
+            }
+
+            if (katanaType == KatanaType.SCULK) {
+                Box box = new Box(user.getBlockPos()).expand(10);
+
+                for (LivingEntity living : world.getEntitiesByClass(LivingEntity.class, box, EntityPredicates.EXCEPT_SPECTATOR.and(entity -> entity != user))) {
+                    living.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 400));
                 }
+            }
 
-                if (katanaType == KatanaType.SCULK) {
-                    Box box = new Box(user.getBlockPos()).expand(10);
+            user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400));
+            user.playSound(RedemptionSounds.KATANA_UNSHEATHE, 1.0F, (float) (1.0F + user.getRandom().nextGaussian() / 10.0F));
 
-                    for (LivingEntity living : world.getEntitiesByClass(LivingEntity.class, box, EntityPredicates.EXCEPT_SPECTATOR.and(entity -> entity != user))) {
-                        living.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 400));
-                    }
+            return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
+        }
+
+        if (component.bladeType() == KatanaComponent.BladeType.KATANA && JudgementComponent.isJudgement(user)) {
+            user.setVelocity(user.getRotationVector().multiply(3));
+            user.velocityModified = true;
+
+            user.useRiptide(10, 7.0F, user.getStackInHand(user.getActiveHand()));
+            for (int i = 0; i < user.getInventory().size(); i++) {
+                ItemStack itemStack = user.getInventory().getStack(i);
+                if (itemStack.getItem() instanceof KatanaItem) {
+                    user.getItemCooldownManager().set(itemStack.getItem(), 220);
                 }
+            }
 
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400));
-                user.playSound(RedemptionSounds.KATANA_UNSHEATHE, 1.0F, (float) (1.0F + user.getRandom().nextGaussian() / 10.0F));
+            return TypedActionResult.success(user.getStackInHand(hand));
+        }
 
-                return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
-            } else if (component.bladeType() == KatanaComponent.BladeType.KATANA && JudgementComponent.isJudgement(user)) {
-                user.setVelocity(user.getRotationVector().multiply(3));
-                user.velocityModified = true;
+        if (component.type() == KatanaType.ASHIRO && component.bladeType() == KatanaComponent.BladeType.KATANA) {
+            AshiroComponent ashiroComponent = stack.get(RedemptionDataComponents.ASHIRO);
+            boolean success = false;
 
-                user.useRiptide(10, 7.0F, user.getStackInHand(user.getActiveHand()));
-                for (int i = 0; i < user.getInventory().size(); i++) {
-                    ItemStack itemStack = user.getInventory().getStack(i);
-                    if (itemStack.getItem() instanceof KatanaItem) {
-                        user.getItemCooldownManager().set(itemStack.getItem(), 220);
-                    }
-                }
+            if (ashiroComponent != null && user.getServer() != null && user.getServer().getWorld(ashiroComponent.world()) instanceof ServerWorld serverWorld) {
+                user.teleportTo(new TeleportTarget(
+                        serverWorld,
+                        ashiroComponent.pos(), user.getVelocity(),
+                        user.getYaw(), user.getPitch(),
+                        TeleportTarget.NO_OP
+                ));
 
+                success = true;
+            } else if (user.isSneaking()) {
+                stack.set(RedemptionDataComponents.ASHIRO, new AshiroComponent(user.getWorld().getRegistryKey(), user.getPos()));
+
+                success = true;
+            }
+
+            if (success) {
+                user.getItemCooldownManager().set(stack.getItem(), 20);
                 return TypedActionResult.success(user.getStackInHand(hand));
-            } else if (component.type() == KatanaType.ASHIRO && component.bladeType() == KatanaComponent.BladeType.KATANA) {
-                AshiroComponent ashiroComponent = AshiroComponent.get(stack);
-
-                boolean success = false;
-
-                if (stack.contains(RedemptionDataComponents.ASHIRO) && user.getServer() != null && user.getServer().getWorld(ashiroComponent.world()) instanceof ServerWorld serverWorld) {
-                    user.teleportTo(new TeleportTarget(
-                            serverWorld,
-                            ashiroComponent.pos(), user.getVelocity(),
-                            user.getYaw(), user.getPitch(),
-                            TeleportTarget.NO_OP
-                    ));
-
-                    success = true;
-                } else if (user.isSneaking()) {
-                    stack.set(RedemptionDataComponents.ASHIRO, new AshiroComponent(user.getWorld().getRegistryKey(), user.getPos()));
-
-                    success = true;
-                }
-
-                if (success) {
-                    user.getItemCooldownManager().set(stack.getItem(), 20);
-                    return TypedActionResult.success(user.getStackInHand(hand));
-                }
+            } else {
+                return super.use(world, user, hand);
             }
         }
 

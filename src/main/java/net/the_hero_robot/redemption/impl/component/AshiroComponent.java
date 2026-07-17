@@ -4,12 +4,19 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
+import net.the_hero_robot.redemption.impl.util.ModUtil;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * @author AcoYT
@@ -23,8 +30,13 @@ public record AshiroComponent(RegistryKey<World> world, Vec3d pos) {
             Vec3d.CODEC.fieldOf("pos").forGetter(AshiroComponent::pos)
     ).apply(instance, AshiroComponent::new));
 
-    public static final PacketCodec<ByteBuf, AshiroComponent> PACKET_CODEC = PacketCodecs.codec(CODEC);
+    public static final PacketCodec<PacketByteBuf, AshiroComponent> PACKET_CODEC = PacketCodec.tuple(
+            RegistryKey.createPacketCodec(RegistryKeys.WORLD), AshiroComponent::world,
+            ModUtil.VEC3D_PACKET_CODEC, AshiroComponent::pos,
+            AshiroComponent::new
+    );
 
+    @NotNull
     public static AshiroComponent get(ItemStack stack) {
         return stack.getOrDefault(RedemptionDataComponents.ASHIRO, DEFAULT);
     }

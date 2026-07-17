@@ -12,10 +12,13 @@ import net.the_hero_robot.redemption.impl.util.IkirPowerManager;
  * @author AcoYT
  * @author Chemthunder
  */
-public record IkirImmolationPayload() implements CustomPayload {
+public final class IkirImmolationPayload implements CustomPayload {
+    public static final IkirImmolationPayload INSTANCE = new IkirImmolationPayload();
     public static final Id<IkirImmolationPayload> ID = new Id<>(Redemption.id("ikir_immolation"));
+    public static final PacketCodec<RegistryByteBuf, IkirImmolationPayload> CODEC = PacketCodec.unit(INSTANCE);
 
-    public static final PacketCodec<RegistryByteBuf, IkirImmolationPayload> CODEC = PacketCodec.unit(new IkirImmolationPayload());
+    private IkirImmolationPayload() {
+    }
 
     public Id<? extends CustomPayload> getId() {
         return ID;

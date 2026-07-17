@@ -12,10 +12,13 @@ import net.the_hero_robot.redemption.impl.util.IkirPowerManager;
  * @author AcoYT
  * @author Chemthunder
  */
-public record IkirGameModeSwitchPayload() implements CustomPayload {
+public final class IkirGameModeSwitchPayload implements CustomPayload {
+    public static final IkirGameModeSwitchPayload INSTANCE = new IkirGameModeSwitchPayload();
     public static final Id<IkirGameModeSwitchPayload> ID = new Id<>(Redemption.id("ikir_switch_gamemode"));
+    public static final PacketCodec<RegistryByteBuf, IkirGameModeSwitchPayload> CODEC = PacketCodec.unit(INSTANCE);
 
-    public static final PacketCodec<RegistryByteBuf, IkirGameModeSwitchPayload> CODEC = PacketCodec.unit(new IkirGameModeSwitchPayload());
+    private IkirGameModeSwitchPayload() {
+    }
 
     public Id<? extends CustomPayload> getId() {
         return ID;

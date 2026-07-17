@@ -71,15 +71,16 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void redemption$playerTicker(CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity)(Object)this;
-        if (player.getStackInHand(player.getActiveHand()).isIn(RedemptionItemTags.KATANAS) && player.isUsingItem() && JudgementComponent.isJudgement(player)) {
-            this.getWorld().addParticle(ParticleTypes.SCULK_SOUL, true, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+        //noinspection ConstantValue
+        if (this.getStackInHand(this.getActiveHand()).isIn(RedemptionItemTags.KATANAS) && this.isUsingItem() && JudgementComponent.isJudgement((PlayerEntity) (Object) this)) {
+            this.getWorld().addParticle(ParticleTypes.SCULK_SOUL, true, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         }
     }
 
     @Inject(method = "disableShield", at = @At("HEAD"))
     private void redemption$disableKatanaSheath(CallbackInfo ci) {
-        if (KatanaComponent.get(getActiveItem()) != null && KatanaComponent.get(getActiveItem()).bladeType().isSheath()) {
+        KatanaComponent component = this.getActiveItem().get(RedemptionDataComponents.KATANA);
+        if (component != null && component.bladeType().isSheath()) {
             ModUtil.cooldownAllSheath((PlayerEntity) (Object) this, 100);
         }
     }

@@ -65,11 +65,11 @@ public class RedemptionKeyBindings {
         if (currentTime - lastToggleTime < COOLDOWN_TIME) return;
 
         try {
-            ClientPlayNetworking.send(new IkirGameModeSwitchPayload());
+            ClientPlayNetworking.send(IkirGameModeSwitchPayload.INSTANCE);
 
             lastToggleTime = System.currentTimeMillis();
         } catch (Exception e) {
-            Redemption.LOGGER.error("Failed to send Ikir Switch Payload");
+            Redemption.LOGGER.error("Failed to send Ikir Switch Payload!", e);
         }
     }
 
@@ -80,11 +80,11 @@ public class RedemptionKeyBindings {
         if (currentTime - lastToggleTime < COOLDOWN_TIME) return;
 
         try {
-            ClientPlayNetworking.send(new IkirImmolationPayload());
+            ClientPlayNetworking.send(IkirImmolationPayload.INSTANCE);
 
             lastToggleTime = System.currentTimeMillis();
         } catch (Exception e) {
-            Redemption.LOGGER.error("Failed to send Ikir Ability Payload");
+            Redemption.LOGGER.error("Failed to send Ikir Ability Payload!", e);
         }
     }
 }
