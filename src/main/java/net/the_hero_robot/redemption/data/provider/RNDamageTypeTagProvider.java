@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static net.minecraft.registry.tag.DamageTypeTags.*;
-import static net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes.DESCEND;
-import static net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes.IMMOLATION;
+import static net.the_hero_robot.redemption.impl.index.data.RNDamageTypes.DESCEND;
+import static net.the_hero_robot.redemption.impl.index.data.RNDamageTypes.IMMOLATION;
 
 /**
  * @author AcoYT
  */
-public class RedemptionDamageTypeTagProvider extends FabricTagProvider<DamageType> {
-    public RedemptionDamageTypeTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+public class RNDamageTypeTagProvider extends FabricTagProvider<DamageType> {
+    public RNDamageTypeTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, RegistryKeys.DAMAGE_TYPE, registriesFuture);
     }
 

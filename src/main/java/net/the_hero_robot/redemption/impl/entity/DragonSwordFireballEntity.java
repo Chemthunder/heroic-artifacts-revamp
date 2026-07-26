@@ -8,7 +8,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionBehavior;
-import net.the_hero_robot.redemption.impl.index.RedemptionEntities;
+import net.the_hero_robot.redemption.impl.index.RNEntities;
 
 /**
  * @author AcoYT
@@ -19,7 +19,7 @@ public class DragonSwordFireballEntity extends FireballEntity {
     }
 
     public DragonSwordFireballEntity(World world, LivingEntity owner, Vec3d velocity, int explosionPower) {
-        super(RedemptionEntities.DRAGON_SWORD_FIREBALL, world);
+        super(RNEntities.DRAGON_SWORD_FIREBALL, world);
         this.refreshPositionAndAngles(owner.getX(), owner.getY(), owner.getZ(), this.getYaw(), this.getPitch());
         this.refreshPosition();
         this.setVelocityWithAcceleration(velocity, this.accelerationPower);

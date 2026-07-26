@@ -9,7 +9,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
+import net.the_hero_robot.redemption.impl.index.RNDataComponents;
 
 /**
  * @author AcoYT
@@ -26,7 +26,7 @@ public record AshiroComponent(RegistryKey<World> world, Vec3d pos) {
     public static final PacketCodec<ByteBuf, AshiroComponent> PACKET_CODEC = PacketCodecs.codec(CODEC);
 
     public static AshiroComponent get(ItemStack stack) {
-        return stack.getOrDefault(RedemptionDataComponents.ASHIRO, DEFAULT);
+        return stack.getOrDefault(RNDataComponents.ASHIRO, DEFAULT);
     }
 
     public AshiroComponent withWorld(RegistryKey<World> world) {

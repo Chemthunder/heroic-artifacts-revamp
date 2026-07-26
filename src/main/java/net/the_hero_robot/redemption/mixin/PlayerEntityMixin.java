@@ -16,10 +16,10 @@ import net.minecraft.world.World;
 import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
-import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
-import net.the_hero_robot.redemption.impl.index.RedemptionParticles;
-import net.the_hero_robot.redemption.impl.index.tag.RedemptionItemTags;
-import net.the_hero_robot.redemption.impl.util.ModUtil;
+import net.the_hero_robot.redemption.impl.index.RNDataComponents;
+import net.the_hero_robot.redemption.impl.index.RNParticles;
+import net.the_hero_robot.redemption.impl.index.tag.RNItemTags;
+import net.the_hero_robot.redemption.impl.util.RNUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -63,7 +63,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if (component.isShrouded()) {
             component.set(false, 100);
             if (this.getWorld() instanceof ServerWorld serverWorld) {
-                serverWorld.spawnParticles(RedemptionParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
+                serverWorld.spawnParticles(RNParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
                 serverWorld.spawnParticles(ParticleTypes.SQUID_INK, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
             }
         }
@@ -72,7 +72,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void redemption$playerTicker(CallbackInfo ci) {
         PlayerEntity player = (PlayerEntity)(Object)this;
-        if (player.getStackInHand(player.getActiveHand()).isIn(RedemptionItemTags.KATANAS) && player.isUsingItem() && JudgementComponent.isJudgement(player)) {
+        if (player.getStackInHand(player.getActiveHand()).isIn(RNItemTags.KATANAS) && player.isUsingItem() && JudgementComponent.isJudgement(player)) {
             this.getWorld().addParticle(ParticleTypes.SCULK_SOUL, true, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
         }
     }
@@ -80,7 +80,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "disableShield", at = @At("HEAD"))
     private void redemption$disableKatanaSheath(CallbackInfo ci) {
         if (KatanaComponent.get(getActiveItem()) != null && KatanaComponent.get(getActiveItem()).bladeType().isSheath()) {
-            ModUtil.cooldownAllSheath((PlayerEntity) (Object) this, 100);
+            RNUtil.cooldownAllSheath((PlayerEntity) (Object) this, 100);
         }
     }
 
@@ -95,7 +95,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     )
     private boolean redemption$allowSweeping(boolean bl) {
         ItemStack itemStack = this.getMainHandStack();
-        KatanaComponent component = itemStack.get(RedemptionDataComponents.KATANA);
+        KatanaComponent component = itemStack.get(RNDataComponents.KATANA);
         if (component != null && component.bladeType() == KatanaComponent.BladeType.KATANA) {
             return true;
         }
@@ -111,7 +111,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             )
     )
     private void redemption$noOriginalSweepParticle(PlayerEntity instance, Operation<Void> original) {
-        if (instance.getMainHandStack().contains(RedemptionDataComponents.KATANA)) return;
+        if (instance.getMainHandStack().contains(RNDataComponents.KATANA)) return;
         original.call(instance);
     }
 }

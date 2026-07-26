@@ -18,47 +18,47 @@ import net.the_hero_robot.redemption.impl.item.KatanaItem;
  * @author AcoYT
  * @author Chemthunder
  */
-public interface RedemptionItemGroups {
+public interface RNItemGroups {
     ItemGroupRegistrant GROUPS = new ItemGroupRegistrant(Redemption.MOD_ID);
 
     RegistryKey<ItemGroup> MAIN_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Redemption.id(Redemption.MOD_ID));
     ItemGroup MAIN = GROUPS.register(MAIN_KEY.getValue().getPath(), FabricItemGroup.builder()
-            .icon(() -> new ItemStack(RedemptionItems.COURT_GLASS))
+            .icon(() -> new ItemStack(RNItems.COURT_GLASS))
             .displayName(Text.translatable("itemGroup." + Redemption.MOD_ID))
             .build());
 
     RegistryKey<ItemGroup> ARCANE_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Redemption.id("arcane_kings"));
     ItemGroup ARCANE_KINGS = GROUPS.register(ARCANE_KEY.getValue().getPath(), FabricItemGroup.builder()
-            .icon(() -> new ItemStack(RedemptionItems.ARCHMAGE_BLADE))
+            .icon(() -> new ItemStack(RNItems.ARCHMAGE_BLADE))
             .displayName(Text.translatable("itemGroup.arcane_kings"))
             .build());
 
     static void init() {
-        ItemGroupEvents.modifyEntriesEvent(MAIN_KEY).register(RedemptionItemGroups::addMainEntries);
-        ItemGroupEvents.modifyEntriesEvent(ARCANE_KEY).register(RedemptionItemGroups::addArcaneKingsEntries);
+        ItemGroupEvents.modifyEntriesEvent(MAIN_KEY).register(RNItemGroups::addMainEntries);
+        ItemGroupEvents.modifyEntriesEvent(ARCANE_KEY).register(RNItemGroups::addArcaneKingsEntries);
     }
 
     private static void addMainEntries(FabricItemGroupEntries itemGroup) {
-        RedemptionItems.ITEMS.toRegister.forEach(item -> {
+        RNItems.ITEMS.toRegister.forEach(item -> {
             if (item instanceof KatanaItem) {
                 for (KatanaComponent.BladeType bladeType : KatanaComponent.BladeType.values()) {
                     ItemStack stack = item.getDefaultStack();
                     KatanaComponent component = KatanaComponent.get(stack);
 
-                    stack.set(RedemptionDataComponents.KATANA, component.withBladeType(bladeType));
+                    stack.set(RNDataComponents.KATANA, component.withBladeType(bladeType));
                     stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, KatanaItem.createAttributeModifiers(bladeType));
 
                     itemGroup.add(stack);
                 }
             }
 
-            else if (item != RedemptionItems.ARCHMAGE_BLADE) {
+            else if (item != RNItems.ARCHMAGE_BLADE) {
                 itemGroup.add(item);
             }
         });
     }
 
     private static void addArcaneKingsEntries(FabricItemGroupEntries itemGroup) {
-        itemGroup.add(RedemptionItems.ARCHMAGE_BLADE);
+        itemGroup.add(RNItems.ARCHMAGE_BLADE);
     }
 }

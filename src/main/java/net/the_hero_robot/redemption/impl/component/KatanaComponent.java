@@ -9,7 +9,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.StringIdentifiable;
-import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
+import net.the_hero_robot.redemption.impl.index.RNDataComponents;
 import net.the_hero_robot.redemption.impl.util.KatanaType;
 
 /**
@@ -27,7 +27,7 @@ public record KatanaComponent(BladeType bladeType, KatanaType type, Ingredient m
     public static final PacketCodec<ByteBuf, KatanaComponent> PACKET_CODEC = PacketCodecs.codec(CODEC);
 
     public static KatanaComponent get(ItemStack stack) {
-        return stack.getOrDefault(RedemptionDataComponents.KATANA, DEFAULT);
+        return stack.getOrDefault(RNDataComponents.KATANA, DEFAULT);
     }
 
     public KatanaComponent withBladeType(BladeType bladeType) {

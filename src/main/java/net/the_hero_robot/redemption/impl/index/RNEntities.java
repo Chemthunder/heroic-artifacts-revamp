@@ -11,7 +11,7 @@ import net.the_hero_robot.redemption.impl.entity.ImmolationFlamesEntity;
  * @author AcoYT
  * @author Chemthunder
  */
-public interface RedemptionEntities {
+public interface RNEntities {
     EntityTypeRegistrant ENTITIES = new EntityTypeRegistrant(Redemption.MOD_ID);
 
     EntityType<ImmolationFlamesEntity> IMMOLATION_FLAMES = ENTITIES.register("immolation_flames",

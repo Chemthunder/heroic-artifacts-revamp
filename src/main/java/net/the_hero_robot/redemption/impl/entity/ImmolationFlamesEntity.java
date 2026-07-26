@@ -12,8 +12,8 @@ import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
-import net.the_hero_robot.redemption.impl.index.RedemptionEntities;
-import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
+import net.the_hero_robot.redemption.impl.index.RNEntities;
+import net.the_hero_robot.redemption.impl.index.data.RNDamageTypes;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -28,11 +28,11 @@ public class ImmolationFlamesEntity extends ThrownEntity {
     }
 
     public ImmolationFlamesEntity(World world) {
-        super(RedemptionEntities.IMMOLATION_FLAMES, world);
+        super(RNEntities.IMMOLATION_FLAMES, world);
     }
 
     public ImmolationFlamesEntity(LivingEntity owner, World world) {
-        super(RedemptionEntities.IMMOLATION_FLAMES, owner, world);
+        super(RNEntities.IMMOLATION_FLAMES, owner, world);
     }
 
     public void initDataTracker(DataTracker.Builder builder) {}
@@ -56,7 +56,7 @@ public class ImmolationFlamesEntity extends ThrownEntity {
         }
 
         for (PlayerEntity player : this.getWorld().getEntitiesByClass(PlayerEntity.class, this.getBoundingBox().expand(0.2), player -> EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(player) && !isOwner(player))) {
-            player.damage(RedemptionDamageTypes.create(player.getWorld(), RedemptionDamageTypes.IMMOLATION, this.getOwner()), Float.MAX_VALUE);
+            player.damage(RNDamageTypes.create(player.getWorld(), RNDamageTypes.IMMOLATION, this.getOwner()), Float.MAX_VALUE);
             this.discard();
             break;
         }

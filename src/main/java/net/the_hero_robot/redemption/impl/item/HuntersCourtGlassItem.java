@@ -16,8 +16,8 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
-import net.the_hero_robot.redemption.impl.index.RedemptionParticles;
-import net.the_hero_robot.redemption.impl.index.RedemptionSounds;
+import net.the_hero_robot.redemption.impl.index.RNParticles;
+import net.the_hero_robot.redemption.impl.index.RNSounds;
 
 import java.util.List;
 
@@ -31,6 +31,7 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        ItemStack stack = user.getStackInHand(hand);
         double x = user.getX();
         double y = user.getY();
         double z = user.getZ();
@@ -42,7 +43,7 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
                 component.setShrouded(!component.isShrouded());
 
                 if (world instanceof ServerWorld serverWorld) {
-                    serverWorld.spawnParticles(RedemptionParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
+                    serverWorld.spawnParticles(RNParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
                     serverWorld.spawnParticles(ParticleTypes.SQUID_INK, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
                 }
 
@@ -52,10 +53,10 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
                     entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 600));
                     entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600));
 
-                    entity.playSound(RedemptionSounds.HUNTERS_GLASS_BLACKOUT);
+                    entity.playSound(RNSounds.HUNTERS_GLASS_BLACKOUT);
                 }
 
-                user.getItemCooldownManager().set(this, 20);
+                user.getItemCooldownManager().set(stack.getItem(), 80);
                 return TypedActionResult.success(user.getStackInHand(hand));
             }
         }

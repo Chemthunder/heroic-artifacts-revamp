@@ -20,12 +20,12 @@ public class Redemption implements ModInitializer {
         ALib.registerModMenu(MOD_ID, 0xFFe95050);
 
         /* Initialization */
-        RedemptionItems.init();
-        RedemptionItemGroups.init();
-        RedemptionSounds.init();
-        RedemptionParticles.init();
-        RedemptionDataComponents.init();
-        RedemptionEntities.init();
+        RNItems.init();
+        RNItemGroups.init();
+        RNSounds.init();
+        RNParticles.init();
+        RNDataComponents.init();
+        RNEntities.init();
 
         /* Networking */
         RedemptionNetworking.registerTypes();

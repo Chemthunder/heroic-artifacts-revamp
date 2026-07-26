@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author AcoYT
  */
-public interface RedemptionDamageTypes {
+public interface RNDamageTypes {
     KeyedBuilder<DamageType> TYPES = new KeyedBuilder<>(Redemption.MOD_ID, RegistryKeys.DAMAGE_TYPE);
 
     RegistryKey<DamageType> KATANA = TYPES.register("katana", new DamageType("katana", 0.0F));

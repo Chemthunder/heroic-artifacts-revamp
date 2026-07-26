@@ -43,11 +43,11 @@ import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.component.AshiroComponent;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
-import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
-import net.the_hero_robot.redemption.impl.index.RedemptionSounds;
-import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
+import net.the_hero_robot.redemption.impl.index.RNDataComponents;
+import net.the_hero_robot.redemption.impl.index.RNSounds;
+import net.the_hero_robot.redemption.impl.index.data.RNDamageTypes;
 import net.the_hero_robot.redemption.impl.util.KatanaType;
-import net.the_hero_robot.redemption.impl.util.ModUtil;
+import net.the_hero_robot.redemption.impl.util.RNUtil;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 import org.joml.Vector4i;
@@ -124,12 +124,12 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
     }
 
     public Text getName(ItemStack stack) {
-        Vector4i colors = stack.getOrDefault(RedemptionDataComponents.COLORS, new Vector4i());
+        Vector4i colors = stack.getOrDefault(RNDataComponents.COLORS, new Vector4i());
         return Text.translatable(this.getTranslationKey(stack)).withColor(colors.x);
     }
 
     public String getTranslationKey(ItemStack stack) {
-        return Util.createTranslationKey("item", ModUtil.formatKatanaId(stack, false));
+        return Util.createTranslationKey("item", RNUtil.formatKatanaId(stack, false));
     }
 
     public void spawnHitParticles(PlayerEntity player, Entity target) {
@@ -155,7 +155,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
         ItemStack stack = living.getMainHandStack();
         KatanaComponent component = KatanaComponent.get(stack);
         return component.bladeType() == KatanaComponent.BladeType.KATANA
-                ? RedemptionDamageTypes.create(living.getWorld(), RedemptionDamageTypes.KATANA)
+                ? RNDamageTypes.create(living.getWorld(), RNDamageTypes.KATANA)
                 : null;
     }
 
@@ -186,8 +186,8 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
 
                 user.getItemCooldownManager().set(stack.getItem(), 200);
 
-                ItemStack mainStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.KATANA));
-                ItemStack offStack = ModUtil.copy(stack.copy(), RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATH));
+                ItemStack mainStack = RNUtil.copy(stack.copy(), RNDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.KATANA));
+                ItemStack offStack = RNUtil.copy(stack.copy(), RNDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATH));
                 List<RegistryEntry<StatusEffect>> effects = katanaType.effectInstances;
 
                 user.setStackInHand(Hand.MAIN_HAND, mainStack);
@@ -213,7 +213,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
                 }
 
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400));
-                user.playSound(RedemptionSounds.KATANA_UNSHEATHE, 1.0F, (float) (1.0F + user.getRandom().nextGaussian() / 10.0F));
+                user.playSound(RNSounds.KATANA_UNSHEATHE, 1.0F, (float) (1.0F + user.getRandom().nextGaussian() / 10.0F));
 
                 return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
             } else if (component.bladeType() == KatanaComponent.BladeType.KATANA && JudgementComponent.isJudgement(user)) {
@@ -234,7 +234,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
 
                 boolean success = false;
 
-                if (stack.contains(RedemptionDataComponents.ASHIRO) && user.getServer() != null && user.getServer().getWorld(ashiroComponent.world()) instanceof ServerWorld serverWorld) {
+                if (stack.contains(RNDataComponents.ASHIRO) && user.getServer() != null && user.getServer().getWorld(ashiroComponent.world()) instanceof ServerWorld serverWorld) {
                     user.teleportTo(new TeleportTarget(
                             serverWorld,
                             ashiroComponent.pos(), user.getVelocity(),
@@ -244,7 +244,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
 
                     success = true;
                 } else if (user.isSneaking()) {
-                    stack.set(RedemptionDataComponents.ASHIRO, new AshiroComponent(user.getWorld().getRegistryKey(), user.getPos()));
+                    stack.set(RNDataComponents.ASHIRO, new AshiroComponent(user.getWorld().getRegistryKey(), user.getPos()));
 
                     success = true;
                 }
@@ -298,11 +298,11 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
 
         if (clickType == ClickType.RIGHT
                 && component.bladeType() == KatanaComponent.BladeType.SHEATH
-                && cursorStack.contains(RedemptionDataComponents.KATANA) && cursorComponent.bladeType() == KatanaComponent.BladeType.KATANA
+                && cursorStack.contains(RNDataComponents.KATANA) && cursorComponent.bladeType() == KatanaComponent.BladeType.KATANA
         ) {
             if (player.getInventory().contains(itemStack -> component.material().isEmpty() || component.material().test(itemStack))) {
                 cursorStack.decrement(1);
-                stack.set(RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATHED));
+                stack.set(RNDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATHED));
 
                 for (int i = 0; i < player.getInventory().size(); i++) {
                     ItemStack itemStack = player.getInventory().getStack(i);
@@ -313,7 +313,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
                 }
 
                 if (player.getWorld().isClient) {
-                    player.playSound(RedemptionSounds.KATANA_SHEATHE, 1.0F, (float) (1.0F + player.getRandom().nextGaussian() / 10.0F));
+                    player.playSound(RNSounds.KATANA_SHEATHE, 1.0F, (float) (1.0F + player.getRandom().nextGaussian() / 10.0F));
                 }
             } else {
                 if (player.getWorld().isClient) {
@@ -328,17 +328,17 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
     }
 
     public int startColor(ItemStack stack) {
-        Vector4i colors = stack.getOrDefault(RedemptionDataComponents.COLORS, new Vector4i());
+        Vector4i colors = stack.getOrDefault(RNDataComponents.COLORS, new Vector4i());
         return colors.y;
     }
 
     public int endColor(ItemStack stack) {
-        Vector4i colors = stack.getOrDefault(RedemptionDataComponents.COLORS, new Vector4i());
+        Vector4i colors = stack.getOrDefault(RNDataComponents.COLORS, new Vector4i());
         return colors.z;
     }
 
     public int backgroundColor(ItemStack stack) {
-        Vector4i colors = stack.getOrDefault(RedemptionDataComponents.COLORS, new Vector4i());
+        Vector4i colors = stack.getOrDefault(RNDataComponents.COLORS, new Vector4i());
         return colors.w;
     }
 

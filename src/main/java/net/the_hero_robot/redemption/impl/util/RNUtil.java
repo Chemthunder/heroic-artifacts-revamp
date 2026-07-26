@@ -12,7 +12,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
-import net.the_hero_robot.redemption.impl.index.RedemptionItems;
+import net.the_hero_robot.redemption.impl.index.RNItems;
 import org.joml.Vector4i;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author AcoYT
  */
-public class ModUtil {
+public class RNUtil {
     public static final Codec<Vector4i> VECTOR_4I_CODEC = Codec.INT.listOf()
             .comapFlatMap(list ->
                     Util.decodeFixedLengthList(list, 4).map(listX -> new Vector4i(
@@ -37,15 +37,15 @@ public class ModUtil {
     }
 
     public static void cooldownAllSheath(PlayerEntity player, int cd) {
-        player.getItemCooldownManager().set(RedemptionItems.AMETHYST_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.ASHIRO_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.COPPER_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.EMERALD_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.LAPIS_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.NETHERITE_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.QUARTZ_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.REDSTONE_KATANA, cd);
-        player.getItemCooldownManager().set(RedemptionItems.SCULK_KATANA, cd);
+        player.getItemCooldownManager().set(RNItems.AMETHYST_KATANA, cd);
+        player.getItemCooldownManager().set(RNItems.ASHIRO_KATANA, cd);
+        player.getItemCooldownManager().set(RNItems.COPPER_KATANA, cd);
+        player.getItemCooldownManager().set(RNItems.EMERALD_KATANA, cd);
+        player.getItemCooldownManager().set(RNItems.LAPIS_KATANA, cd);
+        player.getItemCooldownManager().set(RNItems.NETHERITE_KATANA, cd);
+        player.getItemCooldownManager().set(RNItems.QUARTZ_KATANA, cd);
+        player.getItemCooldownManager().set(RNItems.REDSTONE_KATANA, cd);
+        player.getItemCooldownManager().set(RNItems.SCULK_KATANA, cd);
 
 
     }

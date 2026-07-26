@@ -16,8 +16,8 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
-import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
-import net.the_hero_robot.redemption.impl.index.RedemptionItems;
+import net.the_hero_robot.redemption.impl.index.RNDataComponents;
+import net.the_hero_robot.redemption.impl.index.RNItems;
 import net.the_hero_robot.redemption.impl.item.KatanaItem;
 
 import java.util.ArrayList;
@@ -28,8 +28,8 @@ import java.util.concurrent.CompletableFuture;
 /**
  * @author AcoYT
  */
-public class RedemptionRecipeProvider extends FabricRecipeProvider {
-    public RedemptionRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+public class RNRecipeProvider extends FabricRecipeProvider {
+    public RNRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
 
@@ -38,7 +38,7 @@ public class RedemptionRecipeProvider extends FabricRecipeProvider {
         for (Item item : Registries.ITEM) {
             if (item instanceof KatanaItem) {
                 ItemStack stack = item.getDefaultStack();
-                if (stack.contains(RedemptionDataComponents.KATANA)) {
+                if (stack.contains(RNDataComponents.KATANA)) {
                     Ingredient ingredient = KatanaComponent.get(stack).material();
                     if (getFromIngredient(ingredient).isEmpty()) continue;
                     for (ItemConvertible convertible : getFromIngredient(ingredient)) {
@@ -60,7 +60,7 @@ public class RedemptionRecipeProvider extends FabricRecipeProvider {
                     .offerTo(exporter, Registries.ITEM.getId(katana.asItem()).withSuffixedPath("_from_" + Registries.ITEM.getId(ingredient.asItem()).getPath()));
         });
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, RedemptionItems.ICE_CREAM)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, RNItems.ICE_CREAM)
                 .input(Ingredient.fromTag(ConventionalItemTags.MILK_DRINKS))
                 .input(Ingredient.ofItems(Items.ICE, Items.PACKED_ICE, Items.BLUE_ICE))
                 .input(Items.WHEAT)

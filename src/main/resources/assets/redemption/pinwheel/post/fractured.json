@@ -1,0 +1,10 @@
+{
+    "stages": [
+        {
+            "type": "veil:blit",
+            "shader": "redemption:fractured",
+            "in": "minecraft:main",
+            "out": "veil:post"
+        }
+    ]
+}

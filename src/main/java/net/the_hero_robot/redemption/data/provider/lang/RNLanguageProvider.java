@@ -4,9 +4,9 @@ package net.the_hero_robot.redemption.data.provider.lang;
 import net.acoyt.acornlib.api.template.OrganizedLanguageProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.registry.RegistryWrapper;
-import net.the_hero_robot.redemption.impl.index.RedemptionItems;
-import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
-import net.the_hero_robot.redemption.impl.index.tag.RedemptionItemTags;
+import net.the_hero_robot.redemption.impl.index.RNItems;
+import net.the_hero_robot.redemption.impl.index.data.RNDamageTypes;
+import net.the_hero_robot.redemption.impl.index.tag.RNItemTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -15,29 +15,29 @@ import static net.acoyt.acornlib.api.util.DataUtils.registerDamageType;
 /**
  * @author AcoYT
  */
-public class RedemptionLanguageProvider extends OrganizedLanguageProvider {
-    public RedemptionLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+public class RNLanguageProvider extends OrganizedLanguageProvider {
+    public RNLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
     }
 
     public void generateRegistrants(RegistryWrapper.WrapperLookup registries, TranslationBuilder builder) {
-        RedemptionItems.ITEMS.registerLang(registries, builder);
+        RNItems.ITEMS.registerLang(registries, builder);
     }
 
     public void generateTags(RegistryWrapper.WrapperLookup registries, TranslationBuilder builder) {
-        RedemptionItemTags.ITEMS.registerLang(registries, builder);
+        RNItemTags.ITEMS.registerLang(registries, builder);
     }
 
     public void generateTexts(RegistryWrapper.WrapperLookup registries, TranslationBuilder builder) {
         builder.add("itemGroup.redemption", "Redemption");
 
-        registerDamageType(builder, RedemptionDamageTypes.KATANA,
+        registerDamageType(builder, RNDamageTypes.KATANA,
                 "%1$s was cut in half",
                 "%1$s was cut in half by %2$s wielding %3$s",
                 "%1$s was cut in half by %2$s"
         );
 
-        registerDamageType(builder, RedemptionDamageTypes.DESCEND,
+        registerDamageType(builder, RNDamageTypes.DESCEND,
                 "%1$s's purpose was revoked",
                 "%1$s's purpose was revoked by %2$s with %3$s",
                 "%1$s's purpose was revoked by %2$s"

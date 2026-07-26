@@ -8,26 +8,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Items;
-import net.minecraft.item.ToolItem;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
-import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
+import net.the_hero_robot.redemption.impl.index.data.RNDamageTypes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
@@ -48,7 +35,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
             JudgementComponent judge = JudgementComponent.KEY.get(player);
 
             if (JudgementComponent.isJudgement(player) && !cir.getReturnValue()) {
-                if (!source.isOf(RedemptionDamageTypes.DESCEND)) {
+                if (!source.isOf(RNDamageTypes.DESCEND)) {
                     player.setHealth(player.getMaxHealth());
                     player.setVelocity(0, 0.3, 0);
                     player.velocityModified = true;

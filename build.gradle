@@ -30,6 +30,12 @@ repositories {
         url = "https://maven.terraformersmc.com/"
     }
 
+    // Veil
+    maven {
+        name = 'BlameJared Maven (CrT / Bookshelf)'
+        url = 'https://maven.blamejared.com'
+    }
+
     // MixinSquared
     maven { url "https://maven.bawnorton.com/releases" }
 
@@ -63,6 +69,11 @@ dependencies {
     // Libraries
     modImplementation "maven.modrinth:acornlib:${project.acornlib_version}"
     modImplementation("maven.modrinth:nitrogen_rbn:${project.nitrogen_version}")
+
+    modImplementation include("foundry.veil:veil-fabric-${project.minecraft_version}:${project.veil_version}") {
+        exclude group: "maven.modrinth"
+        exclude group: "me.fallenbreath"
+    }
 
     // MixinSquared
     include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${project.mixinsquared_version}")))

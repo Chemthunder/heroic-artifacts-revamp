@@ -7,14 +7,14 @@ import net.minecraft.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
 
-import static net.the_hero_robot.redemption.impl.index.RedemptionItems.COURT_GLASS;
+import static net.the_hero_robot.redemption.impl.index.RNItems.COURT_GLASS;
 
 /**
  * @author AcoYT
  * @author Chemthunder
  */
-public class RedemptionLolLanguageProvider extends FabricLanguageProvider {
-    public RedemptionLolLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+public class RNLolLanguageProvider extends FabricLanguageProvider {
+    public RNLolLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, "lol_us", registryLookup);
     }
 

@@ -13,9 +13,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.JudgementFlashComponent;
-import net.the_hero_robot.redemption.impl.index.RedemptionItems;
-import net.the_hero_robot.redemption.impl.index.RedemptionSounds;
-import net.the_hero_robot.redemption.impl.index.data.RedemptionDamageTypes;
+import net.the_hero_robot.redemption.impl.index.RNItems;
+import net.the_hero_robot.redemption.impl.index.RNSounds;
+import net.the_hero_robot.redemption.impl.index.data.RNDamageTypes;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
@@ -76,9 +76,9 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
         if (world instanceof ServerWorld serverWorld) {
             Vec3d pos = player.getPos();
 
-            player.dropStack(RedemptionItems.COURT_GLASS.getDefaultStack());
+            player.dropStack(RNItems.COURT_GLASS.getDefaultStack());
             player.setInvulnerable(false);
-            player.damage(RedemptionDamageTypes.create(world, RedemptionDamageTypes.DESCEND), Float.MAX_VALUE);
+            player.damage(RNDamageTypes.create(world, RNDamageTypes.DESCEND), Float.MAX_VALUE);
 
             serverWorld.spawnParticles(
                     ParticleTypes.SOUL,
@@ -102,17 +102,17 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
                 }
 
                 serverPlayer.playSoundToPlayer(
-                        RedemptionSounds.EVENT_JUDGE_DEATH, SoundCategory.PLAYERS,
+                        RNSounds.EVENT_JUDGE_DEATH, SoundCategory.PLAYERS,
                         1.0F, 1.0F
                 );
 
                 serverPlayer.playSoundToPlayer(
-                        RedemptionSounds.EVENT_PING, SoundCategory.PLAYERS,
+                        RNSounds.EVENT_PING, SoundCategory.PLAYERS,
                         1.0F, 1.0F
                 );
 
                 serverPlayer.playSoundToPlayer(
-                        RedemptionSounds.EVENT_SONAR_PING, SoundCategory.PLAYERS,
+                        RNSounds.EVENT_SONAR_PING, SoundCategory.PLAYERS,
                         1.0F, 1.0F
                 );
             }

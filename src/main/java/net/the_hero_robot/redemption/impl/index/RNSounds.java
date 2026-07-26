@@ -8,7 +8,7 @@ import net.the_hero_robot.redemption.impl.Redemption;
  * @author AcoYT
  * @author Chemthunder
  */
-public interface RedemptionSounds {
+public interface RNSounds {
     SoundEventRegistrant SOUNDS = new SoundEventRegistrant(Redemption.MOD_ID);
 
     SoundEvent HUNTERS_GLASS_BLACKOUT = SOUNDS.register("item.hunters_glass.blackout");

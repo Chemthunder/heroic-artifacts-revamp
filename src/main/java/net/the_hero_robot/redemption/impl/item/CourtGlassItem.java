@@ -22,10 +22,10 @@ import net.minecraft.world.World;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.JudgementFlashComponent;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
-import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
-import net.the_hero_robot.redemption.impl.index.RedemptionItems;
-import net.the_hero_robot.redemption.impl.index.RedemptionSounds;
-import net.the_hero_robot.redemption.impl.util.ModUtil;
+import net.the_hero_robot.redemption.impl.index.RNDataComponents;
+import net.the_hero_robot.redemption.impl.index.RNItems;
+import net.the_hero_robot.redemption.impl.index.RNSounds;
+import net.the_hero_robot.redemption.impl.util.RNUtil;
 
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
             playerEntity.playSound(SoundEvents.BLOCK_CONDUIT_AMBIENT_SHORT);
             playerEntity.playSound(SoundEvents.ENTITY_WARDEN_HEARTBEAT);
             playerEntity.playSound(SoundEvents.ENTITY_WARDEN_EMERGE);
-            playerEntity.playSound(RedemptionSounds.EVENT_BECOME_JUDGE);
+            playerEntity.playSound(RNSounds.EVENT_BECOME_JUDGE);
         }
 
         if (!player.isInCreativeMode()) offStack.decrement(1);
@@ -96,9 +96,9 @@ public class CourtGlassItem extends Item implements ColorableItem {
         for (int i = 0; i < 3; i++) {
             WitherSkeletonEntity glassCannon = new WitherSkeletonEntity(EntityType.WITHER_SKELETON, world);
 
-            ItemStack katana = RedemptionItems.SCULK_KATANA.getDefaultStack();
-            ItemStack sheath = ModUtil.copy(katana,
-                    RedemptionDataComponents.KATANA,
+            ItemStack katana = RNItems.SCULK_KATANA.getDefaultStack();
+            ItemStack sheath = RNUtil.copy(katana,
+                    RNDataComponents.KATANA,
                     KatanaComponent.get(katana)
                             .withBladeType(KatanaComponent.BladeType.SHEATH)
             );

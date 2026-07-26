@@ -6,7 +6,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
-import net.the_hero_robot.redemption.impl.index.RedemptionItems;
+import net.the_hero_robot.redemption.impl.index.RNItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -27,7 +27,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
             )
     )
     private boolean redemption$noIceCreamSlowdown(ClientPlayerEntity instance, Operation<Boolean> original) {
-        return original.call(instance) && !instance.getActiveItem().isOf(RedemptionItems.ICE_CREAM);
+        return original.call(instance) && !instance.getActiveItem().isOf(RNItems.ICE_CREAM);
     }
 
     @WrapOperation(
@@ -38,6 +38,6 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
             )
     )
     private boolean redemption$canSprintIfIceCream(ClientPlayerEntity instance, Operation<Boolean> original) {
-        return original.call(instance) && !instance.getActiveItem().isOf(RedemptionItems.ICE_CREAM);
+        return original.call(instance) && !instance.getActiveItem().isOf(RNItems.ICE_CREAM);
     }
 }

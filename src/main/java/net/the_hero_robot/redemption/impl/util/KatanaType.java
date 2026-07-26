@@ -8,7 +8,7 @@ import net.minecraft.util.StringIdentifiable;
 
 import java.util.List;
 
-import static net.the_hero_robot.redemption.impl.index.RedemptionItems.*;
+import static net.the_hero_robot.redemption.impl.index.RNItems.*;
 
 /**
  * @author AcoYT

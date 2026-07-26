@@ -22,7 +22,7 @@ import static net.acoyt.acornlib.api.util.ItemUtils.modifyItemNameColor;
  * @author AcoYT
  * @author Chemthunder
  */
-public interface RedemptionItems {
+public interface RNItems {
     ItemRegistrant ITEMS = new ItemRegistrant(Redemption.MOD_ID);
 
     Item QUARTZ_KATANA = ITEMS.register("quartz_katana", KatanaItem::new, new RedemptionItemSettings()
@@ -116,7 +116,7 @@ public interface RedemptionItems {
             .fireproof());
 
     static void init() {
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(RedemptionItems::addFoodEntries);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(RNItems::addFoodEntries);
 
         // Colors
         modifyItemNameColor(HUNTERS_GLASS, 0xFFb73aaa);

@@ -9,7 +9,7 @@ import net.the_hero_robot.redemption.impl.Redemption;
 /**
  * @author AcoYT
  */
-public interface RedemptionItemTags {
+public interface RNItemTags {
     TagBuilder<Item> ITEMS = new TagBuilder<>(Redemption.MOD_ID, RegistryKeys.ITEM);
 
     TagKey<Item> KATANAS = ITEMS.register("katanas");

@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
-import net.the_hero_robot.redemption.impl.index.RedemptionDataComponents;
+import net.the_hero_robot.redemption.impl.index.RNDataComponents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,7 +29,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     @Inject(method = "getArmPose", at = @At("HEAD"), cancellable = true)
     private static void redemption$sheathPose(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
         ItemStack stack = player.getStackInHand(hand);
-        KatanaComponent component = stack.get(RedemptionDataComponents.KATANA);
+        KatanaComponent component = stack.get(RNDataComponents.KATANA);
         if (component == null) return;
 
         if (component.bladeType() == KatanaComponent.BladeType.SHEATH && player.getActiveItem() == stack) {
