@@ -1,6 +1,6 @@
 package net.the_hero_robot.redemption.impl.index;
 
-import net.acoyt.acornlib.api.registrants.ComponentTypeRegistrant;
+import net.acoyt.acornlib.api.registrants.DataComponentTypeRegistrant;
 import net.minecraft.component.ComponentType;
 import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.arcane_kings.evocation.EvocationSpell;
@@ -14,7 +14,7 @@ import org.joml.Vector4i;
  * @author Chemthunder
  */
 public interface RNDataComponents {
-    ComponentTypeRegistrant COMPONENTS = new ComponentTypeRegistrant(Redemption.MOD_ID);
+    DataComponentTypeRegistrant COMPONENTS = new DataComponentTypeRegistrant(Redemption.MOD_ID);
 
     ComponentType<AshiroComponent> ASHIRO = COMPONENTS.register("ashiro", AshiroComponent.CODEC, AshiroComponent.PACKET_CODEC);
     ComponentType<KatanaComponent> KATANA = COMPONENTS.register("katana", KatanaComponent.CODEC, KatanaComponent.PACKET_CODEC);

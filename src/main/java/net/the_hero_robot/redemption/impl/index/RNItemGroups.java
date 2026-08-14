@@ -1,6 +1,6 @@
 package net.the_hero_robot.redemption.impl.index;
 
-import net.acoyt.acornlib.api.registrants.ItemGroupRegistrant;
+import net.acoyt.acornlib.api.registrants.CreativeModeTabRegistrant;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -19,7 +19,7 @@ import net.the_hero_robot.redemption.impl.item.KatanaItem;
  * @author Chemthunder
  */
 public interface RNItemGroups {
-    ItemGroupRegistrant GROUPS = new ItemGroupRegistrant(Redemption.MOD_ID);
+    CreativeModeTabRegistrant GROUPS = new CreativeModeTabRegistrant(Redemption.MOD_ID);
 
     RegistryKey<ItemGroup> MAIN_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Redemption.id(Redemption.MOD_ID));
     ItemGroup MAIN = GROUPS.register(MAIN_KEY.getValue().getPath(), FabricItemGroup.builder()

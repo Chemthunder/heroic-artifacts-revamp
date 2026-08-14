@@ -56,7 +56,7 @@ public class DragonSwordItem extends SwordItem implements ModelVaryingItem, AdvB
         return TypedActionResult.fail(user.getStackInHand(hand));
     }
 
-    public int getBurnTime(ItemStack stack, LivingEntity attacker, LivingEntity victim) {
-        return 5;
+    public float getBurnTime(ItemStack stack, LivingEntity attacker, LivingEntity victim) {
+        return 1.2F;
     }
 }

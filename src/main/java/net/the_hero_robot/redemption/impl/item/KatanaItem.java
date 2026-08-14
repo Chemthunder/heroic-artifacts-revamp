@@ -1,8 +1,8 @@
 package net.the_hero_robot.redemption.impl.item;
 
 import com.nitron.nitrogen.util.interfaces.ColorableItem;
-import net.acoyt.acornlib.api.item.CustomHitParticleItem;
 import net.acoyt.acornlib.api.item.CustomKillSourceItem;
+import net.acoyt.acornlib.api.item.HitEffectsItem;
 import net.acoyt.acornlib.api.item.ModelVaryingItem;
 import net.acoyt.acornlib.api.util.MiscUtils;
 import net.acoyt.acornlib.api.util.ParticleUtils;
@@ -60,7 +60,7 @@ import java.util.List;
  * Serves to act as a universal standin for all the classes, meaning it will contain the functionalities of all three of the classes
  * Don't forget to add a method in the class for getting the BladeType
  */
-public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem, CustomKillSourceItem, CustomHitParticleItem {
+public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem, CustomKillSourceItem, HitEffectsItem {
     public KatanaItem(Settings settings) {
         super(settings.component(DataComponentTypes.TOOL, createToolComponent())
                 .maxDamage(ToolMaterials.NETHERITE.getDurability()));
@@ -132,7 +132,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
         return Util.createTranslationKey("item", RNUtil.formatKatanaId(stack, false));
     }
 
-    public void spawnHitParticles(PlayerEntity player, Entity target) {
+    public void runHitEffects(PlayerEntity player, Entity target) {
         KatanaComponent katana = KatanaComponent.get(player.getMainHandStack());
         Vector2i color = katana.bladeType() == KatanaComponent.BladeType.KATANA ? switch (katana.type()) {
             case AMETHYST -> new Vector2i(0xFFffffff, 0xFFc1c2c2);
@@ -151,7 +151,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
         }
     }
 
-    public DamageSource getKillSource(LivingEntity living, @Nullable Entity attacker, float amount) {
+    public DamageSource getKillSource(LivingEntity living) {
         ItemStack stack = living.getMainHandStack();
         KatanaComponent component = KatanaComponent.get(stack);
         return component.bladeType() == KatanaComponent.BladeType.KATANA
