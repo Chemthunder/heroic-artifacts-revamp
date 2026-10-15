@@ -41,7 +41,8 @@
             "redemption:shrouded",
             "redemption:judgement",
             "redemption:flash",
-            "redemption:judge_flash"
+            "redemption:judge_flash",
+            "redemption:fractured"
         ]
     },
     "depends": {

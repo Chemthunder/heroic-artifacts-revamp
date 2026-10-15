@@ -1,6 +1,7 @@
 package net.the_hero_robot.redemption.impl.cca;
 
 import net.the_hero_robot.redemption.impl.cca.entity.EnshroudedComponent;
+import net.the_hero_robot.redemption.impl.cca.entity.FracturedComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.JudgementComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.FlashComponent;
 import net.the_hero_robot.redemption.impl.cca.entity.flash.JudgementFlashComponent;
@@ -19,5 +20,7 @@ public class RedemptionComponents implements EntityComponentInitializer {
 
         registry.registerForPlayers(EnshroudedComponent.KEY, EnshroudedComponent::new, RespawnCopyStrategy.NEVER_COPY);
         registry.registerForPlayers(JudgementComponent.KEY, JudgementComponent::new, RespawnCopyStrategy.NEVER_COPY);
+
+        registry.registerForPlayers(FracturedComponent.KEY, FracturedComponent::new, RespawnCopyStrategy.NEVER_COPY);
     }
 }

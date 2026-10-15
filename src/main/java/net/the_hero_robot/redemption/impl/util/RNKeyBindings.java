@@ -15,7 +15,7 @@ import org.lwjgl.glfw.GLFW;
  * @author AcoYT
  * @author Chemthunder
  */
-public class RedemptionKeyBindings {
+public class RNKeyBindings {
     public static KeyBinding switchGameMode;
     public static KeyBinding useImmolation;
 

@@ -16,7 +16,7 @@ import net.the_hero_robot.redemption.impl.event.client.SelfTransparencyEvent;
 import net.the_hero_robot.redemption.impl.index.RNEntities;
 import net.the_hero_robot.redemption.impl.index.RNParticles;
 import net.the_hero_robot.redemption.impl.networking.RedemptionNetworking;
-import net.the_hero_robot.redemption.impl.util.RedemptionKeyBindings;
+import net.the_hero_robot.redemption.impl.util.RNKeyBindings;
 
 /**
  * @author AcoYT
@@ -33,7 +33,7 @@ public class RedemptionClient implements ClientModInitializer {
         EntityRendererRegistry.register(RNEntities.IMMOLATION_FLAMES, EmptyEntityRenderer::new);
         EntityRendererRegistry.register(RNEntities.DRAGON_SWORD_FIREBALL, context -> new FlyingItemEntityRenderer<>(context, 3.0F, true));
 
-        RedemptionKeyBindings.register();
+        RNKeyBindings.register();
 
         /* Networking */
         RedemptionNetworking.registerClient();

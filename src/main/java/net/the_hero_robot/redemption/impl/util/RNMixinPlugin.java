@@ -5,8 +5,8 @@ import net.acoyt.acornlib.api.template.CompatMixinPlugin;
 /**
  * @author AcoYT
  */
-public class RedemptionMixinPlugin extends CompatMixinPlugin {
-    public RedemptionMixinPlugin() {
+public class RNMixinPlugin extends CompatMixinPlugin {
+    public RNMixinPlugin() {
         super("net.the_hero_robot.redemption.mixin.");
     }
 }

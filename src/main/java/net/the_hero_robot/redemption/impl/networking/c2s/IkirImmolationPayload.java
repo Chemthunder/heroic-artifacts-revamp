@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.util.IkirPowerManager;
 
@@ -23,10 +22,7 @@ public record IkirImmolationPayload() implements CustomPayload {
 
     public static class Receiver implements ServerPlayNetworking.PlayPayloadHandler<IkirImmolationPayload> {
         public void receive(IkirImmolationPayload payload, ServerPlayNetworking.Context context) {
-            ServerPlayerEntity player = context.player();
-            if (IkirPowerManager.isHero(player)) {
-                IkirPowerManager.useImmolation(player);
-            }
+            IkirPowerManager.useImmolation(context.player());
         }
     }
 }
