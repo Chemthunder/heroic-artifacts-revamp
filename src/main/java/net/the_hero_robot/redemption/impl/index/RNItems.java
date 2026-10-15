@@ -8,11 +8,7 @@ import net.minecraft.item.*;
 import net.minecraft.sound.SoundEvents;
 import net.the_hero_robot.redemption.impl.Redemption;
 import net.the_hero_robot.redemption.impl.component.KatanaComponent;
-import net.the_hero_robot.redemption.impl.item.CourtGlassItem;
-import net.the_hero_robot.redemption.impl.item.DragonSwordItem;
-import net.the_hero_robot.redemption.impl.item.HuntersCourtGlassItem;
-import net.the_hero_robot.redemption.impl.item.KatanaItem;
-import net.the_hero_robot.redemption.impl.item.ak.EvocationKatanaItem;
+import net.the_hero_robot.redemption.impl.item.*;
 import net.the_hero_robot.redemption.impl.util.KatanaType;
 import net.the_hero_robot.redemption.impl.util.RedemptionItemSettings;
 
@@ -94,23 +90,22 @@ public interface RNItems {
             .attributeModifiers(KatanaItem.createAttributeModifiers(KatanaComponent.BladeType.SHEATHED)));
 
 
-    // Misc
+    // Judge Glasses
     Item COURT_GLASS = ITEMS.register("court_glass", CourtGlassItem::new, new RedemptionItemSettings()
             .maxCount(1));
 
     Item HUNTERS_GLASS = ITEMS.register("hunters_glass", HuntersCourtGlassItem::new, new RedemptionItemSettings()
             .maxCount(1));
 
+
+    // Misc
+    Item FRACTURED_ORB = ITEMS.register("fractured_orb", FracturedOrbItem::new, new Item.Settings()
+            .maxCount(1));
+
     Item ICE_CREAM = ITEMS.register("ice_cream", Item::new, new Item.Settings()
             .food(new FoodComponent.Builder().nutrition(4).saturationModifier(0.35F).build()));
 
     Item DRAGON_SWORD = ITEMS.register("dragon_sword", DragonSwordItem::new, new Item.Settings()
-            .attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.NETHERITE, 4, -2.8F))
-            .maxCount(1)
-            .fireproof());
-
-    // Arcane Kings
-    Item ARCHMAGE_BLADE = ITEMS.register("archmage_blade", EvocationKatanaItem::new, new Item.Settings()
             .attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.NETHERITE, 4, -2.8F))
             .maxCount(1)
             .fireproof());

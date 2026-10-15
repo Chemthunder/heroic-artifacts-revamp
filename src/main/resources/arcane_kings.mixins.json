@@ -1,0 +1,11 @@
+{
+    "required": true,
+    "package": "net.the_hero_robot.arcane_kings.mixin",
+    "plugin": "net.the_hero_robot.redemption.impl.util.RedemptionMixinPlugin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [],
+    "client": [],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

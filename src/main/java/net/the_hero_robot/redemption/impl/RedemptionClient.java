@@ -28,7 +28,7 @@ public class RedemptionClient implements ClientModInitializer {
         /* Initialization */
         RNShaders.init();
 
-        ParticleFactoryRegistry.getInstance().register(RNParticles.HUNTER_OMEN, EndRodParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(RNParticles.HUNTERS_OMEN, EndRodParticle.Factory::new);
 
         EntityRendererRegistry.register(RNEntities.IMMOLATION_FLAMES, EmptyEntityRenderer::new);
         EntityRendererRegistry.register(RNEntities.DRAGON_SWORD_FIREBALL, context -> new FlyingItemEntityRenderer<>(context, 3.0F, true));
@@ -36,7 +36,7 @@ public class RedemptionClient implements ClientModInitializer {
         RedemptionKeyBindings.register();
 
         /* Networking */
-        RedemptionNetworking.registerS2CPackets();
+        RedemptionNetworking.registerClient();
 
         /* Events */
         CustomRiptideEvent.EVENT.register(new JudgementRiptideEvent());

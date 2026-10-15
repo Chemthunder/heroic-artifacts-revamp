@@ -17,9 +17,11 @@
     "environment": "*",
     "entrypoints": {
         "main": [
+            "net.the_hero_robot.arcane_kings.impl.ArcaneKings",
             "net.the_hero_robot.redemption.impl.Redemption"
         ],
         "client": [
+            "net.the_hero_robot.arcane_kings.impl.ArcaneKingsClient",
             "net.the_hero_robot.redemption.impl.RedemptionClient"
         ],
         "fabric-datagen": [
@@ -29,8 +31,9 @@
             "net.the_hero_robot.redemption.impl.cca.RedemptionComponents"
         ]
     },
-    "accessWidener": "redemption.accesswidener",
+    "accessWidener": "redemption.classtweaker",
     "mixins": [
+        "arcane_kings.mixins.json",
         "redemption.mixins.json"
     ],
     "custom": {

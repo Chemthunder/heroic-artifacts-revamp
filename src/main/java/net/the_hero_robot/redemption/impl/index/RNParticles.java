@@ -12,7 +12,7 @@ import net.the_hero_robot.redemption.impl.Redemption;
 public interface RNParticles {
     ParticleTypeRegistrant PARTICLES = new ParticleTypeRegistrant(Redemption.MOD_ID);
 
-    SimpleParticleType HUNTER_OMEN = PARTICLES.register("hunters_omen", FabricParticleTypes.simple(true));
+    SimpleParticleType HUNTERS_OMEN = PARTICLES.register("hunters_omen", FabricParticleTypes.simple(true));
 
     static void init() {}
 }

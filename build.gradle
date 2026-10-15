@@ -54,7 +54,7 @@ fabricApi {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/redemption.accesswidener")
+    accessWidenerPath = file("src/main/resources/redemption.classtweaker")
 }
 
 dependencies {

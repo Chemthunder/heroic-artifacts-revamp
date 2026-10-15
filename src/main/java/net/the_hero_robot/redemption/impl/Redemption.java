@@ -28,8 +28,7 @@ public class Redemption implements ModInitializer {
         RNEntities.init();
 
         /* Networking */
-        RedemptionNetworking.registerTypes();
-        RedemptionNetworking.registerC2SPackets();
+        RedemptionNetworking.registerCommon();
     }
 
     public static Identifier id(String path) {

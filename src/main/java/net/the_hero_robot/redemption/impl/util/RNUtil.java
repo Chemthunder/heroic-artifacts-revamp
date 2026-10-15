@@ -46,8 +46,6 @@ public class RNUtil {
         player.getItemCooldownManager().set(RNItems.QUARTZ_KATANA, cd);
         player.getItemCooldownManager().set(RNItems.REDSTONE_KATANA, cd);
         player.getItemCooldownManager().set(RNItems.SCULK_KATANA, cd);
-
-
     }
 
     public static Identifier formatKatanaId(ItemStack stack, boolean itemPrefix) {

@@ -43,7 +43,7 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
                 component.setShrouded(!component.isShrouded());
 
                 if (world instanceof ServerWorld serverWorld) {
-                    serverWorld.spawnParticles(RNParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
+                    serverWorld.spawnParticles(RNParticles.HUNTERS_OMEN, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
                     serverWorld.spawnParticles(ParticleTypes.SQUID_INK, x, y + 0.5f, z, 15, 0.3f, 0.6f, 0.3f, 0.03f);
                 }
 
