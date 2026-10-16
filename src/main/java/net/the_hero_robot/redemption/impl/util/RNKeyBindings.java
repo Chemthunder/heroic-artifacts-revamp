@@ -69,7 +69,7 @@ public class RNKeyBindings {
 
             lastToggleTime = System.currentTimeMillis();
         } catch (Exception e) {
-            Redemption.LOGGER.error("Failed to send Ikir Switch Payload");
+            Redemption.LOGGER.error("Failed to send IkirGameModeSwitchPayload");
         }
     }
 
@@ -84,7 +84,7 @@ public class RNKeyBindings {
 
             lastToggleTime = System.currentTimeMillis();
         } catch (Exception e) {
-            Redemption.LOGGER.error("Failed to send Ikir Ability Payload");
+            Redemption.LOGGER.error("Failed to send IkirImmolationPayload");
         }
     }
 }

@@ -58,6 +58,9 @@ public class RNLanguageProvider extends OrganizedLanguageProvider {
         builder.add("key.redemption.use_immolation", "Use Immolation");
         builder.add("key.redemption.switch_gamemode", "Switch Game Mode");
 
+        builder.add("key.categories.arcane_kings", "Arcane Kings");
+        builder.add("key.arcane_kings.petrify_target", "Petrify Target");
+
         builder.add("lore.courtling", "Courtling");
     }
 }

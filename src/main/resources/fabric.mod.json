@@ -28,7 +28,8 @@
             "net.the_hero_robot.redemption.data.RedemptionDatagen"
         ],
         "cardinal-components": [
-            "net.the_hero_robot.redemption.impl.cca.RedemptionComponents"
+            "net.the_hero_robot.redemption.impl.cca.RedemptionComponents",
+            "net.the_hero_robot.arcane_kings.impl.cca.AKComponents"
         ]
     },
     "accessWidener": "redemption.classtweaker",
@@ -42,7 +43,9 @@
             "redemption:judgement",
             "redemption:flash",
             "redemption:judge_flash",
-            "redemption:fractured"
+            "redemption:fractured",
+
+            "redemption:petrification"
         ]
     },
     "depends": {
